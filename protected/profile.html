@@ -157,7 +157,10 @@
                                         <tr class="border-b border-outline-variant last:border-0 hover:bg-surface-container-low transition-colors">
                                             <td class="py-3 font-body-md">${e.eventName}</td>
                                             <td class="py-3 font-body-md text-secondary font-bold">${e.timeScore}</td>
-                                            <td class="py-3 font-body-md"><span class="inline-block w-6">${medalFor(e.place)}</span>${e.place}${e.stateQualifier ? '<span style="margin-left:20px;font-family:\'Inter\',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#15803d;background-color:#dcfce7;padding:3px 10px;border-radius:4px;">State Qualifier</span>' : ''}</td>
+                                            <td class="py-3 font-body-md">
+                                                <div><span class="inline-block w-6">${medalFor(e.place)}</span>${e.place}</div>
+                                                ${e.stateQualifier ? '<div style="margin-top:5px;display:inline-block;font-family:\'Inter\',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#15803d;background-color:#dcfce7;padding:3px 10px;border-radius:4px;">State Qualifier</div>' : ''}
+                                            </td>
                                         </tr>
                                     `).join('')}
                                 </tbody>
