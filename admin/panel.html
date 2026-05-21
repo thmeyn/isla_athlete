@@ -315,6 +315,7 @@
             <button class="tab-button active" onclick="switchTab('schedule')">Schedule</button>
             <button class="tab-button" onclick="switchTab('results')">Results</button>
             <button class="tab-button" onclick="switchTab('academics')">Academics</button>
+            <button class="tab-button" onclick="switchTab('endorsements')">Endorsements</button>
         </div>
 
         <!-- SCHEDULE TAB -->
@@ -438,6 +439,38 @@
             <div id="academicsList" class="items-list"></div>
         </div>
 
+        <!-- ENDORSEMENTS TAB -->
+        <div id="endorsements" class="tab-content">
+            <div id="endorsementsMessage" class="message"></div>
+
+            <div class="form-section">
+                <h2>Add New Endorsement</h2>
+                <form id="endorsementsForm" onsubmit="addEndorsementsItem(event)">
+                    <div class="form-group">
+                        <label>Quote</label>
+                        <textarea id="endorsementsQuote" required placeholder="Enter the endorsement quote..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" id="endorsementsName" required placeholder="e.g., Coach Smith">
+                        </div>
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" id="endorsementsTitle" required placeholder="e.g., Head Coach, Springfield High">
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button type="submit">Add Endorsement</button>
+                        <button type="reset">Clear</button>
+                    </div>
+                </form>
+            </div>
+
+            <h2 style="margin-top: 32px; margin-bottom: 16px;">Endorsements</h2>
+            <div id="endorsementsList" class="items-list"></div>
+        </div>
+
         <!-- EXPORT SECTION -->
         <div class="export-section">
             <h2>Export Data</h2>
@@ -446,6 +479,7 @@
                 <button class="btn-export" onclick="downloadJSON('schedule')">Download Schedule JSON</button>
                 <button class="btn-export" onclick="downloadJSON('results')">Download Results JSON</button>
                 <button class="btn-export" onclick="downloadJSON('academics')">Download Academics JSON</button>
+                <button class="btn-export" onclick="downloadJSON('endorsements')">Download Endorsements JSON</button>
             </div>
             <div style="margin-top: 16px;">
                 <label style="color: #181c1e;">Current Schedule Data</label>
@@ -459,6 +493,7 @@
         let scheduleData = [];
         let resultsData = [];
         let academicsData = [];
+        let endorsementsData = [];
 
         // Initialize
         window.addEventListener('load', function() {
@@ -469,6 +504,7 @@
             renderSchedule();
             renderResults();
             renderAcademics();
+            renderEndorsements();
             updateJsonPreview();
         });
 
@@ -628,17 +664,63 @@
             `).join('');
         }
 
+        // ENDORSEMENTS FUNCTIONS
+        function addEndorsementsItem(e) {
+            e.preventDefault();
+            const item = {
+                id: Date.now(),
+                quote: document.getElementById('endorsementsQuote').value,
+                name: document.getElementById('endorsementsName').value,
+                title: document.getElementById('endorsementsTitle').value
+            };
+            endorsementsData.push(item);
+            document.getElementById('endorsementsForm').reset();
+            renderEndorsements();
+            saveDataToStorage();
+            showMessage('endorsementsMessage', 'Endorsement added successfully!', 'success');
+            updateJsonPreview();
+        }
+
+        function deleteEndorsementsItem(id) {
+            endorsementsData = endorsementsData.filter(item => item.id !== id);
+            renderEndorsements();
+            saveDataToStorage();
+            showMessage('endorsementsMessage', 'Endorsement deleted successfully!', 'success');
+            updateJsonPreview();
+        }
+
+        function renderEndorsements() {
+            const list = document.getElementById('endorsementsList');
+            if (endorsementsData.length === 0) {
+                list.innerHTML = '<div class="empty-state"><p>No endorsements yet. Add one above.</p></div>';
+                return;
+            }
+            list.innerHTML = endorsementsData.map(item => `
+                <div class="list-item">
+                    <div class="item-content">
+                        <h3>${item.name} — ${item.title}</h3>
+                        <p>${item.quote.substring(0, 80)}${item.quote.length > 80 ? '…' : ''}</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn-delete" onclick="deleteEndorsementsItem(${item.id})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
         // STORAGE FUNCTIONS
         function saveDataToStorage() {
             localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
             localStorage.setItem('resultsData', JSON.stringify(resultsData));
             localStorage.setItem('academicsData', JSON.stringify(academicsData));
+            localStorage.setItem('endorsementsData', JSON.stringify(endorsementsData));
         }
 
         function loadDataFromStorage() {
             scheduleData = JSON.parse(localStorage.getItem('scheduleData')) || [];
             resultsData = JSON.parse(localStorage.getItem('resultsData')) || [];
             academicsData = JSON.parse(localStorage.getItem('academicsData')) || [];
+            endorsementsData = JSON.parse(localStorage.getItem('endorsementsData')) || [];
         }
 
         // EXPORT FUNCTIONS
@@ -653,6 +735,9 @@
             } else if (type === 'academics') {
                 data = academicsData.map(({id, ...rest}) => rest);
                 filename = 'academics.json';
+            } else if (type === 'endorsements') {
+                data = endorsementsData.map(({id, ...rest}) => rest);
+                filename = 'endorsements.json';
             }
             
             const json = JSON.stringify(data, null, 2);

@@ -66,58 +66,8 @@
         <!-- Endorsements Section -->
         <section class="mb-16">
             <h2 class="font-headline-lg text-headline-lg mb-8">Coach & Mentor References</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Endorsement 1 -->
-                <div class="card border border-outline-variant">
-                    <div class="mb-4">
-                        <p class="font-body-lg text-on-surface mb-4 italic">
-                            "Isla demonstrates exceptional athletic talent combined with a remarkable work ethic. Her dedication to both her sport and academics sets her apart as a student-athlete of the highest caliber."
-                        </p>
-                    </div>
-                    <div class="border-t border-outline-variant pt-4">
-                        <p class="font-label-bold text-secondary uppercase mb-1">Coach Name</p>
-                        <p class="font-label-sm text-on-surface-variant">Head Coach, Athletic Program</p>
-                    </div>
-                </div>
-
-                <!-- Endorsement 2 -->
-                <div class="card border border-outline-variant">
-                    <div class="mb-4">
-                        <p class="font-body-lg text-on-surface mb-4 italic">
-                            "Isla's commitment to excellence extends beyond the field. She balances competitive athletics with rigorous academic pursuits, embodying the true spirit of a champion student-athlete."
-                        </p>
-                    </div>
-                    <div class="border-t border-outline-variant pt-4">
-                        <p class="font-label-bold text-secondary uppercase mb-1">Mentor Name</p>
-                        <p class="font-label-sm text-on-surface-variant">Academic Advisor</p>
-                    </div>
-                </div>
-
-                <!-- Endorsement 3 -->
-                <div class="card border border-outline-variant">
-                    <div class="mb-4">
-                        <p class="font-body-lg text-on-surface mb-4 italic">
-                            "Her precision, mental toughness, and strategic approach to competition make her a standout athlete. I have no doubt she will excel at the collegiate level and beyond."
-                        </p>
-                    </div>
-                    <div class="border-t border-outline-variant pt-4">
-                        <p class="font-label-bold text-secondary uppercase mb-1">Training Director</p>
-                        <p class="font-label-sm text-on-surface-variant">Performance Coach</p>
-                    </div>
-                </div>
-
-                <!-- Endorsement 4 -->
-                <div class="card border border-outline-variant">
-                    <div class="mb-4">
-                        <p class="font-body-lg text-on-surface mb-4 italic">
-                            "Isla's leadership on and off the field is inspiring. She motivates her teammates while maintaining her focus on personal excellence. A true role model for aspiring athletes."
-                        </p>
-                    </div>
-                    <div class="border-t border-outline-variant pt-4">
-                        <p class="font-label-bold text-secondary uppercase mb-1">Team Captain, Former</p>
-                        <p class="font-label-sm text-on-surface-variant">Athletic Director</p>
-                    </div>
-                </div>
+            <div class="grid md:grid-cols-2 gap-8" id="endorsementsContainer">
+                <!-- Endorsements loaded dynamically -->
             </div>
         </section>
 
@@ -185,5 +135,30 @@
     </footer>
 
     <script src="../js/main.js"></script>
+    <script>
+        fetch('../data/endorsements.json')
+            .then(response => response.json())
+            .then(data => renderEndorsements(data))
+            .catch(error => console.error('Error loading endorsements:', error));
+
+        function renderEndorsements(endorsements) {
+            const container = document.getElementById('endorsementsContainer');
+            if (endorsements.length === 0) {
+                container.innerHTML = '<div class="card col-span-2"><p class="text-center text-on-surface-variant">No endorsements yet.</p></div>';
+                return;
+            }
+            container.innerHTML = endorsements.map(e => `
+                <div class="card border border-outline-variant">
+                    <div class="mb-4">
+                        <p class="font-body-lg text-on-surface mb-4 italic">"${e.quote}"</p>
+                    </div>
+                    <div class="border-t border-outline-variant pt-4">
+                        <p class="font-label-bold text-secondary uppercase mb-1">${e.name}</p>
+                        <p class="font-label-sm text-on-surface-variant">${e.title}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
 </body>
 </html>
