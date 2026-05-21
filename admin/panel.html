@@ -325,6 +325,16 @@
             <div class="form-section">
                 <h2>Add New Event</h2>
                 <form id="scheduleForm" onsubmit="addScheduleItem(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Season</label>
+                            <input type="text" id="scheduleSeason" required placeholder="e.g., 2025-2026">
+                        </div>
+                        <div class="form-group">
+                            <label>Sport</label>
+                            <input type="text" id="scheduleSport" required placeholder="e.g., Track & Field">
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label>Event Name</label>
                         <input type="text" id="scheduleEventName" required placeholder="e.g., State Indoor Championship">
@@ -369,6 +379,16 @@
             <div class="form-section">
                 <h2>Add New Meet</h2>
                 <form id="resultsMeetForm" onsubmit="addResultsMeet(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Season</label>
+                            <input type="text" id="resultsMeetSeason" required placeholder="e.g., 2024-2025">
+                        </div>
+                        <div class="form-group">
+                            <label>Sport</label>
+                            <input type="text" id="resultsMeetSport" required placeholder="e.g., Track & Field">
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label>Meet Name</label>
                         <input type="text" id="resultsMeetName" required placeholder="e.g., Class 3A KHSAA State Championship">
@@ -567,6 +587,8 @@
             e.preventDefault();
             const item = {
                 id: Date.now(),
+                season: document.getElementById('scheduleSeason').value,
+                sport: document.getElementById('scheduleSport').value,
                 eventName: document.getElementById('scheduleEventName').value,
                 date: document.getElementById('scheduleDate').value,
                 location: document.getElementById('scheduleLocation').value,
@@ -599,7 +621,7 @@
                 <div class="list-item">
                     <div class="item-content">
                         <h3>${item.eventName}</h3>
-                        <p>${item.location} • ${item.date} • ${item.status}</p>
+                        <p>${item.sport} • ${item.season} • ${item.location} • ${item.date} • ${item.status}</p>
                     </div>
                     <div class="item-actions">
                         <button class="btn-delete" onclick="deleteScheduleItem(${item.id})">Delete</button>
@@ -613,6 +635,8 @@
             e.preventDefault();
             const meet = {
                 id: Date.now(),
+                season: document.getElementById('resultsMeetSeason').value,
+                sport: document.getElementById('resultsMeetSport').value,
                 meetName: document.getElementById('resultsMeetName').value,
                 date: document.getElementById('resultsMeetDate').value,
                 location: document.getElementById('resultsMeetLocation').value,
@@ -674,7 +698,7 @@
                     <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                         <div class="item-content">
                             <h3>${meet.meetName}</h3>
-                            <p>${meet.location} • ${meet.date}</p>
+                            <p>${meet.sport} • ${meet.season} • ${meet.location} • ${meet.date}</p>
                         </div>
                         <div class="item-actions">
                             <button class="btn-delete" onclick="deleteResultsMeet(${meet.id})">Delete Meet</button>

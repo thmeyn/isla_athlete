@@ -54,7 +54,6 @@
         <section class="mb-16 md:mb-24">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-gutter">
                 <div class="max-w-3xl">
-                    <span class="inline-block bg-primary text-on-primary px-3 py-1 font-label-bold text-label-sm uppercase mb-4">Season 2024-2025</span>
                     <h1 class="font-display-xl-mobile md:font-display-xl text-4xl md:text-6xl uppercase mb-6">Performance <br class="hidden md:block"/>Records</h1>
                     <p class="font-body-lg text-on-surface-variant mt-6 max-w-2xl">
                         A comprehensive log of competitive results, including national rankings, verified times, and high-intensity performance metrics. Driven by precision, fueled by data.
@@ -122,45 +121,68 @@
                 return;
             }
 
-            container.innerHTML = meets.map(meet => {
-                const dateStr = new Date(meet.date + 'T12:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-                const linkHtml = meet.link
-                    ? `<a href="${meet.link}" target="_blank" rel="noopener noreferrer" class="font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm whitespace-nowrap ml-4">Meet Results →</a>`
-                    : '';
-                const eventsHtml = meet.events && meet.events.length > 0
-                    ? `<table class="w-full mt-4">
-                        <thead>
-                            <tr class="border-b border-outline-variant">
-                                <th class="pb-2 text-left font-label-bold text-on-surface-variant uppercase text-xs tracking-widest">Event</th>
-                                <th class="pb-2 text-left font-label-bold text-on-surface-variant uppercase text-xs tracking-widest">Time / Score</th>
-                                <th class="pb-2 text-left font-label-bold text-on-surface-variant uppercase text-xs tracking-widest">Place</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${meet.events.map(e => `
-                                <tr class="border-b border-outline-variant last:border-0 hover:bg-surface-container-low transition-colors">
-                                    <td class="py-3 font-body-md">${e.eventName}</td>
-                                    <td class="py-3 font-body-md text-secondary font-bold">${e.timeScore}</td>
-                                    <td class="py-3 font-body-md">🏅 ${e.place}</td>
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>`
-                    : '<p class="font-body-md text-on-surface-variant mt-4">No events recorded.</p>';
+            const grouped = {};
+            meets.forEach(meet => {
+                const season = meet.season || 'Other';
+                const sport = meet.sport || 'Other';
+                if (!grouped[season]) grouped[season] = {};
+                if (!grouped[season][sport]) grouped[season][sport] = [];
+                grouped[season][sport].push(meet);
+            });
 
+            const sortedSeasons = Object.keys(grouped).sort().reverse();
+
+            container.innerHTML = sortedSeasons.map(season => {
+                const sportsHtml = Object.keys(grouped[season]).map(sport => {
+                    const meetsHtml = grouped[season][sport].map(meet => {
+                        const dateStr = new Date(meet.date + 'T12:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                        const linkHtml = meet.link
+                            ? `<a href="${meet.link}" target="_blank" rel="noopener noreferrer" class="font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm whitespace-nowrap ml-4">Meet Results →</a>`
+                            : '';
+                        const eventsHtml = meet.events && meet.events.length > 0
+                            ? `<table class="w-full mt-4">
+                                <thead>
+                                    <tr class="border-b border-outline-variant">
+                                        <th class="pb-2 text-left font-label-bold text-on-surface-variant uppercase text-xs tracking-widest">Event</th>
+                                        <th class="pb-2 text-left font-label-bold text-on-surface-variant uppercase text-xs tracking-widest">Time / Score</th>
+                                        <th class="pb-2 text-left font-label-bold text-on-surface-variant uppercase text-xs tracking-widest">Place</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${meet.events.map(e => `
+                                        <tr class="border-b border-outline-variant last:border-0 hover:bg-surface-container-low transition-colors">
+                                            <td class="py-3 font-body-md">${e.eventName}</td>
+                                            <td class="py-3 font-body-md text-secondary font-bold">${e.timeScore}</td>
+                                            <td class="py-3 font-body-md">🏅 ${e.place}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>`
+                            : '<p class="font-body-md text-on-surface-variant mt-4">No events recorded.</p>';
+                        return `
+                            <div class="card">
+                                <div class="flex justify-between items-start pb-4 border-b border-outline-variant">
+                                    <div>
+                                        <h4 class="font-headline-md text-headline-md mb-1">${meet.meetName}</h4>
+                                        <p class="font-body-md text-on-surface-variant">${meet.location}</p>
+                                        <p class="font-label-sm text-on-surface-variant mt-1">${dateStr}</p>
+                                    </div>
+                                    ${linkHtml}
+                                </div>
+                                ${eventsHtml}
+                            </div>`;
+                    }).join('');
+                    return `
+                        <div class="mb-8">
+                            <h3 class="font-label-bold text-label-bold uppercase tracking-widest text-secondary mb-4 pb-2 border-b border-outline-variant">${sport}</h3>
+                            <div class="space-y-6">${meetsHtml}</div>
+                        </div>`;
+                }).join('');
                 return `
-                    <div class="card">
-                        <div class="flex justify-between items-start pb-4 border-b border-outline-variant">
-                            <div>
-                                <h3 class="font-headline-md text-headline-md mb-1">${meet.meetName}</h3>
-                                <p class="font-body-md text-on-surface-variant">${meet.location}</p>
-                                <p class="font-label-sm text-on-surface-variant mt-1">${dateStr}</p>
-                            </div>
-                            ${linkHtml}
-                        </div>
-                        ${eventsHtml}
-                    </div>
-                `;
+                    <div class="mb-12">
+                        <h2 class="font-headline-lg text-headline-lg mb-6">${season} Season</h2>
+                        ${sportsHtml}
+                    </div>`;
             }).join('');
         }
     </script>

@@ -53,7 +53,6 @@
         <!-- Hero Section -->
         <section class="mb-16 md:mb-24">
             <div class="max-w-3xl">
-                <span class="inline-block bg-primary text-on-primary px-3 py-1 font-label-bold text-label-sm uppercase mb-4">2025-2026 Season</span>
                 <h1 class="font-display-xl-mobile md:font-display-xl text-4xl md:text-6xl uppercase mb-6">Competition Schedule</h1>
                 <p class="font-body-lg text-on-surface-variant max-w-2xl">
                     Mark your calendars for upcoming meets and competitions. Follow Isla's journey throughout the season.
@@ -61,11 +60,10 @@
             </div>
         </section>
 
-        <!-- Upcoming Events -->
+        <!-- Events by Season & Sport -->
         <section class="mb-16">
-            <h2 class="font-headline-lg text-headline-lg mb-8">Upcoming Meets</h2>
-            <div class="space-y-4" id="eventsContainer">
-                <!-- Events will be loaded dynamically -->
+            <div id="eventsContainer">
+                <!-- Events loaded dynamically -->
             </div>
         </section>
         
@@ -158,32 +156,55 @@
                 return;
             }
 
-            container.innerHTML = events.map(event => {
-                const eventDate = new Date(event.date + 'T12:00:00');
-                const isUpcoming = eventDate >= new Date();
-                const cardClass = isUpcoming ? 'card hover:bg-surface-container-low transition-colors' : 'card opacity-60 hover:opacity-80 transition-opacity';
-                const badgeClass = event.status === 'upcoming'
-                    ? 'bg-secondary text-on-secondary'
-                    : 'border border-outline-variant text-on-surface-variant';
-                const dateStr = new Date(event.date + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-                const linkHtml = event.link
-                    ? `<a href="${event.link}" target="_blank" rel="noopener noreferrer" class="inline-block mt-3 font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm">View Meet Info →</a>`
-                    : '';
+            const grouped = {};
+            events.forEach(event => {
+                const season = event.season || 'Other';
+                const sport = event.sport || 'Other';
+                if (!grouped[season]) grouped[season] = {};
+                if (!grouped[season][sport]) grouped[season][sport] = [];
+                grouped[season][sport].push(event);
+            });
 
+            const sortedSeasons = Object.keys(grouped).sort().reverse();
+
+            container.innerHTML = sortedSeasons.map(season => {
+                const sportsHtml = Object.keys(grouped[season]).map(sport => {
+                    const cardsHtml = grouped[season][sport].map(event => {
+                        const eventDate = new Date(event.date + 'T12:00:00');
+                        const isUpcoming = eventDate >= new Date();
+                        const cardClass = isUpcoming ? 'card hover:bg-surface-container-low transition-colors' : 'card opacity-60 hover:opacity-80 transition-opacity';
+                        const badgeClass = event.status === 'upcoming'
+                            ? 'bg-secondary text-on-secondary'
+                            : 'border border-outline-variant text-on-surface-variant';
+                        const dateStr = eventDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                        const linkHtml = event.link
+                            ? `<a href="${event.link}" target="_blank" rel="noopener noreferrer" class="inline-block mt-3 font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm">View Meet Info →</a>`
+                            : '';
+                        return `
+                            <div class="${cardClass}">
+                                <div class="flex justify-between items-start">
+                                    <div class="flex-1">
+                                        <span class="inline-block ${badgeClass} px-3 py-1 font-label-sm text-label-sm uppercase mb-3">${event.status}</span>
+                                        <h4 class="font-headline-md text-headline-md mb-1">${event.eventName}</h4>
+                                        <p class="font-body-md text-on-surface-variant mb-1">${event.location}</p>
+                                        <p class="font-label-sm text-on-surface-variant">${dateStr}</p>
+                                        ${linkHtml}
+                                    </div>
+                                    <div class="text-right text-2xl ml-4">📍</div>
+                                </div>
+                            </div>`;
+                    }).join('');
+                    return `
+                        <div class="mb-8">
+                            <h3 class="font-label-bold text-label-bold uppercase tracking-widest text-secondary mb-4 pb-2 border-b border-outline-variant">${sport}</h3>
+                            <div class="space-y-4">${cardsHtml}</div>
+                        </div>`;
+                }).join('');
                 return `
-                    <div class="${cardClass}">
-                        <div class="flex justify-between items-start">
-                            <div class="flex-1">
-                                <span class="inline-block ${badgeClass} px-3 py-1 font-label-sm text-label-sm uppercase mb-3">${event.status}</span>
-                                <h3 class="font-headline-md text-headline-md mb-1">${event.eventName}</h3>
-                                <p class="font-body-md text-on-surface-variant mb-1">${event.location}</p>
-                                <p class="font-label-sm text-on-surface-variant">${dateStr}</p>
-                                ${linkHtml}
-                            </div>
-                            <div class="text-right text-2xl ml-4">📍</div>
-                        </div>
-                    </div>
-                `;
+                    <div class="mb-12">
+                        <h2 class="font-headline-lg text-headline-lg mb-6">${season} Season</h2>
+                        ${sportsHtml}
+                    </div>`;
             }).join('');
         }
     </script>
