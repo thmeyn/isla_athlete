@@ -141,7 +141,7 @@
                     const meetsHtml = grouped[season][sport].map(meet => {
                         const dateStr = new Date(meet.date + 'T12:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
                         const linkHtml = meet.link
-                            ? `<a href="${meet.link}" target="_blank" rel="noopener noreferrer" class="font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm whitespace-nowrap ml-4">Meet Results →</a>`
+                            ? `<a href="${meet.link}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm">Meet Info →</a>`
                             : '';
                         const eventsHtml = meet.events && meet.events.length > 0
                             ? `<table class="w-full mt-4">
@@ -165,12 +165,10 @@
                             : '<p class="font-body-md text-on-surface-variant mt-4">No events recorded.</p>';
                         return `
                             <div class="card">
-                                <div class="flex justify-between items-start pb-4 border-b border-outline-variant">
-                                    <div>
-                                        <h4 class="font-headline-md text-headline-md mb-1">${meet.meetName}</h4>
-                                        <p class="font-body-md text-on-surface-variant">${meet.location}</p>
-                                        <p class="font-label-sm text-on-surface-variant mt-1">${dateStr}</p>
-                                    </div>
+                                <div class="pb-4 border-b border-outline-variant">
+                                    <h4 class="font-headline-md text-headline-md mb-1">${meet.meetName}</h4>
+                                    <p class="font-body-md text-on-surface-variant">${meet.location}</p>
+                                    <p class="font-label-sm text-on-surface-variant mt-1">${dateStr}</p>
                                     ${linkHtml}
                                 </div>
                                 ${eventsHtml}
