@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/styles.css"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <title>Isla Meyn | Elite Athlete Profile</title>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .text-stroke {
+            -webkit-text-stroke: 1px currentColor;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-secondary selection:text-white">
+    <!-- Navigation -->
+    <nav class="w-full top-0 sticky bg-surface dark:bg-background border-b border-outline-variant dark:border-outline z-50">
+        <div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            <div class="font-headline-md text-headline-md font-black italic tracking-tighter text-primary dark:text-on-background">
+                ISLA MEYN
+            </div>
+            <div class="hidden md:flex items-center gap-8">
+                <a class="font-label-bold text-label-bold uppercase tracking-widest text-secondary dark:text-secondary-fixed border-b-2 border-secondary transition-colors duration-200" href="#bio">Bio</a>
+                <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-200" href="protected/schedule.html">Schedule</a>
+                <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-200" href="protected/profile.html">Results</a>
+                <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-200" href="protected/achievements.html">Academics</a>
+            </div>
+            <button class="bg-secondary text-white px-6 py-3 font-label-bold text-label-bold uppercase tracking-widest active:scale-95 transition-transform">
+                Contact
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative h-[921px] flex items-end bg-primary overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img class="w-full h-full object-cover opacity-60 grayscale hover:grayscale-0 transition-all duration-700" 
+                     alt="Isla Meyn athletic profile hero"
+                     src="images/athlete.jpg"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent"></div>
+            </div>
+            <div class="relative z-10 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full pb-20">
+                <div class="max-w-4xl">
+                    <span class="inline-block bg-secondary text-white font-label-bold text-label-bold uppercase px-4 py-1 mb-6">Division I Prospect</span>
+                    <h1 class="font-display-xl-mobile md:font-display-xl text-display-xl-mobile md:text-display-xl text-white mb-6 uppercase">
+                        Defining the <br/><span class="text-stroke">Next Generation</span>
+                    </h1>
+                    <p class="font-body-lg text-body-lg text-surface-variant max-w-2xl">
+                        A dedicated athlete combining raw power with strategic precision. Building a legacy through relentless training and academic excellence.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="bio" class="py-24 md:py-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="font-headline-lg text-headline-lg mb-6">Meet Isla</h2>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant mb-4">
+                        Isla Meyn is a high-performance athlete dedicated to excellence both on and off the field. With a commitment to athletic achievement and academic success, she represents the pinnacle of a modern student-athlete.
+                    </p>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant">
+                        Her discipline, focus, and unwavering determination drive her toward her goals. Join her journey as she continues to break records and set new standards.
+                    </p>
+                </div>
+                <div class="bg-surface-container-high rounded-xl p-8">
+                    <div class="space-y-4">
+                        <div class="border-b border-outline-variant pb-4">
+                            <h3 class="font-label-bold text-label-bold uppercase mb-2">Key Stats</h3>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="font-display-xl text-display-xl text-secondary">12</p>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant">Podium Finishes</p>
+                            </div>
+                            <div>
+                                <p class="font-display-xl text-display-xl text-secondary">4.0</p>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant">GPA</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="bg-primary py-20 md:py-28 px-margin-mobile md:px-margin-desktop">
+            <div class="max-w-container-max mx-auto text-center">
+                <h2 class="font-headline-lg text-headline-lg text-on-primary mb-4">Ready to Learn More?</h2>
+                <p class="font-body-lg text-body-lg text-surface-variant mb-8 max-w-2xl mx-auto">
+                    Explore detailed performance records, academic achievements, and upcoming competition schedule.
+                </p>
+                <a href="protected/profile.html" class="inline-block bg-secondary text-white px-8 py-4 font-label-bold uppercase tracking-widest hover:opacity-90 transition-opacity">
+                    View Full Profile
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-outline-variant py-12 px-margin-mobile md:px-margin-desktop">
+        <div class="max-w-container-max mx-auto">
+            <div class="text-center text-on-surface-variant font-body-md">
+                <p>&copy; 2024 Isla Meyn. All rights reserved.</p>
+                <p class="mt-2"><a href="protected/login.html" class="text-secondary hover:underline">Secure Access</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
