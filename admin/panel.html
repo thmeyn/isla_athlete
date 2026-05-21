@@ -347,6 +347,10 @@
                         <label>Location</label>
                         <input type="text" id="scheduleLocation" required placeholder="e.g., Houston Convention Center, TX">
                     </div>
+                    <div class="form-group">
+                        <label>Meet Info Link (optional)</label>
+                        <input type="url" id="scheduleLink" placeholder="https://...">
+                    </div>
                     <div class="button-group">
                         <button type="submit">Add Event</button>
                         <button type="reset">Clear</button>
@@ -361,13 +365,43 @@
         <!-- RESULTS TAB -->
         <div id="results" class="tab-content">
             <div id="resultsMessage" class="message"></div>
-            
+
             <div class="form-section">
-                <h2>Add New Result</h2>
-                <form id="resultsForm" onsubmit="addResultsItem(event)">
+                <h2>Add New Meet</h2>
+                <form id="resultsMeetForm" onsubmit="addResultsMeet(event)">
                     <div class="form-group">
-                        <label>Athlete Name</label>
-                        <input type="text" id="resultsAthleteName" required placeholder="e.g., Isla Meyn">
+                        <label>Meet Name</label>
+                        <input type="text" id="resultsMeetName" required placeholder="e.g., Class 3A KHSAA State Championship">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" id="resultsMeetDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" id="resultsMeetLocation" required placeholder="e.g., UK Track & Field Complex, Lexington, KY">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Meet Results Link (optional)</label>
+                        <input type="url" id="resultsMeetLink" placeholder="https://...">
+                    </div>
+                    <div class="button-group">
+                        <button type="submit">Add Meet</button>
+                        <button type="reset">Clear</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="form-section">
+                <h2>Add Event to Meet</h2>
+                <form id="resultsEventForm" onsubmit="addResultsEvent(event)">
+                    <div class="form-group">
+                        <label>Meet</label>
+                        <select id="resultsMeetSelect" required>
+                            <option value="">No meets added yet</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Event Name</label>
@@ -375,26 +409,22 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Time/Score</label>
+                            <label>Time / Score</label>
                             <input type="text" id="resultsTimeScore" required placeholder="e.g., 52.3s">
                         </div>
                         <div class="form-group">
                             <label>Place</label>
-                            <input type="text" id="resultsPlace" required placeholder="e.g., 1st, 2nd, etc.">
+                            <input type="text" id="resultsPlace" required placeholder="e.g., 1st">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label>YouTube Video Link (optional)</label>
-                        <input type="url" id="resultsYoutubeLink" placeholder="https://www.youtube.com/embed/...">
-                    </div>
                     <div class="button-group">
-                        <button type="submit">Add Result</button>
+                        <button type="submit">Add Event</button>
                         <button type="reset">Clear</button>
                     </div>
                 </form>
             </div>
 
-            <h2 style="margin-top: 32px; margin-bottom: 16px;">Results</h2>
+            <h2 style="margin-top: 32px; margin-bottom: 16px;">Meets & Results</h2>
             <div id="resultsList" class="items-list"></div>
         </div>
 
@@ -540,7 +570,8 @@
                 eventName: document.getElementById('scheduleEventName').value,
                 date: document.getElementById('scheduleDate').value,
                 location: document.getElementById('scheduleLocation').value,
-                status: document.getElementById('scheduleStatus').value
+                status: document.getElementById('scheduleStatus').value,
+                link: document.getElementById('scheduleLink').value
             };
             scheduleData.push(item);
             document.getElementById('scheduleForm').reset();
@@ -578,49 +609,98 @@
         }
 
         // RESULTS FUNCTIONS
-        function addResultsItem(e) {
+        function addResultsMeet(e) {
             e.preventDefault();
-            const item = {
+            const meet = {
                 id: Date.now(),
-                athleteName: document.getElementById('resultsAthleteName').value,
-                timeScore: document.getElementById('resultsTimeScore').value,
-                place: document.getElementById('resultsPlace').value,
-                eventName: document.getElementById('resultsEventName').value,
-                youtubeLink: document.getElementById('resultsYoutubeLink').value
+                meetName: document.getElementById('resultsMeetName').value,
+                date: document.getElementById('resultsMeetDate').value,
+                location: document.getElementById('resultsMeetLocation').value,
+                link: document.getElementById('resultsMeetLink').value,
+                events: []
             };
-            resultsData.push(item);
-            document.getElementById('resultsForm').reset();
+            resultsData.push(meet);
+            document.getElementById('resultsMeetForm').reset();
             renderResults();
             saveDataToStorage();
-            showMessage('resultsMessage', 'Result added successfully!', 'success');
+            showMessage('resultsMessage', 'Meet added successfully!', 'success');
             updateJsonPreview();
         }
 
-        function deleteResultsItem(id) {
-            resultsData = resultsData.filter(item => item.id !== id);
+        function addResultsEvent(e) {
+            e.preventDefault();
+            const meetId = parseInt(document.getElementById('resultsMeetSelect').value);
+            const meet = resultsData.find(m => m.id === meetId);
+            if (!meet) return;
+            meet.events.push({
+                id: Date.now(),
+                eventName: document.getElementById('resultsEventName').value,
+                timeScore: document.getElementById('resultsTimeScore').value,
+                place: document.getElementById('resultsPlace').value
+            });
+            document.getElementById('resultsEventForm').reset();
             renderResults();
             saveDataToStorage();
-            showMessage('resultsMessage', 'Result deleted successfully!', 'success');
+            showMessage('resultsMessage', 'Event added successfully!', 'success');
+            updateJsonPreview();
+        }
+
+        function deleteResultsMeet(id) {
+            resultsData = resultsData.filter(m => m.id !== id);
+            renderResults();
+            saveDataToStorage();
+            showMessage('resultsMessage', 'Meet deleted successfully!', 'success');
+            updateJsonPreview();
+        }
+
+        function deleteResultsEvent(meetId, eventId) {
+            const meet = resultsData.find(m => m.id === meetId);
+            if (meet) meet.events = meet.events.filter(ev => ev.id !== eventId);
+            renderResults();
+            saveDataToStorage();
+            showMessage('resultsMessage', 'Event removed successfully!', 'success');
             updateJsonPreview();
         }
 
         function renderResults() {
             const list = document.getElementById('resultsList');
             if (resultsData.length === 0) {
-                list.innerHTML = '<div class="empty-state"><p>No results yet. Add one above.</p></div>';
+                list.innerHTML = '<div class="empty-state"><p>No meets yet. Add one above.</p></div>';
+                updateMeetSelect();
                 return;
             }
-            list.innerHTML = resultsData.map(item => `
-                <div class="list-item">
-                    <div class="item-content">
-                        <h3>${item.eventName}</h3>
-                        <p>${item.athleteName} • ${item.timeScore} • ${item.place} Place</p>
+            list.innerHTML = resultsData.map(meet => `
+                <div class="list-item" style="flex-direction: column; align-items: stretch; gap: 0;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div class="item-content">
+                            <h3>${meet.meetName}</h3>
+                            <p>${meet.location} • ${meet.date}</p>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn-delete" onclick="deleteResultsMeet(${meet.id})">Delete Meet</button>
+                        </div>
                     </div>
-                    <div class="item-actions">
-                        <button class="btn-delete" onclick="deleteResultsItem(${item.id})">Delete</button>
-                    </div>
+                    ${meet.events.length > 0 ? `
+                        <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #e0e3e5;">
+                            ${meet.events.map(ev => `
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #f1f4f6;">
+                                    <span style="font-size: 13px; color: #181c1e;">${ev.eventName} — <strong>${ev.timeScore}</strong> — ${ev.place}</span>
+                                    <button class="btn-delete" style="padding: 4px 8px; font-size: 10px; flex-shrink: 0; margin-left: 8px;" onclick="deleteResultsEvent(${meet.id}, ${ev.id})">Remove</button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : '<p style="margin-top: 8px; font-size: 13px; color: #44474f; font-style: italic;">No events added yet.</p>'}
                 </div>
             `).join('');
+            updateMeetSelect();
+        }
+
+        function updateMeetSelect() {
+            const select = document.getElementById('resultsMeetSelect');
+            if (!select) return;
+            select.innerHTML = resultsData.length === 0
+                ? '<option value="">No meets added yet</option>'
+                : '<option value="">Select a meet...</option>' + resultsData.map(m => `<option value="${m.id}">${m.meetName}</option>`).join('');
         }
 
         // ACADEMICS FUNCTIONS
@@ -735,7 +815,10 @@
                 data = scheduleData.map(({id, ...rest}) => rest);
                 filename = 'schedule.json';
             } else if (type === 'results') {
-                data = resultsData.map(({id, ...rest}) => rest);
+                data = resultsData.map(({id, events, ...meetRest}) => ({
+                    ...meetRest,
+                    events: events.map(({id: evId, ...evRest}) => evRest)
+                }));
                 filename = 'results.json';
             } else if (type === 'academics') {
                 data = academicsData.map(({id, ...rest}) => rest);

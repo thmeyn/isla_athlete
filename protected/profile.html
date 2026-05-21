@@ -74,24 +74,10 @@
             </div>
         </section>
 
-        <!-- Results Table -->
+        <!-- Results by Meet -->
         <section class="mb-16">
-            <div class="bg-surface-container rounded-lg overflow-hidden border border-outline-variant">
-                <div class="overflow-x-auto">
-                    <table class="w-full">
-                        <thead>
-                            <tr class="bg-surface-container-high border-b border-outline-variant">
-                                <th class="px-6 py-4 text-left font-label-bold text-label-bold text-on-surface uppercase">Event</th>
-                                <th class="px-6 py-4 text-left font-label-bold text-label-bold text-on-surface uppercase">Time/Score</th>
-                                <th class="px-6 py-4 text-left font-label-bold text-label-bold text-on-surface uppercase">Placing</th>
-                                <th class="px-6 py-4 text-left font-label-bold text-label-bold text-on-surface uppercase">Video</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-outline-variant" id="resultsTableBody">
-                            <!-- Results will be loaded dynamically -->
-                        </tbody>
-                    </table>
-                </div>
+            <div class="space-y-6" id="resultsContainer">
+                <!-- Meets loaded dynamically -->
             </div>
         </section>
 
@@ -129,23 +115,53 @@
             .then(data => renderResults(data))
             .catch(error => console.error('Error loading results:', error));
 
-        function renderResults(results) {
-            const tbody = document.getElementById('resultsTableBody');
-            if (results.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" class="px-6 py-4 text-center text-on-surface-variant">No results yet.</td></tr>';
+        function renderResults(meets) {
+            const container = document.getElementById('resultsContainer');
+            if (meets.length === 0) {
+                container.innerHTML = '<div class="card"><p class="text-center text-on-surface-variant">No results yet.</p></div>';
                 return;
             }
-            
-            tbody.innerHTML = results.map(result => `
-                <tr class="hover:bg-surface-container-low transition-colors">
-                    <td class="px-6 py-4 font-body-md">${result.eventName}</td>
-                    <td class="px-6 py-4 font-body-md text-secondary font-bold">${result.timeScore}</td>
-                    <td class="px-6 py-4 font-body-md">🏅 ${result.place}</td>
-                    <td class="px-6 py-4 font-body-md">
-                        ${result.youtubeLink ? `<a href="${result.youtubeLink}" target="_blank" class="text-secondary hover:underline">Watch</a>` : '—'}
-                    </td>
-                </tr>
-            `).join('');
+
+            container.innerHTML = meets.map(meet => {
+                const dateStr = new Date(meet.date + 'T12:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                const linkHtml = meet.link
+                    ? `<a href="${meet.link}" target="_blank" rel="noopener noreferrer" class="font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm whitespace-nowrap ml-4">Meet Results →</a>`
+                    : '';
+                const eventsHtml = meet.events && meet.events.length > 0
+                    ? `<table class="w-full mt-4">
+                        <thead>
+                            <tr class="border-b border-outline-variant">
+                                <th class="pb-2 text-left font-label-bold text-on-surface-variant uppercase text-xs tracking-widest">Event</th>
+                                <th class="pb-2 text-left font-label-bold text-on-surface-variant uppercase text-xs tracking-widest">Time / Score</th>
+                                <th class="pb-2 text-left font-label-bold text-on-surface-variant uppercase text-xs tracking-widest">Place</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${meet.events.map(e => `
+                                <tr class="border-b border-outline-variant last:border-0 hover:bg-surface-container-low transition-colors">
+                                    <td class="py-3 font-body-md">${e.eventName}</td>
+                                    <td class="py-3 font-body-md text-secondary font-bold">${e.timeScore}</td>
+                                    <td class="py-3 font-body-md">🏅 ${e.place}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>`
+                    : '<p class="font-body-md text-on-surface-variant mt-4">No events recorded.</p>';
+
+                return `
+                    <div class="card">
+                        <div class="flex justify-between items-start pb-4 border-b border-outline-variant">
+                            <div>
+                                <h3 class="font-headline-md text-headline-md mb-1">${meet.meetName}</h3>
+                                <p class="font-body-md text-on-surface-variant">${meet.location}</p>
+                                <p class="font-label-sm text-on-surface-variant mt-1">${dateStr}</p>
+                            </div>
+                            ${linkHtml}
+                        </div>
+                        ${eventsHtml}
+                    </div>
+                `;
+            }).join('');
         }
     </script>
 </body>
