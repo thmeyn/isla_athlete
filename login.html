@@ -131,44 +131,38 @@
     </div>
 
     <script>
-        // Check if already authenticated
+        const CORRECT_HASH = '1a774e9dbd85a0bd8284a96c862939e4cc4bdbf61a11f507b2a4a80d08768529';
+
+        async function sha256(text) {
+            const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+            return Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
         window.addEventListener('load', function() {
-            if (isAuthenticated()) {
+            if (localStorage.getItem('islaAuthenticated') === 'true') {
                 window.location.href = 'index.html';
             }
         });
 
-        // Handle login form submission
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
             const passcode = document.getElementById('passcode').value;
-            const correctPasscode = 'isla2025'; // Change this to your desired passcode
-            
-            if (passcode === correctPasscode) {
-                // Store authentication in localStorage
+            const hash = await sha256(passcode);
+
+            if (hash === CORRECT_HASH) {
                 localStorage.setItem('islaAuthenticated', 'true');
                 localStorage.setItem('authTime', new Date().getTime());
-                
-                // Redirect to main page
                 window.location.href = 'index.html';
             } else {
-                // Show error message
                 const errorMessage = document.getElementById('errorMessage');
                 errorMessage.classList.add('show');
                 document.getElementById('passcode').value = '';
                 document.getElementById('passcode').focus();
-                
-                // Hide error after 3 seconds
                 setTimeout(function() {
                     errorMessage.classList.remove('show');
                 }, 3000);
             }
         });
-
-        function isAuthenticated() {
-            return localStorage.getItem('islaAuthenticated') === 'true';
-        }
     </script>
 </body>
 </html>

@@ -136,44 +136,38 @@
     </div>
 
     <script>
-        // Check if already authenticated
+        const CORRECT_HASH = '0e89f223e226ae63268cf39152ab75722e811b89d29efb22a852f1667bd22ae0';
+
+        async function sha256(text) {
+            const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+            return Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
         window.addEventListener('load', function() {
-            if (isAdminAuthenticated()) {
+            if (localStorage.getItem('adminAuthenticated') === 'true') {
                 window.location.href = 'admin/panel.html';
             }
         });
 
-        // Handle login form submission
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
             const password = document.getElementById('password').value;
-            const correctPassword = 'admin2025'; // Change this to your desired admin password
-            
-            if (password === correctPassword) {
-                // Store authentication in localStorage
+            const hash = await sha256(password);
+
+            if (hash === CORRECT_HASH) {
                 localStorage.setItem('adminAuthenticated', 'true');
                 localStorage.setItem('adminAuthTime', new Date().getTime());
-                
-                // Redirect to admin panel
                 window.location.href = 'admin/panel.html';
             } else {
-                // Show error message
                 const errorMessage = document.getElementById('errorMessage');
                 errorMessage.classList.add('show');
                 document.getElementById('password').value = '';
                 document.getElementById('password').focus();
-                
-                // Hide error after 3 seconds
                 setTimeout(function() {
                     errorMessage.classList.remove('show');
                 }, 3000);
             }
         });
-
-        function isAdminAuthenticated() {
-            return localStorage.getItem('adminAuthenticated') === 'true';
-        }
     </script>
 </body>
 </html>

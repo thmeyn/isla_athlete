@@ -1,23 +1,8 @@
 [
   {
-    "id": 1,
-    "eventName": "State Indoor Championship",
-    "date": "2025-01-18",
-    "location": "Houston Convention Center, TX",
-    "status": "upcoming"
-  },
-  {
-    "id": 2,
-    "eventName": "Regional Invitational",
-    "date": "2025-02-01",
-    "location": "Dallas ISD Stadium, TX",
-    "status": "upcoming"
-  },
-  {
-    "id": 3,
-    "eventName": "Southern Regional Championship",
-    "date": "2025-02-15",
-    "location": "Austin Sports Complex, TX",
+    "eventName": "Class 3A KHSAA Track & Field State Championship",
+    "date": "2026-05-23",
+    "location": "UK Track & Field Complex • Lexington, KY",
     "status": "upcoming"
   }
 ]
