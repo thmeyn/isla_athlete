@@ -143,23 +143,29 @@
                         const linkHtml = meet.link
                             ? `<a href="${meet.link}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm">Meet Info →</a>`
                             : '';
-                        const colGrid = 'display:grid;grid-template-columns:1fr 65px 52px auto;gap:0 10px;';
+                        const th = 'font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--on-surface-variant);padding:0 0 8px 0;';
                         const eventsHtml = meet.events && meet.events.length > 0
-                            ? `<div class="mt-4">
-                                <div style="${colGrid}" class="pb-2 border-b border-outline-variant">
-                                    <div style="font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--on-surface-variant);">Event</div>
-                                    <div style="font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--on-surface-variant);text-align:right;">Time</div>
-                                    <div style="font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--on-surface-variant);text-align:right;">Place</div>
-                                    <div></div>
-                                </div>
-                                ${meet.events.map(e => `
-                                    <div style="${colGrid}align-items:center;" class="py-3 border-b border-outline-variant last:border-0 hover:bg-surface-container-low transition-colors">
-                                        <div class="font-body-md">${e.eventName}</div>
-                                        <div class="font-body-md text-secondary font-bold" style="text-align:right;white-space:nowrap;">${e.timeScore}</div>
-                                        <div class="font-body-md" style="text-align:right;white-space:nowrap;"><span style="display:inline-block;width:16px;">${medalFor(e.place)}</span>${e.place}</div>
-                                        <div>${e.stateQualifier ? '<span style="font-family:inherit;font-size:10px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#15803d;background-color:#dcfce7;padding:2px 8px;border-radius:3px;white-space:nowrap;">State Qualifier</span>' : ''}</div>
-                                    </div>
-                                `).join('')}
+                            ? `<div class="overflow-x-auto mt-4">
+                                <table style="width:100%;border-collapse:collapse;">
+                                    <thead>
+                                        <tr style="border-bottom:1px solid var(--outline-variant);">
+                                            <th style="${th}text-align:left;">Event</th>
+                                            <th style="${th}text-align:right;padding-left:16px;white-space:nowrap;">Time</th>
+                                            <th style="${th}text-align:right;padding-left:16px;white-space:nowrap;">Place</th>
+                                            <th style="${th}padding-left:16px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${meet.events.map((e, i, arr) => `
+                                            <tr style="${i < arr.length - 1 ? 'border-bottom:1px solid var(--outline-variant);' : ''}" class="hover:bg-surface-container-low transition-colors">
+                                                <td style="padding:12px 0;font-size:16px;line-height:24px;">${e.eventName}</td>
+                                                <td style="padding:12px 0 12px 16px;text-align:right;white-space:nowrap;font-size:16px;font-weight:700;color:var(--secondary);">${e.timeScore}</td>
+                                                <td style="padding:12px 0 12px 16px;text-align:right;white-space:nowrap;font-size:16px;"><span style="display:inline-block;width:16px;">${medalFor(e.place)}</span>${e.place}</td>
+                                                <td style="padding:12px 0 12px 16px;white-space:nowrap;">${e.stateQualifier ? '<span style="font-family:inherit;font-size:10px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#15803d;background-color:#dcfce7;padding:2px 8px;border-radius:3px;">State Qualifier</span>' : ''}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
                             </div>`
                             : '<p class="font-body-md text-on-surface-variant mt-4">No events recorded.</p>';
                         return `
