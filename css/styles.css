@@ -48,8 +48,8 @@
     
     /* Spacing */
     --base: 8px;
-    --margin-mobile: 20px;
-    --margin-tablet: 32px;
+    --margin-mobile: 32px;
+    --margin-tablet: 40px;
     --margin-desktop: 64px;
     --gutter: 24px;
     --container-max: 1280px;
