@@ -30,9 +30,22 @@
                 <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="achievements.html">Academics</a>
                 <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="endorsements.html">Endorsements</a>
             </div>
-            <button class="bg-secondary text-white px-6 py-3 font-label-bold uppercase tracking-widest active:scale-95 transition-transform">
-                Contact
-            </button>
+            <div class="flex items-center gap-3">
+                <button class="hidden md:block bg-secondary text-white px-6 py-3 font-label-bold uppercase tracking-widest active:scale-95 transition-transform">Contact</button>
+                <button id="mobileMenuBtn" class="md:hidden p-2 text-on-surface" aria-label="Toggle menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden border-t border-outline-variant bg-surface px-margin-mobile py-6 flex flex-col gap-4">
+            <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant" href="../index.html#bio">Bio</a>
+            <a class="font-label-bold text-label-bold uppercase tracking-widest text-secondary" href="profile.html">Results</a>
+            <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant" href="schedule.html">Schedule</a>
+            <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant" href="achievements.html">Academics</a>
+            <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant" href="endorsements.html">Endorsements</a>
+            <a href="mailto:isla.meyn@gmail.com" class="inline-block bg-secondary text-white px-6 py-3 font-label-bold text-label-bold uppercase tracking-widest">Contact</a>
         </div>
     </nav>
 
@@ -77,10 +90,6 @@
                         <tbody class="divide-y divide-outline-variant" id="resultsTableBody">
                             <!-- Results will be loaded dynamically -->
                         </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
                     </table>
                 </div>
             </div>
