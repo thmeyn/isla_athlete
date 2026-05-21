@@ -7,8 +7,8 @@
     "location": "Scott High School • Taylor Mill, KY",
     "link": "",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "9:53.91", "place": "5th - State Qualifier" },
-      { "eventName": "4x800m Relay", "timeScore": "5:23.02", "place": "1st - State Qualifier" }
+      { "eventName": "1600m Run", "timeScore": "9:53.91", "place": "5th", "stateQualifier": true },
+      { "eventName": "4x800m Relay", "timeScore": "5:23.02", "place": "1st", "stateQualifier": true }
     ]
   }
 ]

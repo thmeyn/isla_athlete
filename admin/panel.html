@@ -437,6 +437,10 @@
                             <input type="text" id="resultsPlace" required placeholder="e.g., 1st">
                         </div>
                     </div>
+                    <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
+                        <input type="checkbox" id="resultsEventStateQualifier" style="width: auto; margin: 0;">
+                        <label style="margin: 0; text-transform: none; letter-spacing: normal; font-size: 14px; font-weight: 400;">State Qualifier</label>
+                    </div>
                     <div class="button-group">
                         <button type="submit">Add Event</button>
                         <button type="reset">Clear</button>
@@ -660,7 +664,8 @@
                 id: Date.now(),
                 eventName: document.getElementById('resultsEventName').value,
                 timeScore: document.getElementById('resultsTimeScore').value,
-                place: document.getElementById('resultsPlace').value
+                place: document.getElementById('resultsPlace').value,
+                stateQualifier: document.getElementById('resultsEventStateQualifier').checked
             });
             document.getElementById('resultsEventForm').reset();
             renderResults();
@@ -708,7 +713,7 @@
                         <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #e0e3e5;">
                             ${meet.events.map(ev => `
                                 <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #f1f4f6;">
-                                    <span style="font-size: 13px; color: #181c1e;">${ev.eventName} — <strong>${ev.timeScore}</strong> — ${ev.place}</span>
+                                    <span style="font-size: 13px; color: #181c1e;">${ev.eventName} — <strong>${ev.timeScore}</strong> — ${ev.place}${ev.stateQualifier ? ' — <span style="color:#bb0027;">State Qualifier</span>' : ''}</span>
                                     <button class="btn-delete" style="padding: 4px 8px; font-size: 10px; flex-shrink: 0; margin-left: 8px;" onclick="deleteResultsEvent(${meet.id}, ${ev.id})">Remove</button>
                                 </div>
                             `).join('')}
