@@ -114,6 +114,10 @@
             .then(data => renderResults(data))
             .catch(error => console.error('Error loading results:', error));
 
+        function medalFor(place) {
+            return {'1st': '🥇 ', '2nd': '🥈 ', '3rd': '🥉 '}[place.trim()] || '';
+        }
+
         function renderResults(meets) {
             const container = document.getElementById('resultsContainer');
             if (meets.length === 0) {
@@ -153,7 +157,7 @@
                                         <tr class="border-b border-outline-variant last:border-0 hover:bg-surface-container-low transition-colors">
                                             <td class="py-3 font-body-md">${e.eventName}</td>
                                             <td class="py-3 font-body-md text-secondary font-bold">${e.timeScore}</td>
-                                            <td class="py-3 font-body-md">🏅 ${e.place}</td>
+                                            <td class="py-3 font-body-md">${medalFor(e.place)}${e.place}</td>
                                         </tr>
                                     `).join('')}
                                 </tbody>

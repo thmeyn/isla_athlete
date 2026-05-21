@@ -2,14 +2,13 @@
   {
     "season": "2024-2025",
     "sport": "Track & Field",
-    "meetName": "Sample Meet",
-    "date": "2025-01-01",
-    "location": "Sample Location",
+    "meetName": "Class 3A Region 5 Track & Field Championships",
+    "date": "2025-05-11",
+    "location": "Scott High School • Taylor Mill, KY",
     "link": "",
     "events": [
-      { "eventName": "400m Dash", "timeScore": "52.3s", "place": "1st" },
-      { "eventName": "100m Dash", "timeScore": "11.8s", "place": "1st" },
-      { "eventName": "200m Dash", "timeScore": "24.2s", "place": "2nd" }
+      { "eventName": "1600m Run", "timeScore": "9:53.91", "place": "5th - State Qualifier" },
+      { "eventName": "4x800m Relay", "timeScore": "5:23.02", "place": "1st - State Qualifier" }
     ]
   }
 ]
