@@ -30,12 +30,13 @@
             </div>
             <div class="hidden md:flex items-center gap-8">
                 <a class="font-label-bold text-label-bold uppercase tracking-widest text-secondary dark:text-secondary-fixed border-b-2 border-secondary transition-colors duration-200" href="#bio">Bio</a>
-                <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-200" href="protected/schedule.html">Schedule</a>
                 <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-200" href="protected/profile.html">Results</a>
+                <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-200" href="protected/schedule.html">Schedule</a>
                 <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-200" href="protected/achievements.html">Academics</a>
+                <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-200" href="protected/endorsements.html">Endorsements</a>
             </div>
             <button class="bg-secondary text-white px-6 py-3 font-label-bold text-label-bold uppercase tracking-widest active:scale-95 transition-transform">
-                Contact
+                <a href="mailto:isla.meyn@gmail.com" class="text-white no-underline">Contact</a>
             </button>
         </div>
     </nav>
@@ -55,7 +56,7 @@
                     <h1 class="font-display-xl-mobile md:font-display-xl text-display-xl-mobile md:text-display-xl text-white mb-6 uppercase">
                         Defining the <br/><span class="text-stroke">Next Generation</span>
                     </h1>
-                    <p class="font-body-lg text-body-lg text-surface-variant max-w-2xl">
+                    <p class="font-body-lg text-body-lg text-white max-w-2xl">
                         A dedicated athlete combining raw power with strategic precision. Building a legacy through relentless training and academic excellence.
                     </p>
                 </div>
@@ -119,5 +120,11 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script>
+        // Check authentication on page load
+        if (localStorage.getItem('islaAuthenticated') !== 'true') {
+            window.location.href = 'login.html';
+        }
+    </script>
 </body>
 </html>

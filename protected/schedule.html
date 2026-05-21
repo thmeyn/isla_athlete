@@ -9,6 +9,11 @@
     <title>Isla Meyn | Competition Schedule</title>
 </head>
 <body class="bg-background text-on-background">
+    <script>
+        if (localStorage.getItem('islaAuthenticated') !== 'true') {
+            window.location.href = '../login.html';
+        }
+    </script>
     <!-- Navigation -->
     <nav class="w-full top-0 sticky bg-surface border-b border-outline-variant z-50">
         <div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
@@ -20,9 +25,10 @@
             </div>
             <div class="hidden md:flex items-center gap-8">
                 <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="../index.html#bio">Bio</a>
-                <a class="font-label-bold text-label-bold uppercase tracking-widest text-secondary border-b-2 border-secondary" href="schedule.html">Schedule</a>
                 <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="profile.html">Results</a>
+                <a class="font-label-bold text-label-bold uppercase tracking-widest text-secondary border-b-2 border-secondary" href="schedule.html">Schedule</a>
                 <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="achievements.html">Academics</a>
+                <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="endorsements.html">Endorsements</a>
             </div>
             <button class="bg-secondary text-white px-6 py-3 font-label-bold uppercase tracking-widest active:scale-95 transition-transform">
                 Contact
