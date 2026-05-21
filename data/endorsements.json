@@ -2,21 +2,25 @@
   {
     "quote": "Isla demonstrates exceptional athletic talent combined with a remarkable work ethic. Her dedication to both her sport and academics sets her apart as a student-athlete of the highest caliber.",
     "name": "Coach Name",
-    "title": "Head Coach, Athletic Program"
+    "title": "Head Coach, Athletic Program",
+    "email": ""
   },
   {
     "quote": "Isla's commitment to excellence extends beyond the field. She balances competitive athletics with rigorous academic pursuits, embodying the true spirit of a champion student-athlete.",
     "name": "Mentor Name",
-    "title": "Academic Advisor"
+    "title": "Academic Advisor",
+    "email": ""
   },
   {
     "quote": "Her precision, mental toughness, and strategic approach to competition make her a standout athlete. I have no doubt she will excel at the collegiate level and beyond.",
     "name": "Training Director",
-    "title": "Performance Coach"
+    "title": "Performance Coach",
+    "email": ""
   },
   {
     "quote": "Isla's leadership on and off the field is inspiring. She motivates her teammates while maintaining her focus on personal excellence. A true role model for aspiring athletes.",
     "name": "Team Captain, Former",
-    "title": "Athletic Director"
+    "title": "Athletic Director",
+    "email": ""
   }
 ]

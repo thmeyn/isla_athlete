@@ -460,6 +460,10 @@
                             <input type="text" id="endorsementsTitle" required placeholder="e.g., Head Coach, Springfield High">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label>Email (optional)</label>
+                        <input type="email" id="endorsementsEmail" placeholder="e.g., coach@school.edu">
+                    </div>
                     <div class="button-group">
                         <button type="submit">Add Endorsement</button>
                         <button type="reset">Clear</button>
@@ -671,7 +675,8 @@
                 id: Date.now(),
                 quote: document.getElementById('endorsementsQuote').value,
                 name: document.getElementById('endorsementsName').value,
-                title: document.getElementById('endorsementsTitle').value
+                title: document.getElementById('endorsementsTitle').value,
+                email: document.getElementById('endorsementsEmail').value
             };
             endorsementsData.push(item);
             document.getElementById('endorsementsForm').reset();
