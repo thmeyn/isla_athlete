@@ -144,27 +144,23 @@
                             ? `<a href="${meet.link}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm">Meet Info →</a>`
                             : '';
                         const eventsHtml = meet.events && meet.events.length > 0
-                            ? `<table class="w-full mt-4">
-                                <thead>
-                                    <tr class="border-b border-outline-variant">
-                                        <th class="pb-2 text-left font-label-bold text-on-surface-variant uppercase text-xs tracking-widest">Event</th>
-                                        <th class="pb-2 text-left font-label-bold text-on-surface-variant uppercase text-xs tracking-widest">Time / Score</th>
-                                        <th class="pb-2 text-left font-label-bold text-on-surface-variant uppercase text-xs tracking-widest">Place</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${meet.events.map(e => `
-                                        <tr class="border-b border-outline-variant last:border-0 hover:bg-surface-container-low transition-colors">
-                                            <td class="py-3 font-body-md">${e.eventName}</td>
-                                            <td class="py-3 font-body-md text-secondary font-bold">${e.timeScore}</td>
-                                            <td class="py-3 font-body-md">
-                                                <div><span class="inline-block w-6">${medalFor(e.place)}</span>${e.place}</div>
-                                                ${e.stateQualifier ? '<div style="margin-top:5px;display:inline-block;font-family:\'Inter\',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#15803d;background-color:#dcfce7;padding:3px 10px;border-radius:4px;">State Qualifier</div>' : ''}
-                                            </td>
-                                        </tr>
-                                    `).join('')}
-                                </tbody>
-                            </table>`
+                            ? `<div class="mt-4 divide-y divide-outline-variant">
+                                <div class="flex pb-2" style="gap:12px;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--on-surface-variant);">
+                                    <span style="flex:1;">Event</span>
+                                    <span style="flex-shrink:0;width:68px;text-align:right;">Time</span>
+                                    <span style="flex-shrink:0;width:90px;text-align:right;">Place</span>
+                                </div>
+                                ${meet.events.map(e => `
+                                    <div class="flex py-3 items-start hover:bg-surface-container-low transition-colors" style="gap:12px;">
+                                        <span class="font-body-md" style="flex:1;">${e.eventName}</span>
+                                        <span class="font-body-md text-secondary font-bold" style="flex-shrink:0;width:68px;text-align:right;white-space:nowrap;">${e.timeScore}</span>
+                                        <div style="flex-shrink:0;width:90px;text-align:right;">
+                                            <div class="font-body-md"><span style="display:inline-block;width:18px;">${medalFor(e.place)}</span>${e.place}</div>
+                                            ${e.stateQualifier ? '<div style="margin-top:4px;display:inline-block;font-family:inherit;font-size:10px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#15803d;background-color:#dcfce7;padding:2px 7px;border-radius:3px;white-space:nowrap;">State Qualifier</div>' : ''}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>`
                             : '<p class="font-body-md text-on-surface-variant mt-4">No events recorded.</p>';
                         return `
                             <div class="card">
