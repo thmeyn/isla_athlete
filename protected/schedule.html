@@ -51,53 +51,10 @@
         <!-- Upcoming Events -->
         <section class="mb-16">
             <h2 class="font-headline-lg text-headline-lg mb-8">Upcoming Meets</h2>
-            <div class="space-y-4">
-                <div class="card bg-primary text-on-primary hover:opacity-90 transition-opacity">
-                    <div class="flex justify-between items-start">
-                        <div class="flex-1">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="inline-block bg-secondary text-white px-3 py-1 font-label-sm text-label-sm uppercase">Upcoming</span>
-                                <span class="font-label-bold text-label-bold uppercase">Next Week</span>
-                            </div>
-                            <h3 class="font-headline-md text-headline-md mb-2">State Indoor Championship</h3>
-                            <p class="font-body-md mb-3">Houston Convention Center, TX</p>
-                            <p class="font-label-sm">Saturday, January 18, 2025 • 9:00 AM</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="font-display-xl">📍</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="flex justify-between items-start">
-                        <div class="flex-1">
-                            <h3 class="font-headline-md text-headline-md mb-2">Regional Invitational</h3>
-                            <p class="font-body-md text-on-surface-variant mb-3">Dallas ISD Stadium, TX</p>
-                            <p class="font-label-sm text-on-surface-variant">Saturday, February 1, 2025 • 10:00 AM</p>
-                        </div>
-                        <span class="font-label-bold text-label-bold text-secondary uppercase">2 Weeks</span>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="flex justify-between items-start">
-                        <div class="flex-1">
-                            <h3 class="font-headline-md text-headline-md mb-2">Southern Regional Championship</h3>
-                            <p class="font-body-md text-on-surface-variant mb-3">Austin, TX</p>
-                            <p class="font-label-sm text-on-surface-variant">Saturday, February 22, 2025 • 2:00 PM</p>
-                        </div>
-                        <span class="font-label-bold text-label-bold text-secondary uppercase">1 Month</span>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="flex justify-between items-start">
-                        <div class="flex-1">
-                            <h3 class="font-headline-md text-headline-md mb-2">National Championships</h3>
-                            <p class="font-body-md text-on-surface-variant mb-3">Indianapolis, IN</p>
-                            <p class="font-label-sm text-on-surface-variant">Friday-Sunday, March 14-16, 2025</p>
-                        </div>
+            <div class="space-y-4" id="eventsContainer">
+                <!-- Events will be loaded dynamically -->
+            </div>
+        </section>
                         <span class="font-label-bold text-label-bold text-secondary uppercase">2 Months</span>
                     </div>
                 </div>
@@ -170,5 +127,43 @@
     </footer>
 
     <script src="../js/main.js"></script>
+    <script>
+        // Load schedule data from JSON
+        fetch('../data/schedule.json')
+            .then(response => response.json())
+            .then(data => renderScheduleEvents(data))
+            .catch(error => console.error('Error loading schedule:', error));
+
+        function renderScheduleEvents(events) {
+            const container = document.getElementById('eventsContainer');
+            if (events.length === 0) {
+                container.innerHTML = '<div class="card"><p class="text-center text-on-surface-variant">No events scheduled.</p></div>';
+                return;
+            }
+            
+            container.innerHTML = events.map(event => {
+                const eventDate = new Date(event.date);
+                const isUpcoming = eventDate > new Date();
+                const cardClass = isUpcoming ? 'bg-primary text-on-primary hover:opacity-90' : 'bg-surface-container';
+                const textClass = isUpcoming ? 'text-on-primary' : 'text-on-surface-variant';
+                
+                return `
+                    <div class="card ${cardClass} transition-opacity">
+                        <div class="flex justify-between items-start">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="inline-block bg-secondary text-white px-3 py-1 font-label-sm text-label-sm uppercase">${event.status}</span>
+                                </div>
+                                <h3 class="font-headline-md text-headline-md mb-2">${event.eventName}</h3>
+                                <p class="font-body-md mb-3 ${textClass}">${event.location}</p>
+                                <p class="font-label-sm ${textClass}">${new Date(event.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                            </div>
+                            <div class="text-right text-2xl">📍</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    </script>
 </body>
 </html>

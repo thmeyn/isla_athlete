@@ -68,36 +68,19 @@
                     <table class="w-full">
                         <thead>
                             <tr class="bg-surface-container-high border-b border-outline-variant">
-                                <th class="px-6 py-4 text-left font-label-bold text-label-bold text-on-surface uppercase">Date</th>
                                 <th class="px-6 py-4 text-left font-label-bold text-label-bold text-on-surface uppercase">Event</th>
-                                <th class="px-6 py-4 text-left font-label-bold text-label-bold text-on-surface uppercase">Location</th>
-                                <th class="px-6 py-4 text-left font-label-bold text-label-bold text-on-surface uppercase">Result</th>
-                                <th class="px-6 py-4 text-right font-label-bold text-label-bold text-on-surface uppercase">Placing</th>
+                                <th class="px-6 py-4 text-left font-label-bold text-label-bold text-on-surface uppercase">Time/Score</th>
+                                <th class="px-6 py-4 text-left font-label-bold text-label-bold text-on-surface uppercase">Placing</th>
+                                <th class="px-6 py-4 text-left font-label-bold text-label-bold text-on-surface uppercase">Video</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-outline-variant">
-                            <tr class="hover:bg-surface-container-low transition-colors">
-                                <td class="px-6 py-4 font-body-md">May 18, 2024</td>
-                                <td class="px-6 py-4 font-body-md">State Championships</td>
-                                <td class="px-6 py-4 font-body-md">Austin, TX</td>
-                                <td class="px-6 py-4 font-body-md text-secondary font-bold">94.2s</td>
-                                <td class="px-6 py-4 font-body-md text-right">🥇 1st</td>
-                            </tr>
-                            <tr class="hover:bg-surface-container-low transition-colors">
-                                <td class="px-6 py-4 font-body-md">April 22, 2024</td>
-                                <td class="px-6 py-4 font-body-md">Regional Qualifier</td>
-                                <td class="px-6 py-4 font-body-md">Dallas, TX</td>
-                                <td class="px-6 py-4 font-body-md text-secondary font-bold">95.1s</td>
-                                <td class="px-6 py-4 font-body-md text-right">🥇 1st</td>
-                            </tr>
-                            <tr class="hover:bg-surface-container-low transition-colors">
-                                <td class="px-6 py-4 font-body-md">March 15, 2024</td>
-                                <td class="px-6 py-4 font-body-md">Invitational Meet</td>
-                                <td class="px-6 py-4 font-body-md">Houston, TX</td>
-                                <td class="px-6 py-4 font-body-md text-secondary font-bold">96.8s</td>
-                                <td class="px-6 py-4 font-body-md text-right">🥈 2nd</td>
-                            </tr>
+                        <tbody class="divide-y divide-outline-variant" id="resultsTableBody">
+                            <!-- Results will be loaded dynamically -->
                         </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
                     </table>
                 </div>
             </div>
@@ -130,5 +113,31 @@
     </footer>
 
     <script src="../js/main.js"></script>
+    <script>
+        // Load results data from JSON
+        fetch('../data/results.json')
+            .then(response => response.json())
+            .then(data => renderResults(data))
+            .catch(error => console.error('Error loading results:', error));
+
+        function renderResults(results) {
+            const tbody = document.getElementById('resultsTableBody');
+            if (results.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="px-6 py-4 text-center text-on-surface-variant">No results yet.</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = results.map(result => `
+                <tr class="hover:bg-surface-container-low transition-colors">
+                    <td class="px-6 py-4 font-body-md">${result.eventName}</td>
+                    <td class="px-6 py-4 font-body-md text-secondary font-bold">${result.timeScore}</td>
+                    <td class="px-6 py-4 font-body-md">🏅 ${result.place}</td>
+                    <td class="px-6 py-4 font-body-md">
+                        ${result.youtubeLink ? `<a href="${result.youtubeLink}" target="_blank" class="text-secondary hover:underline">Watch</a>` : '—'}
+                    </td>
+                </tr>
+            `).join('');
+        }
+    </script>
 </body>
 </html>

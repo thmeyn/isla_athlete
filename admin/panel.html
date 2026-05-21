@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet"/>
+    <title>Isla Meyn | Admin Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #f7fafc;
+            color: #181c1e;
+        }
+        .header {
+            background-color: #00020a;
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header h1 {
+            font-size: 24px;
+            font-weight: 900;
+        }
+        .logout-btn {
+            background-color: #bb0027;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+        .logout-btn:hover {
+            opacity: 0.9;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            border-bottom: 1px solid #c5c6d0;
+        }
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            color: #44474f;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .tab-button.active {
+            color: #bb0027;
+            border-bottom-color: #bb0027;
+        }
+        .tab-button:hover {
+            color: #181c1e;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .form-section {
+            background: white;
+            border: 1px solid #c5c6d0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+        .form-section h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #00020a;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #44474f;
+            margin-bottom: 6px;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #c5c6d0;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            transition: border-color 0.2s ease;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #bb0027;
+            box-shadow: 0 0 0 2px rgba(187, 0, 39, 0.1);
+        }
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        button[type="submit"] {
+            background-color: #bb0027;
+            color: white;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            transition: opacity 0.2s ease;
+        }
+        button[type="submit"]:hover {
+            opacity: 0.9;
+        }
+        button[type="reset"] {
+            background-color: #e0e3e5;
+            color: #181c1e;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+        .items-list {
+            background: white;
+            border: 1px solid #c5c6d0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .list-item {
+            padding: 16px 24px;
+            border-bottom: 1px solid #e0e3e5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .list-item:last-child {
+            border-bottom: none;
+        }
+        .item-content h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #181c1e;
+            margin-bottom: 4px;
+        }
+        .item-content p {
+            font-size: 13px;
+            color: #44474f;
+            margin: 0;
+        }
+        .item-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .btn-edit, .btn-delete {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        .btn-edit {
+            background-color: #495e8a;
+            color: white;
+        }
+        .btn-delete {
+            background-color: #ba1a1a;
+            color: white;
+        }
+        .btn-edit:hover, .btn-delete:hover {
+            opacity: 0.9;
+        }
+        .export-section {
+            background: white;
+            border: 1px solid #c5c6d0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-top: 32px;
+        }
+        .export-section h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #00020a;
+        }
+        .export-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .btn-export {
+            background-color: #00020a;
+            color: white;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+        .btn-export:hover {
+            opacity: 0.9;
+        }
+        .json-preview {
+            background-color: #f1f4f6;
+            border: 1px solid #c5c6d0;
+            border-radius: 4px;
+            padding: 16px;
+            margin-top: 16px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #181c1e;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .message {
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            display: none;
+        }
+        .message.success {
+            background-color: #d8f5d8;
+            color: #1b5e20;
+            border: 1px solid #81c784;
+            display: block;
+        }
+        .message.error {
+            background-color: #ffdad6;
+            color: #93000a;
+            border: 1px solid #f78d71;
+            display: block;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #44474f;
+        }
+        .empty-state p {
+            font-size: 14px;
+        }
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .list-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .item-actions {
+                margin-top: 12px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Admin Panel</h1>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('schedule')">Schedule</button>
+            <button class="tab-button" onclick="switchTab('results')">Results</button>
+            <button class="tab-button" onclick="switchTab('academics')">Academics</button>
+        </div>
+
+        <!-- SCHEDULE TAB -->
+        <div id="schedule" class="tab-content active">
+            <div id="scheduleMessage" class="message"></div>
+            
+            <div class="form-section">
+                <h2>Add New Event</h2>
+                <form id="scheduleForm" onsubmit="addScheduleItem(event)">
+                    <div class="form-group">
+                        <label>Event Name</label>
+                        <input type="text" id="scheduleEventName" required placeholder="e.g., State Indoor Championship">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" id="scheduleDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="scheduleStatus" required>
+                                <option value="upcoming">Upcoming</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" id="scheduleLocation" required placeholder="e.g., Houston Convention Center, TX">
+                    </div>
+                    <div class="button-group">
+                        <button type="submit">Add Event</button>
+                        <button type="reset">Clear</button>
+                    </div>
+                </form>
+            </div>
+
+            <h2 style="margin-top: 32px; margin-bottom: 16px;">Scheduled Events</h2>
+            <div id="scheduleList" class="items-list"></div>
+        </div>
+
+        <!-- RESULTS TAB -->
+        <div id="results" class="tab-content">
+            <div id="resultsMessage" class="message"></div>
+            
+            <div class="form-section">
+                <h2>Add New Result</h2>
+                <form id="resultsForm" onsubmit="addResultsItem(event)">
+                    <div class="form-group">
+                        <label>Athlete Name</label>
+                        <input type="text" id="resultsAthleteName" required placeholder="e.g., Isla Meyn">
+                    </div>
+                    <div class="form-group">
+                        <label>Event Name</label>
+                        <input type="text" id="resultsEventName" required placeholder="e.g., 400m Dash">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Time/Score</label>
+                            <input type="text" id="resultsTimeScore" required placeholder="e.g., 52.3s">
+                        </div>
+                        <div class="form-group">
+                            <label>Place</label>
+                            <input type="text" id="resultsPlace" required placeholder="e.g., 1st, 2nd, etc.">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>YouTube Video Link (optional)</label>
+                        <input type="url" id="resultsYoutubeLink" placeholder="https://www.youtube.com/embed/...">
+                    </div>
+                    <div class="button-group">
+                        <button type="submit">Add Result</button>
+                        <button type="reset">Clear</button>
+                    </div>
+                </form>
+            </div>
+
+            <h2 style="margin-top: 32px; margin-bottom: 16px;">Results</h2>
+            <div id="resultsList" class="items-list"></div>
+        </div>
+
+        <!-- ACADEMICS TAB -->
+        <div id="academics" class="tab-content">
+            <div id="academicsMessage" class="message"></div>
+            
+            <div class="form-section">
+                <h2>Add New Award</h2>
+                <form id="academicsForm" onsubmit="addAcademicsItem(event)">
+                    <div class="form-group">
+                        <label>Award Name</label>
+                        <input type="text" id="academicsAwardName" required placeholder="e.g., All-State Selection">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="academicsDescription" required placeholder="Describe the award..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Date/Year</label>
+                            <input type="text" id="academicsDate" required placeholder="e.g., 2024">
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="academicsCategory" required>
+                                <option value="athletic">Athletic</option>
+                                <option value="academic">Academic</option>
+                                <option value="leadership">Leadership</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button type="submit">Add Award</button>
+                        <button type="reset">Clear</button>
+                    </div>
+                </form>
+            </div>
+
+            <h2 style="margin-top: 32px; margin-bottom: 16px;">Awards</h2>
+            <div id="academicsList" class="items-list"></div>
+        </div>
+
+        <!-- EXPORT SECTION -->
+        <div class="export-section">
+            <h2>Export Data</h2>
+            <p style="font-size: 14px; color: #44474f; margin-bottom: 16px;">Export your content as JSON files to commit to your repository. Copy the JSON below and update your data files in the repo.</p>
+            <div class="export-buttons">
+                <button class="btn-export" onclick="downloadJSON('schedule')">Download Schedule JSON</button>
+                <button class="btn-export" onclick="downloadJSON('results')">Download Results JSON</button>
+                <button class="btn-export" onclick="downloadJSON('academics')">Download Academics JSON</button>
+            </div>
+            <div style="margin-top: 16px;">
+                <label style="color: #181c1e;">Current Schedule Data</label>
+                <div class="json-preview" id="scheduleJsonPreview"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data management
+        let scheduleData = [];
+        let resultsData = [];
+        let academicsData = [];
+
+        // Initialize
+        window.addEventListener('load', function() {
+            if (!isAdminAuthenticated()) {
+                window.location.href = '../admin-login.html';
+            }
+            loadDataFromStorage();
+            renderSchedule();
+            renderResults();
+            renderAcademics();
+            updateJsonPreview();
+        });
+
+        function isAdminAuthenticated() {
+            return localStorage.getItem('adminAuthenticated') === 'true';
+        }
+
+        function logout() {
+            localStorage.removeItem('adminAuthenticated');
+            localStorage.removeItem('adminAuthTime');
+            window.location.href = '../admin-login.html';
+        }
+
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // SCHEDULE FUNCTIONS
+        function addScheduleItem(e) {
+            e.preventDefault();
+            const item = {
+                id: Date.now(),
+                eventName: document.getElementById('scheduleEventName').value,
+                date: document.getElementById('scheduleDate').value,
+                location: document.getElementById('scheduleLocation').value,
+                status: document.getElementById('scheduleStatus').value
+            };
+            scheduleData.push(item);
+            document.getElementById('scheduleForm').reset();
+            renderSchedule();
+            saveDataToStorage();
+            showMessage('scheduleMessage', 'Event added successfully!', 'success');
+            updateJsonPreview();
+        }
+
+        function deleteScheduleItem(id) {
+            scheduleData = scheduleData.filter(item => item.id !== id);
+            renderSchedule();
+            saveDataToStorage();
+            showMessage('scheduleMessage', 'Event deleted successfully!', 'success');
+            updateJsonPreview();
+        }
+
+        function renderSchedule() {
+            const list = document.getElementById('scheduleList');
+            if (scheduleData.length === 0) {
+                list.innerHTML = '<div class="empty-state"><p>No events yet. Add one above.</p></div>';
+                return;
+            }
+            list.innerHTML = scheduleData.map(item => `
+                <div class="list-item">
+                    <div class="item-content">
+                        <h3>${item.eventName}</h3>
+                        <p>${item.location} • ${item.date} • ${item.status}</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn-delete" onclick="deleteScheduleItem(${item.id})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // RESULTS FUNCTIONS
+        function addResultsItem(e) {
+            e.preventDefault();
+            const item = {
+                id: Date.now(),
+                athleteName: document.getElementById('resultsAthleteName').value,
+                timeScore: document.getElementById('resultsTimeScore').value,
+                place: document.getElementById('resultsPlace').value,
+                eventName: document.getElementById('resultsEventName').value,
+                youtubeLink: document.getElementById('resultsYoutubeLink').value
+            };
+            resultsData.push(item);
+            document.getElementById('resultsForm').reset();
+            renderResults();
+            saveDataToStorage();
+            showMessage('resultsMessage', 'Result added successfully!', 'success');
+            updateJsonPreview();
+        }
+
+        function deleteResultsItem(id) {
+            resultsData = resultsData.filter(item => item.id !== id);
+            renderResults();
+            saveDataToStorage();
+            showMessage('resultsMessage', 'Result deleted successfully!', 'success');
+            updateJsonPreview();
+        }
+
+        function renderResults() {
+            const list = document.getElementById('resultsList');
+            if (resultsData.length === 0) {
+                list.innerHTML = '<div class="empty-state"><p>No results yet. Add one above.</p></div>';
+                return;
+            }
+            list.innerHTML = resultsData.map(item => `
+                <div class="list-item">
+                    <div class="item-content">
+                        <h3>${item.eventName}</h3>
+                        <p>${item.athleteName} • ${item.timeScore} • ${item.place} Place</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn-delete" onclick="deleteResultsItem(${item.id})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ACADEMICS FUNCTIONS
+        function addAcademicsItem(e) {
+            e.preventDefault();
+            const item = {
+                id: Date.now(),
+                awardName: document.getElementById('academicsAwardName').value,
+                description: document.getElementById('academicsDescription').value,
+                date: document.getElementById('academicsDate').value,
+                category: document.getElementById('academicsCategory').value
+            };
+            academicsData.push(item);
+            document.getElementById('academicsForm').reset();
+            renderAcademics();
+            saveDataToStorage();
+            showMessage('academicsMessage', 'Award added successfully!', 'success');
+            updateJsonPreview();
+        }
+
+        function deleteAcademicsItem(id) {
+            academicsData = academicsData.filter(item => item.id !== id);
+            renderAcademics();
+            saveDataToStorage();
+            showMessage('academicsMessage', 'Award deleted successfully!', 'success');
+            updateJsonPreview();
+        }
+
+        function renderAcademics() {
+            const list = document.getElementById('academicsList');
+            if (academicsData.length === 0) {
+                list.innerHTML = '<div class="empty-state"><p>No awards yet. Add one above.</p></div>';
+                return;
+            }
+            list.innerHTML = academicsData.map(item => `
+                <div class="list-item">
+                    <div class="item-content">
+                        <h3>${item.awardName}</h3>
+                        <p>${item.description} • ${item.date}</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn-delete" onclick="deleteAcademicsItem(${item.id})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // STORAGE FUNCTIONS
+        function saveDataToStorage() {
+            localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
+            localStorage.setItem('resultsData', JSON.stringify(resultsData));
+            localStorage.setItem('academicsData', JSON.stringify(academicsData));
+        }
+
+        function loadDataFromStorage() {
+            scheduleData = JSON.parse(localStorage.getItem('scheduleData')) || [];
+            resultsData = JSON.parse(localStorage.getItem('resultsData')) || [];
+            academicsData = JSON.parse(localStorage.getItem('academicsData')) || [];
+        }
+
+        // EXPORT FUNCTIONS
+        function downloadJSON(type) {
+            let data, filename;
+            if (type === 'schedule') {
+                data = scheduleData.map(({id, ...rest}) => rest);
+                filename = 'schedule.json';
+            } else if (type === 'results') {
+                data = resultsData.map(({id, ...rest}) => rest);
+                filename = 'results.json';
+            } else if (type === 'academics') {
+                data = academicsData.map(({id, ...rest}) => rest);
+                filename = 'academics.json';
+            }
+            
+            const json = JSON.stringify(data, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function updateJsonPreview() {
+            const data = scheduleData.map(({id, ...rest}) => rest);
+            document.getElementById('scheduleJsonPreview').textContent = JSON.stringify(data, null, 2);
+        }
+
+        // MESSAGE FUNCTION
+        function showMessage(elementId, text, type) {
+            const element = document.getElementById(elementId);
+            element.textContent = text;
+            element.className = `message ${type}`;
+            setTimeout(() => {
+                element.className = 'message';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

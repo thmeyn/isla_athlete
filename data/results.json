@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "athleteName": "Isla Meyn",
+    "timeScore": "52.3s",
+    "place": "1st",
+    "eventName": "400m Dash",
+    "youtubeLink": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  },
+  {
+    "id": 2,
+    "athleteName": "Isla Meyn",
+    "timeScore": "11.8s",
+    "place": "1st",
+    "eventName": "100m Dash",
+    "youtubeLink": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  },
+  {
+    "id": 3,
+    "athleteName": "Isla Meyn",
+    "timeScore": "24.2s",
+    "place": "2nd",
+    "eventName": "200m Dash",
+    "youtubeLink": ""
+  }
+]

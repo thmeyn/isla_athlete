@@ -70,43 +70,8 @@
         <!-- Awards and Honors -->
         <section class="mb-16">
             <h2 class="font-headline-lg text-headline-lg mb-8">Awards & Honors</h2>
-            <div class="space-y-4">
-                <div class="card hover:bg-surface-container-low transition-colors">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h3 class="font-headline-md text-headline-md mb-2">National Merit Scholar</h3>
-                            <p class="font-body-md text-on-surface-variant">Recognized for academic excellence and standardized test performance</p>
-                        </div>
-                        <span class="text-secondary font-label-bold whitespace-nowrap ml-4">2024</span>
-                    </div>
-                </div>
-                <div class="card hover:bg-surface-container-low transition-colors">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h3 class="font-headline-md text-headline-md mb-2">Valedictorian</h3>
-                            <p class="font-body-md text-on-surface-variant">Top academic honors for class of 2024</p>
-                        </div>
-                        <span class="text-secondary font-label-bold whitespace-nowrap ml-4">2024</span>
-                    </div>
-                </div>
-                <div class="card hover:bg-surface-container-low transition-colors">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h3 class="font-headline-md text-headline-md mb-2">AP Scholar with Distinction</h3>
-                            <p class="font-body-md text-on-surface-variant">Scored 3 or higher on 7+ AP exams with average score of 4.0</p>
-                        </div>
-                        <span class="text-secondary font-label-bold whitespace-nowrap ml-4">2024</span>
-                    </div>
-                </div>
-                <div class="card hover:bg-surface-container-low transition-colors">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h3 class="font-headline-md text-headline-md mb-2">Dean's List</h3>
-                            <p class="font-body-md text-on-surface-variant">Consistent recognition for outstanding academic performance</p>
-                        </div>
-                        <span class="text-secondary font-label-bold whitespace-nowrap ml-4">2023-2024</span>
-                    </div>
-                </div>
+            <div class="space-y-4" id="awardsContainer">
+                <!-- Awards will be loaded dynamically -->
             </div>
         </section>
 
@@ -167,5 +132,32 @@
     </footer>
 
     <script src="../js/main.js"></script>
+    <script>
+        // Load academics data from JSON
+        fetch('../data/academics.json')
+            .then(response => response.json())
+            .then(data => renderAwards(data))
+            .catch(error => console.error('Error loading awards:', error));
+
+        function renderAwards(awards) {
+            const container = document.getElementById('awardsContainer');
+            if (awards.length === 0) {
+                container.innerHTML = '<div class="card"><p class="text-center text-on-surface-variant">No awards yet.</p></div>';
+                return;
+            }
+            
+            container.innerHTML = awards.map(award => `
+                <div class="card hover:bg-surface-container-low transition-colors">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-headline-md text-headline-md mb-2">${award.awardName}</h3>
+                            <p class="font-body-md text-on-surface-variant">${award.description}</p>
+                        </div>
+                        <span class="text-secondary font-label-bold whitespace-nowrap ml-4">${award.date}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
 </body>
 </html>

@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "awardName": "All-State Selection",
+    "description": "Recognized for exceptional athletic performance at the state level",
+    "date": "2024",
+    "category": "athletic"
+  },
+  {
+    "id": 2,
+    "awardName": "Academic Excellence Award",
+    "description": "Honored for maintaining 4.0 GPA while competing at elite level",
+    "date": "2024",
+    "category": "academic"
+  },
+  {
+    "id": 3,
+    "awardName": "National Championship Podium Finish",
+    "description": "Top 5 finish at national-level competition",
+    "date": "2024",
+    "category": "athletic"
+  }
+]
