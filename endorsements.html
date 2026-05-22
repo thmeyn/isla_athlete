@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="../css/styles.css"/>
+    <link rel="stylesheet" href="css/styles.css"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <title>Isla Meyn | Endorsements & References</title>
 </head>
@@ -13,13 +13,13 @@
     <nav class="w-full top-0 sticky bg-surface border-b border-outline-variant z-50">
         <div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
             <div class="flex items-center gap-3">
-                <img src="../images/images.png" alt="Bluebird logo" class="h-12 w-12"/>
+                <img src="images/images.png" alt="Bluebird logo" class="h-12 w-12"/>
                 <div class="font-headline-md text-headline-md font-black italic tracking-tighter text-primary">
-                    <a href="../index.html">ISLA MEYN</a>
+                    <a href="index.html">ISLA MEYN</a>
                 </div>
             </div>
             <div class="hidden md:flex items-center gap-8">
-                <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="../index.html#bio">Bio</a>
+                <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="index.html#bio">Bio</a>
                 <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="profile.html">Results</a>
                 <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="schedule.html">Schedule</a>
                 <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="achievements.html">Academics</a>
@@ -37,7 +37,7 @@
             </div>
         </div>
         <div id="mobileMenu" class="hidden md:hidden border-t border-outline-variant bg-surface px-margin-mobile py-6 flex flex-col gap-4">
-            <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant" href="../index.html#bio">Bio</a>
+            <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant" href="index.html#bio">Bio</a>
             <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant" href="profile.html">Results</a>
             <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant" href="schedule.html">Schedule</a>
             <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant" href="achievements.html">Academics</a>
@@ -124,14 +124,14 @@
         <div class="max-w-container-max mx-auto">
             <div class="text-center text-on-surface-variant font-body-md">
                 <p>&copy; 2024 Isla Meyn. All rights reserved.</p>
-                <p class="mt-2"><a href="../admin-login.html" class="text-secondary hover:underline">Secure Access</a></p>
+                <p class="mt-2"><a href="admin-login.html" class="text-secondary hover:underline">Secure Access</a></p>
             </div>
         </div>
     </footer>
 
-    <script src="../js/main.js"></script>
+    <script src="js/main.js"></script>
     <script>
-        fetch('../data/endorsements.json')
+        fetch('data/endorsements.json')
             .then(response => response.json())
             .then(data => renderEndorsements(data))
             .catch(error => console.error('Error loading endorsements:', error));

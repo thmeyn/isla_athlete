@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="../css/styles.css"/>
+    <link rel="stylesheet" href="css/styles.css"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <title>Isla Meyn | Competition Schedule</title>
 </head>
@@ -13,13 +13,13 @@
     <nav class="w-full top-0 sticky bg-surface border-b border-outline-variant z-50">
         <div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
             <div class="flex items-center gap-3">
-                <img src="../images/images.png" alt="Bluebird logo" class="h-12 w-12"/>
+                <img src="images/images.png" alt="Bluebird logo" class="h-12 w-12"/>
                 <div class="font-headline-md text-headline-md font-black italic tracking-tighter text-primary">
-                    <a href="../index.html">ISLA MEYN</a>
+                    <a href="index.html">ISLA MEYN</a>
                 </div>
             </div>
             <div class="hidden md:flex items-center gap-8">
-                <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="../index.html#bio">Bio</a>
+                <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="index.html#bio">Bio</a>
                 <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="profile.html">Results</a>
                 <a class="font-label-bold text-label-bold uppercase tracking-widest text-secondary border-b-2 border-secondary" href="schedule.html">Schedule</a>
                 <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="achievements.html">Academics</a>
@@ -35,7 +35,7 @@
             </div>
         </div>
         <div id="mobileMenu" class="hidden md:hidden border-t border-outline-variant bg-surface px-margin-mobile py-6 flex flex-col gap-4">
-            <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant" href="../index.html#bio">Bio</a>
+            <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant" href="index.html#bio">Bio</a>
             <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant" href="profile.html">Results</a>
             <a class="font-label-bold text-label-bold uppercase tracking-widest text-secondary" href="schedule.html">Schedule</a>
             <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant" href="achievements.html">Academics</a>
@@ -136,10 +136,10 @@
         </div>
     </footer>
 
-    <script src="../js/main.js"></script>
+    <script src="js/main.js"></script>
     <script>
         // Load schedule data from JSON
-        fetch('../data/schedule.json')
+        fetch('data/schedule.json')
             .then(response => response.json())
             .then(data => renderScheduleEvents(data))
             .catch(error => console.error('Error loading schedule:', error));
