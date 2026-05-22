@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="css/styles.css"/>
+    <link rel="stylesheet" href="css/styles.css?v=1"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <title>Isla Meyn | Endorsements & References</title>
 </head>
@@ -151,9 +151,9 @@
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script src="js/main.js?v=1"></script>
     <script>
-        fetch('data/endorsements.json')
+        fetch('data/endorsements.json?_=' + Date.now())
             .then(response => response.json())
             .then(data => renderEndorsements(data))
             .catch(error => console.error('Error loading endorsements:', error));
