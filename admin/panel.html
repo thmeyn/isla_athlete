@@ -437,9 +437,16 @@
                             <input type="text" id="resultsPlace" required placeholder="e.g., 1st">
                         </div>
                     </div>
-                    <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
-                        <input type="checkbox" id="resultsEventStateQualifier" style="width: auto; margin: 0;">
-                        <label style="margin: 0; text-transform: none; letter-spacing: normal; font-size: 14px; font-weight: 400;">State Qualifier</label>
+                    <div class="form-group">
+                        <label>Notable</label>
+                        <div style="display:flex;gap:20px;margin-top:4px;">
+                            <label style="display:flex;align-items:center;gap:6px;text-transform:none;letter-spacing:normal;font-size:14px;font-weight:400;margin:0;">
+                                <input type="checkbox" id="resultsEventSQ" style="width:auto;margin:0;"> State Qualifier
+                            </label>
+                            <label style="display:flex;align-items:center;gap:6px;text-transform:none;letter-spacing:normal;font-size:14px;font-weight:400;margin:0;">
+                                <input type="checkbox" id="resultsEventPR" style="width:auto;margin:0;"> Personal Record
+                            </label>
+                        </div>
                     </div>
                     <div class="button-group">
                         <button type="submit">Add Event</button>
@@ -665,7 +672,7 @@
                 eventName: document.getElementById('resultsEventName').value,
                 timeScore: document.getElementById('resultsTimeScore').value,
                 place: document.getElementById('resultsPlace').value,
-                stateQualifier: document.getElementById('resultsEventStateQualifier').checked
+                notable: [document.getElementById('resultsEventSQ').checked && 'sq', document.getElementById('resultsEventPR').checked && 'pr'].filter(Boolean)
             });
             document.getElementById('resultsEventForm').reset();
             renderResults();
@@ -713,7 +720,7 @@
                         <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #e0e3e5;">
                             ${meet.events.map(ev => `
                                 <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #f1f4f6;">
-                                    <span style="font-size: 13px; color: #181c1e;">${ev.eventName} — <strong>${ev.timeScore}</strong> — ${ev.place}${ev.stateQualifier ? ' — <span style="color:#bb0027;">State Qualifier</span>' : ''}</span>
+                                    <span style="font-size: 13px; color: #181c1e;">${ev.eventName} — <strong>${ev.timeScore}</strong> — ${ev.place}${(Array.isArray(ev.notable) ? ev.notable : []).map(n => n === 'sq' ? ' — <span style="color:#15803d;">State Qualifier</span>' : n === 'pr' ? ' — <span style="color:#1d4ed8;">Personal Record</span>' : '').join('')}</span>
                                     <button class="btn-delete" style="padding: 4px 8px; font-size: 10px; flex-shrink: 0; margin-left: 8px;" onclick="deleteResultsEvent(${meet.id}, ${ev.id})">Remove</button>
                                 </div>
                             `).join('')}

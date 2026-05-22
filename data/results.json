@@ -1,14 +1,25 @@
 [
   {
-    "season": "2024-2025",
+    "season": "2025-2026",
     "sport": "Track & Field",
     "meetName": "Class 3A Region 5 Track & Field Championships",
     "date": "2025-05-11",
     "location": "Scott High School • Taylor Mill, KY",
-    "link": "",
+    "link": "https://khsaa.org/httpdocs/track/2026/outdoor/regionresults/Class%203A%20Region%205%20Results.htm",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "9:53.91", "place": "5th", "stateQualifier": true },
-      { "eventName": "4x800m Relay", "timeScore": "5:23.02", "place": "1st", "stateQualifier": true }
+      { "eventName": "1600m Run", "timeScore": "5:23.02", "place": "5th", "notable": ["sq", "pr"] },
+      { "eventName": "4x800m Relay", "timeScore": "9:43.89", "place": "1st", "notable": ["sq"] }
+    ]
+  },
+  {
+    "season": "2025-2026",
+    "sport": "Track & Field",
+    "meetName": "Scott Eagle Classic",
+    "date": "2025-05-02",
+    "location": "Scott High School • Taylor Mill, KY",
+    "link": "https://ky.milesplit.com/meets/725631-scott-eagle-classic-2026/results",
+    "events": [
+      { "eventName": "1600m Run", "timeScore": "5:21.66", "place": "1st", "notable": [] }
     ]
   }
 ]
