@@ -6,6 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="css/styles.css"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Isla Meyn | Performance Records</title>
 </head>
 <body class="bg-background text-on-background">
@@ -58,6 +59,7 @@
         <!-- Tabs -->
         <div class="border-b border-outline-variant mb-12 flex gap-8">
             <button id="tabMeetResults" onclick="switchTab('meetResults')" class="font-label-bold text-label-bold uppercase tracking-widest pb-3 border-b-2 border-secondary text-secondary transition-colors">Meet Results</button>
+            <button id="tabMetrics" onclick="switchTab('metrics')" class="font-label-bold text-label-bold uppercase tracking-widest pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-secondary transition-colors">Metrics</button>
             <button id="tabAchievements" onclick="switchTab('achievements')" class="font-label-bold text-label-bold uppercase tracking-widest pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-secondary transition-colors">Achievements</button>
         </div>
 
@@ -74,6 +76,22 @@
             </div>
             <div class="space-y-6" id="resultsContainer">
                 <!-- Meets loaded dynamically -->
+            </div>
+        </div>
+
+        <!-- Metrics Tab -->
+        <div id="panelMetrics" class="hidden">
+            <div class="flex gap-4 mb-8">
+                <select id="metricEventFilter" onchange="renderMetrics()" class="flex-1 px-4 py-2 border border-outline-variant bg-surface text-on-surface font-label-bold text-label-bold uppercase tracking-widest focus:outline-none focus:border-secondary">
+                    <option value="">Select an event…</option>
+                </select>
+                <select id="metricSeasonFilter" onchange="renderMetrics()" class="flex-1 px-4 py-2 border border-outline-variant bg-surface text-on-surface font-label-bold text-label-bold uppercase tracking-widest focus:outline-none focus:border-secondary">
+                    <option value="">All Seasons</option>
+                </select>
+            </div>
+            <div class="card">
+                <canvas id="metricsChart" class="hidden"></canvas>
+                <p id="metricsEmpty" class="text-center text-on-surface-variant font-body-md py-8">Select an event to view its progression.</p>
             </div>
         </div>
 
@@ -119,8 +137,8 @@
     <script src="js/main.js"></script>
     <script>
         function switchTab(tab) {
-            const tabs = { meetResults: 'panelMeetResults', achievements: 'panelAchievements' };
-            const buttons = { meetResults: 'tabMeetResults', achievements: 'tabAchievements' };
+            const tabs    = { meetResults: 'panelMeetResults', metrics: 'panelMetrics', achievements: 'panelAchievements' };
+            const buttons = { meetResults: 'tabMeetResults',   metrics: 'tabMetrics',   achievements: 'tabAchievements' };
             Object.keys(tabs).forEach(key => {
                 document.getElementById(tabs[key]).classList.toggle('hidden', key !== tab);
                 const btn = document.getElementById(buttons[key]);
@@ -140,6 +158,7 @@
             .then(data => {
                 allMeets = data;
                 buildFilters(data);
+                buildMetricFilters(data);
                 renderResults(data);
             })
             .catch(error => console.error('Error loading results:', error));
@@ -286,6 +305,126 @@
                         ${sportsHtml}
                     </div>`;
             }).join('');
+        }
+        function buildMetricFilters(meets) {
+            const events  = [...new Set(meets.flatMap(m => m.events.map(e => e.eventName.trim())))].sort();
+            const seasons = [...new Set(meets.map(m => m.season))].sort().reverse();
+
+            const eventSel  = document.getElementById('metricEventFilter');
+            const seasonSel = document.getElementById('metricSeasonFilter');
+
+            events.forEach(ev => {
+                const opt = document.createElement('option');
+                opt.value = ev; opt.textContent = ev;
+                eventSel.appendChild(opt);
+            });
+            seasons.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s; opt.textContent = s + ' Season';
+                seasonSel.appendChild(opt);
+            });
+        }
+
+        function parseTime(str) {
+            str = str.trim();
+            const parts = str.split(':');
+            if (parts.length === 3) {
+                // Handle bad HH:MM:SS format as MM:SS.cs
+                return parseFloat(parts[0]) * 60 + parseFloat(parts[1]) + parseFloat(parts[2]) / 100;
+            }
+            return parseFloat(parts[0]) * 60 + parseFloat(parts[1]);
+        }
+
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60);
+            const s = (seconds % 60).toFixed(2);
+            return `${m}:${parseFloat(s) < 10 ? '0' : ''}${s}`;
+        }
+
+        let metricsChartInstance = null;
+
+        function renderMetrics() {
+            const eventName = document.getElementById('metricEventFilter').value;
+            const season    = document.getElementById('metricSeasonFilter').value;
+            const canvas    = document.getElementById('metricsChart');
+            const empty     = document.getElementById('metricsEmpty');
+
+            if (!eventName) {
+                canvas.classList.add('hidden');
+                empty.classList.remove('hidden');
+                return;
+            }
+
+            const points = [];
+            allMeets.forEach(meet => {
+                if (season && meet.season !== season) return;
+                meet.events.forEach(e => {
+                    if (e.eventName.trim() === eventName) {
+                        try {
+                            points.push({ date: new Date(meet.date + 'T12:00:00'), raw: parseTime(e.timeScore), label: meet.meetName });
+                        } catch(_) {}
+                    }
+                });
+            });
+
+            points.sort((a, b) => a.date - b.date);
+
+            if (points.length === 0) {
+                canvas.classList.add('hidden');
+                empty.classList.remove('hidden');
+                return;
+            }
+
+            canvas.classList.remove('hidden');
+            empty.classList.add('hidden');
+
+            if (metricsChartInstance) metricsChartInstance.destroy();
+
+            const style = getComputedStyle(document.documentElement);
+            const colorSecondary = style.getPropertyValue('--secondary').trim() || '#bb0027';
+
+            metricsChartInstance = new Chart(canvas, {
+                type: 'line',
+                data: {
+                    labels: points.map(p => p.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })),
+                    datasets: [{
+                        label: eventName,
+                        data: points.map(p => p.raw),
+                        borderColor: colorSecondary,
+                        backgroundColor: colorSecondary + '22',
+                        pointBackgroundColor: colorSecondary,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => formatTime(ctx.parsed.y),
+                                title: (items) => {
+                                    const i = items[0].dataIndex;
+                                    return [points[i].label, items[0].label];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            reverse: true,
+                            ticks: { callback: val => formatTime(val) },
+                            title: { display: true, text: 'Time' }
+                        },
+                        x: {
+                            title: { display: true, text: 'Date' }
+                        }
+                    }
+                }
+            });
         }
     </script>
 </body>
