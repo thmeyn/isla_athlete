@@ -7,7 +7,7 @@
     "location": "Scott High School • Taylor Mill, KY",
     "link": "https://khsaa.org/httpdocs/track/2026/outdoor/regionresults/Class%203A%20Region%205%20Results.htm",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "5:23.02", "place": "5th", "notable": ["sq", "pr"] },
+      { "eventName": "1600m Run", "timeScore": "5:23.02", "place": "5th", "notable": ["sq"] },
       { "eventName": "4x800m Relay", "timeScore": "9:43.89", "place": "1st", "notable": ["sq"] }
     ]
   },
@@ -19,7 +19,7 @@
     "location": "Scott High School • Taylor Mill, KY",
     "link": "https://ky.milesplit.com/meets/725631-scott-eagle-classic-2026/results",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "5:21.66", "place": "1st", "notable": [] }
+      { "eventName": "1600m Run", "timeScore": "5:21.66", "place": "1st", "notable": ["pr"] }
     ]
   }
 ]
