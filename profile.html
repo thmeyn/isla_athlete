@@ -63,6 +63,15 @@
 
         <!-- Meet Results Tab -->
         <div id="panelMeetResults">
+            <!-- Filters -->
+            <div class="mb-8 flex gap-4" id="filtersArea">
+                <select id="seasonFilter" onchange="applyFilters()" class="flex-1 px-4 py-2 border border-outline-variant bg-surface text-on-surface font-label-bold text-label-bold uppercase tracking-widest focus:outline-none focus:border-secondary">
+                    <option value="">All Seasons</option>
+                </select>
+                <select id="sportFilter" onchange="applyFilters()" class="flex-1 px-4 py-2 border border-outline-variant bg-surface text-on-surface font-label-bold text-label-bold uppercase tracking-widest focus:outline-none focus:border-secondary">
+                    <option value="">All Sports</option>
+                </select>
+            </div>
             <div class="space-y-6" id="resultsContainer">
                 <!-- Meets loaded dynamically -->
             </div>
@@ -122,16 +131,55 @@
             });
         }
 
-        // Load results data from JSON
+        let allMeets = [];
+        let activeSeason = null;
+        let activeSport = null;
+
         fetch('data/results.json')
             .then(response => response.json())
-            .then(data => renderResults(data))
+            .then(data => {
+                allMeets = data;
+                buildFilters(data);
+                renderResults(data);
+            })
             .catch(error => console.error('Error loading results:', error));
 
         fetch('data/academics.json')
             .then(response => response.json())
             .then(data => renderAchievements(data))
             .catch(error => console.error('Error loading achievements:', error));
+
+        function buildFilters(meets) {
+            const seasons = [...new Set(meets.map(m => m.season))].sort().reverse();
+            const sports  = [...new Set(meets.map(m => m.sport))].sort();
+
+            const seasonSel = document.getElementById('seasonFilter');
+            const sportSel  = document.getElementById('sportFilter');
+
+            seasons.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s;
+                opt.textContent = s + ' Season';
+                seasonSel.appendChild(opt);
+            });
+
+            sports.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s;
+                opt.textContent = s;
+                sportSel.appendChild(opt);
+            });
+        }
+
+        function applyFilters() {
+            const season = document.getElementById('seasonFilter').value;
+            const sport  = document.getElementById('sportFilter').value;
+            const filtered = allMeets.filter(m =>
+                (!season || m.season === season) &&
+                (!sport  || m.sport  === sport)
+            );
+            renderResults(filtered);
+        }
 
         function renderAchievements(items) {
             const container = document.getElementById('achievementsContainer');
@@ -173,9 +221,12 @@
             });
 
             const sortedSeasons = Object.keys(grouped).sort().reverse();
+            const multipleSeason = sortedSeasons.length > 1;
 
             container.innerHTML = sortedSeasons.map(season => {
-                const sportsHtml = Object.keys(grouped[season]).map(sport => {
+                const sportsInSeason = Object.keys(grouped[season]);
+                const multipleSport = sportsInSeason.length > 1;
+                const sportsHtml = sportsInSeason.map(sport => {
                     const meetsHtml = grouped[season][sport].map(meet => {
                         const dateStr = new Date(meet.date + 'T12:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
                         const linkHtml = meet.link
@@ -225,13 +276,13 @@
                     }).join('');
                     return `
                         <div class="mb-8">
-                            <h3 class="font-label-bold text-label-bold uppercase tracking-widest text-secondary mb-4 pb-2 border-b border-outline-variant">${sport}</h3>
+                            ${multipleSport ? `<h3 class="font-label-bold text-label-bold uppercase tracking-widest text-secondary mb-4 pb-2 border-b border-outline-variant">${sport}</h3>` : ''}
                             <div class="space-y-6">${meetsHtml}</div>
                         </div>`;
                 }).join('');
                 return `
                     <div class="mb-12">
-                        <h2 class="font-headline-lg text-headline-lg mb-6">${season} Season</h2>
+                        ${multipleSeason ? `<h2 class="font-headline-lg text-headline-lg mb-6">${season} Season</h2>` : ''}
                         ${sportsHtml}
                     </div>`;
             }).join('');
