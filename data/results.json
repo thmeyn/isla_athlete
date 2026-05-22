@@ -37,5 +37,75 @@
         "notable": []
       }
     ]
+  },
+    {
+    "season": "2025-2026",
+    "sport": "Track & Field",
+    "meetName": "Stan Steidel Invitational",
+    "date": "2026-03-28",
+    "location": "Holmes High School - Covington, KY",
+    "link": "https://ky.milesplit.com/meets/716868-stan-steidel-invitational-2026/results",
+    "events": [
+      {
+        "eventName": "1600m Run",
+        "timeScore": " 5:26.46",
+        "place": "3rd",
+        "notable": []
+      }
+    ]
+  },
+  {
+    "season": "2025-2026",
+    "sport": "Track & Field",
+    "meetName": "Lloyd Invitational",
+    "date": "2026-04-18",
+    "location": "Lloyd Memorial High School - Erlanger, KY",
+    "link": "https://ky.milesplit.com/meets/720750-2026-lloyd-invitational-meet-is-full-2026/results",
+    "events": [
+      {
+        "eventName": "1600m Run",
+        "timeScore": " 5:41.06",
+        "place": "1st",
+        "notable": []
+      }
+    ]
+  },
+  {
+    "season": "2025-2026",
+    "sport": "Track & Field",
+    "meetName": "Campbell County Championship",
+    "date": "2026-04-22",
+    "location": "Highlands Tower Park Track - Fort Thomas, KY",
+    "link": "https://ky.milesplit.com/meets/720463-campbell-county-championships-2026/results",
+    "events": [
+      {
+        "eventName": "1600m Run",
+        "timeScore": "5:29.75",
+        "place": "1st",
+        "notable": []
+      },
+      {
+        "eventName": "4x800 Relay",
+        "timeScore": "9:00.31",
+        "place": "1st",
+        "notable": []
+      }
+    ]
+  },
+  {
+    "season": "2025-2026",
+    "sport": "Track & Field",
+    "meetName": "NKAC Division I Championships",
+    "date": "2026-04-28",
+    "location": "Notre Dame Academy - Covington, KY",
+    "link": "https://ky.milesplit.com/meets/725628-nkac-division-i-championships-2026/results",
+    "events": [
+      {
+        "eventName": "4x800m Relay",
+        "timeScore": " 9:53.76",
+        "place": "1st",
+        "notable": []
+      }
+    ]
   }
 ]
