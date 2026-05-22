@@ -328,11 +328,16 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Season</label>
-                            <input type="text" id="scheduleSeason" required placeholder="e.g., 2025-2026">
+                            <input type="text" id="scheduleSeason" required placeholder="e.g., 2025-2026" oninput="autoFormatSeason(this)" maxlength="9">
                         </div>
                         <div class="form-group">
                             <label>Sport</label>
-                            <input type="text" id="scheduleSport" required placeholder="e.g., Track & Field">
+                            <select id="scheduleSport" required>
+                                <option value="">Select a sport…</option>
+                                <option value="Track &amp; Field">Track &amp; Field</option>
+                                <option value="Indoor Track &amp; Field">Indoor Track &amp; Field</option>
+                                <option value="Cross Country">Cross Country</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -382,11 +387,16 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Season</label>
-                            <input type="text" id="resultsMeetSeason" required placeholder="e.g., 2024-2025">
+                            <input type="text" id="resultsMeetSeason" required placeholder="e.g., 2025-2026" oninput="autoFormatSeason(this)" maxlength="9">
                         </div>
                         <div class="form-group">
                             <label>Sport</label>
-                            <input type="text" id="resultsMeetSport" required placeholder="e.g., Track & Field">
+                            <select id="resultsMeetSport" required>
+                                <option value="">Select a sport…</option>
+                                <option value="Track &amp; Field">Track &amp; Field</option>
+                                <option value="Indoor Track &amp; Field">Indoor Track &amp; Field</option>
+                                <option value="Cross Country">Cross Country</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -554,6 +564,14 @@
     </div>
 
     <script>
+        function autoFormatSeason(input) {
+            const digits = input.value.replace(/\D/g, '');
+            if (digits.length === 4) {
+                const year = parseInt(digits, 10);
+                input.value = `${year}-${year + 1}`;
+            }
+        }
+
         // Data management
         let scheduleData = [];
         let resultsData = [];

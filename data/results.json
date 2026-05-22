@@ -21,5 +21,21 @@
     "events": [
       { "eventName": "1600m Run", "timeScore": "5:21.66", "place": "1st", "notable": ["pr"] }
     ]
+  },
+  {
+    "season": "2025-2026",
+    "sport": "Track & Field",
+    "meetName": "Boone County Invitational",
+    "date": "2026-03-20",
+    "location": "Boone County High School - Florence, KY",
+    "link": "",
+    "events": [
+      {
+        "eventName": "1600m Run",
+        "timeScore": "05:44:56",
+        "place": "1st",
+        "notable": []
+      }
+    ]
   }
 ]
