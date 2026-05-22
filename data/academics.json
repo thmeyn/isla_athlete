@@ -1,23 +1,26 @@
 [
   {
-    "id": 1,
-    "awardName": "All-State Selection",
-    "description": "Recognized for exceptional athletic performance at the state level",
+    "awardName": "Promoted to Varsity",
+    "description": "Promoted to varsity after the first meet of freshman year Cross Country season",
     "date": "2024",
     "category": "athletic"
   },
   {
-    "id": 2,
-    "awardName": "Academic Excellence Award",
-    "description": "Honored for maintaining 4.0 GPA while competing at elite level",
-    "date": "2024",
-    "category": "academic"
+    "awardName": "State Championship Qualifier",
+    "description": "Qualified and competed in the KHSAA State Championship in the 4x800 relay, freshman year Outdoor Track season",
+    "date": "2025",
+    "category": "athletic"
   },
   {
-    "id": 3,
-    "awardName": "National Championship Podium Finish",
-    "description": "Top 5 finish at national-level competition",
-    "date": "2024",
+    "awardName": "Team MVP",
+    "description": "Named Team MVP for the freshman year Outdoor Track season",
+    "date": "2025",
+    "category": "athletic"
+  },
+  {
+    "awardName": "State Championship Qualifier",
+    "description": "Qualified for the KHSAA State Championship in both the 4x800 relay and the 1600m run, sophomore year Outdoor Track season",
+    "date": "2026",
     "category": "athletic"
   }
 ]

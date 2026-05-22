@@ -57,16 +57,21 @@
         </section>
 
         <!-- GPA and Academic Highlights -->
-        <section class="grid md:grid-cols-3 gap-6 mb-16">
+        <section class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             <div class="card">
-                <p class="font-label-sm text-on-surface-variant uppercase mb-2">Cumulative GPA</p>
-                <p class="font-display-xl text-secondary">4.0</p>
-                <p class="font-label-sm text-on-surface-variant mt-2">Unweighted</p>
+                <p class="font-label-sm text-on-surface-variant uppercase mb-2">Unweighted GPA</p>
+                <p class="font-display-xl text-secondary">3.95</p>
+                <p class="font-label-sm text-on-surface-variant mt-2">Cumulative</p>
+            </div>
+            <div class="card">
+                <p class="font-label-sm text-on-surface-variant uppercase mb-2">Weighted GPA</p>
+                <p class="font-display-xl text-secondary">4.43</p>
+                <p class="font-label-sm text-on-surface-variant mt-2">Cumulative</p>
             </div>
             <div class="card">
                 <p class="font-label-sm text-on-surface-variant uppercase mb-2">Class Rank</p>
-                <p class="font-display-xl text-primary">1/500</p>
-                <p class="font-label-sm text-on-surface-variant mt-2">Top 0.2%</p>
+                <p class="font-display-xl text-primary">50/240</p>
+                <p class="font-label-sm text-on-surface-variant mt-2">Top 21%</p>
             </div>
             <div class="card">
                 <p class="font-label-sm text-on-surface-variant uppercase mb-2">Standardized Tests</p>
@@ -78,8 +83,25 @@
         <!-- Awards and Honors -->
         <section class="mb-16">
             <h2 class="font-headline-lg text-headline-lg mb-8">Awards & Honors</h2>
-            <div class="space-y-4" id="awardsContainer">
-                <!-- Awards will be loaded dynamically -->
+            <div class="space-y-4">
+                <div class="card">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-headline-md text-headline-md mb-2">Award Name</h3>
+                            <p class="font-body-md text-on-surface-variant">Brief description of the award or honor.</p>
+                        </div>
+                        <span class="font-label-bold text-secondary whitespace-nowrap ml-4">2025</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-headline-md text-headline-md mb-2">Award Name</h3>
+                            <p class="font-body-md text-on-surface-variant">Brief description of the award or honor.</p>
+                        </div>
+                        <span class="font-label-bold text-secondary whitespace-nowrap ml-4">2024</span>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -88,23 +110,20 @@
             <h2 class="font-headline-lg text-headline-lg mb-8">Advanced Coursework</h2>
             <div class="grid md:grid-cols-2 gap-4">
                 <div class="bg-surface-container p-6 rounded-lg border border-outline-variant">
-                    <h3 class="font-label-bold text-label-bold uppercase mb-4">STEM</h3>
+                    <h3 class="font-label-bold text-label-bold uppercase mb-4">AP/IB Classes</h3>
                     <ul class="space-y-2 font-body-md text-on-surface-variant">
-                        <li>• AP Calculus BC</li>
-                        <li>• AP Physics C</li>
-                        <li>• AP Chemistry</li>
+                        <li>• AP Human Geography</li>
                         <li>• AP Biology</li>
-                        <li>• AP Computer Science</li>
+                        <li>• AP World History</li>
+                        <li>• AP Seminar</li>
                     </ul>
                 </div>
                 <div class="bg-surface-container p-6 rounded-lg border border-outline-variant">
-                    <h3 class="font-label-bold text-label-bold uppercase mb-4">Humanities</h3>
+                    <h3 class="font-label-bold text-label-bold uppercase mb-4">Honors Classes</h3>
                     <ul class="space-y-2 font-body-md text-on-surface-variant">
-                        <li>• AP English Language</li>
-                        <li>• AP English Literature</li>
-                        <li>• AP U.S. History</li>
-                        <li>• AP European History</li>
-                        <li>• AP Spanish Language</li>
+                        <li>• Advanced Geometry</li>
+                        <li>• Advanced Algebra II</li>
+                        <li>• Advanced English</li>
                     </ul>
                 </div>
             </div>
@@ -162,32 +181,5 @@
     </footer>
 
     <script src="js/main.js"></script>
-    <script>
-        // Load academics data from JSON
-        fetch('data/academics.json')
-            .then(response => response.json())
-            .then(data => renderAwards(data))
-            .catch(error => console.error('Error loading awards:', error));
-
-        function renderAwards(awards) {
-            const container = document.getElementById('awardsContainer');
-            if (awards.length === 0) {
-                container.innerHTML = '<div class="card"><p class="text-center text-on-surface-variant">No awards yet.</p></div>';
-                return;
-            }
-            
-            container.innerHTML = awards.map(award => `
-                <div class="card hover:bg-surface-container-low transition-colors">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h3 class="font-headline-md text-headline-md mb-2">${award.awardName}</h3>
-                            <p class="font-body-md text-on-surface-variant">${award.description}</p>
-                        </div>
-                        <span class="text-secondary font-label-bold whitespace-nowrap ml-4">${award.date}</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-    </script>
 </body>
 </html>

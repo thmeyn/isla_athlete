@@ -46,50 +46,34 @@
 
     <main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-24">
         <!-- Hero Title Section -->
-        <section class="mb-16 md:mb-24">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-gutter">
-                <div class="max-w-3xl">
-                    <h1 class="font-display-xl-mobile md:font-display-xl text-4xl md:text-6xl uppercase mb-6">Performance <br class="hidden md:block"/>Records</h1>
-                    <p class="font-body-lg text-on-surface-variant mt-6 max-w-2xl">
-                        A comprehensive log of competitive results, including national rankings, verified times, and high-intensity performance metrics. Driven by precision, fueled by data.
-                    </p>
-                </div>
-                <!-- Stats Summary -->
-                <div class="flex gap-4">
-                    <div class="bg-primary p-6 flex flex-col items-center justify-center min-w-[140px]">
-                        <span class="text-secondary font-display-xl-mobile leading-none">12</span>
-                        <span class="text-on-primary font-label-bold text-[10px] uppercase tracking-tighter mt-2">Podium Finishes</span>
-                    </div>
-                    <div class="bg-surface-container-high p-6 flex flex-col items-center justify-center min-w-[140px] border border-outline-variant">
-                        <span class="text-primary font-display-xl-mobile leading-none">94</span>
-                        <span class="text-on-surface font-label-bold text-[10px] uppercase tracking-tighter mt-2">Best Time</span>
-                    </div>
-                </div>
+        <section class="mb-12">
+            <div class="max-w-3xl">
+                <h1 class="font-display-xl-mobile md:font-display-xl text-4xl md:text-6xl uppercase mb-6">Performance <br class="hidden md:block"/>Records</h1>
+                <p class="font-body-lg text-on-surface-variant mt-6 max-w-2xl">
+                    A comprehensive log of competitive results, verified times, and athletic achievements.
+                </p>
             </div>
         </section>
 
-        <!-- Results by Meet -->
-        <section class="mb-16">
+        <!-- Tabs -->
+        <div class="border-b border-outline-variant mb-12 flex gap-8">
+            <button id="tabMeetResults" onclick="switchTab('meetResults')" class="font-label-bold text-label-bold uppercase tracking-widest pb-3 border-b-2 border-secondary text-secondary transition-colors">Meet Results</button>
+            <button id="tabAchievements" onclick="switchTab('achievements')" class="font-label-bold text-label-bold uppercase tracking-widest pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-secondary transition-colors">Achievements</button>
+        </div>
+
+        <!-- Meet Results Tab -->
+        <div id="panelMeetResults">
             <div class="space-y-6" id="resultsContainer">
                 <!-- Meets loaded dynamically -->
             </div>
-        </section>
+        </div>
 
-        <!-- Statistics Grid -->
-        <section class="grid md:grid-cols-3 gap-6">
-            <div class="card">
-                <p class="font-label-sm text-on-surface-variant uppercase mb-2">Personal Best</p>
-                <p class="font-display-xl text-primary">94.2s</p>
+        <!-- Achievements Tab -->
+        <div id="panelAchievements" class="hidden">
+            <div class="space-y-4" id="achievementsContainer">
+                <!-- Loaded dynamically -->
             </div>
-            <div class="card">
-                <p class="font-label-sm text-on-surface-variant uppercase mb-2">Event PRs</p>
-                <p class="font-display-xl text-secondary">8</p>
-            </div>
-            <div class="card">
-                <p class="font-label-sm text-on-surface-variant uppercase mb-2">National Rank</p>
-                <p class="font-display-xl text-primary">#47</p>
-            </div>
-        </section>
+        </div>
     </main>
 
     <!-- Page Navigation -->
@@ -125,11 +109,48 @@
 
     <script src="js/main.js"></script>
     <script>
+        function switchTab(tab) {
+            const tabs = { meetResults: 'panelMeetResults', achievements: 'panelAchievements' };
+            const buttons = { meetResults: 'tabMeetResults', achievements: 'tabAchievements' };
+            Object.keys(tabs).forEach(key => {
+                document.getElementById(tabs[key]).classList.toggle('hidden', key !== tab);
+                const btn = document.getElementById(buttons[key]);
+                btn.classList.toggle('border-secondary', key === tab);
+                btn.classList.toggle('text-secondary', key === tab);
+                btn.classList.toggle('border-transparent', key !== tab);
+                btn.classList.toggle('text-on-surface-variant', key !== tab);
+            });
+        }
+
         // Load results data from JSON
         fetch('data/results.json')
             .then(response => response.json())
             .then(data => renderResults(data))
             .catch(error => console.error('Error loading results:', error));
+
+        fetch('data/academics.json')
+            .then(response => response.json())
+            .then(data => renderAchievements(data))
+            .catch(error => console.error('Error loading achievements:', error));
+
+        function renderAchievements(items) {
+            const container = document.getElementById('achievementsContainer');
+            if (!items.length) {
+                container.innerHTML = '<div class="card"><p class="text-center text-on-surface-variant">No achievements yet.</p></div>';
+                return;
+            }
+            container.innerHTML = items.map(item => `
+                <div class="card">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-headline-md text-headline-md mb-2">${item.awardName}</h3>
+                            <p class="font-body-md text-on-surface-variant">${item.description}</p>
+                        </div>
+                        <span class="font-label-bold text-secondary whitespace-nowrap ml-4">${item.date}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
 
         function medalFor(place) {
             return {'1st': '🥇 ', '2nd': '🥈 ', '3rd': '🥉 '}[place.trim()] || '';
