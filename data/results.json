@@ -2,6 +2,18 @@
   {
     "season": "2025-2026",
     "sport": "Track & Field",
+    "meetName": "Class 3A KHSAA Track & Field State Championship",
+    "date": "2026-05-23",
+    "location": "UK Track & Field Complex • Lexington, KY",
+    "link": "https://ky.milesplit.com/meets/745058-class-3a-khsaa-track-and-field-state-championship-2026/info",
+    "events": [
+      { "eventName": "4x800m Relay", "timeScore": "9:55.32", "place": "8th", "notable": [] },
+      { "eventName": "1600m Run", "timeScore": "5:33.05", "place": "16th", "notable": [] }
+    ]
+  },
+  {
+    "season": "2025-2026",
+    "sport": "Track & Field",
     "meetName": "Class 3A Region 5 Track & Field Championships",
     "date": "2025-05-11",
     "location": "Scott High School • Taylor Mill, KY",
