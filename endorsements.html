@@ -167,7 +167,12 @@
                 container.innerHTML = '<div class="card col-span-2"><p class="text-center text-on-surface-variant">No endorsements yet.</p></div>';
                 return;
             }
-            container.innerHTML = endorsements.map(e => `
+            container.innerHTML = endorsements.map((e, i) => {
+                const letterId = `letter-${i}`;
+                const letterHtml = e.fullLetter
+                    ? e.fullLetter.split('\n\n').map(p => `<p class="font-body-md text-on-surface-variant mb-3 last:mb-0">${p}</p>`).join('')
+                    : '';
+                return `
                 <div class="card border border-outline-variant">
                     <div class="mb-4">
                         <p class="font-body-lg text-on-surface mb-4 italic">"${e.quote}"</p>
@@ -177,8 +182,28 @@
                         <p class="font-label-sm text-on-surface-variant">${e.title}</p>
                         ${e.email ? `<a href="mailto:${e.email}" class="font-label-sm text-secondary hover:underline mt-1 inline-block">${e.email}</a>` : ''}
                     </div>
-                </div>
-            `).join('');
+                    ${e.fullLetter ? `
+                    <div class="mt-4 border-t border-outline-variant pt-4">
+                        <button onclick="toggleLetter('${letterId}')" class="font-label-bold text-label-bold text-secondary uppercase tracking-widest flex items-center gap-2 hover:opacity-80 transition-opacity">
+                            <span id="${letterId}-label">Read Full Letter</span>
+                            <span id="${letterId}-arrow" class="transition-transform duration-200">↓</span>
+                        </button>
+                        <div id="${letterId}" class="hidden mt-4 pt-4 border-t border-outline-variant">
+                            ${letterHtml}
+                        </div>
+                    </div>` : ''}
+                </div>`;
+            }).join('');
+        }
+
+        function toggleLetter(id) {
+            const panel = document.getElementById(id);
+            const label = document.getElementById(id + '-label');
+            const arrow = document.getElementById(id + '-arrow');
+            const isOpen = !panel.classList.contains('hidden');
+            panel.classList.toggle('hidden', isOpen);
+            label.textContent = isOpen ? 'Read Full Letter' : 'Collapse Letter';
+            arrow.style.transform = isOpen ? '' : 'rotate(180deg)';
         }
     </script>
 </body>
