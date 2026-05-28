@@ -178,7 +178,7 @@
             container.innerHTML = endorsements.map((e, i) => {
                 const letterId = `letter-${i}`;
                 const letterHtml = e.fullLetter
-                    ? e.fullLetter.split('\n\n').map(p => `<p class="font-body-md text-on-surface-variant mb-3 last:mb-0">${p.replace(/\n/g, '<br>')}</p>`).join('')
+                    ? e.fullLetter.split('\n\n').map(p => `<p class="font-body-md text-on-surface-variant mb-3 last:mb-0">${p}</p>`).join('')
                     : '';
                 return `
                 <div class="card border border-outline-variant">
