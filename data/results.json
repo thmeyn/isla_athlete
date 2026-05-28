@@ -37,49 +37,12 @@
   {
     "season": "2025-2026",
     "sport": "Track & Field",
-    "meetName": "Boone County Opening Relays",
-    "date": "2026-03-20",
-    "location": "Boone County High School - Florence, KY",
-    "link": "https://ky.milesplit.com/meets/706419-boone-co-opening-relays-2026/results",
+    "meetName": "NKAC Division I Championships",
+    "date": "2026-04-28",
+    "location": "Notre Dame Academy - Covington, KY",
+    "link": "https://ky.milesplit.com/meets/725628-nkac-division-i-championships-2026/results",
     "events": [
-      {
-        "eventName": "1600m Run",
-        "timeScore": "05:44:56",
-        "place": "1st",
-        "notable": []
-      }
-    ]
-  },
-    {
-    "season": "2025-2026",
-    "sport": "Track & Field",
-    "meetName": "Stan Steidel Invitational",
-    "date": "2026-03-28",
-    "location": "Holmes High School - Covington, KY",
-    "link": "https://ky.milesplit.com/meets/716868-stan-steidel-invitational-2026/results",
-    "events": [
-      {
-        "eventName": "1600m Run",
-        "timeScore": " 5:26.46",
-        "place": "3rd",
-        "notable": []
-      }
-    ]
-  },
-  {
-    "season": "2025-2026",
-    "sport": "Track & Field",
-    "meetName": "Lloyd Invitational",
-    "date": "2026-04-18",
-    "location": "Lloyd Memorial High School - Erlanger, KY",
-    "link": "https://ky.milesplit.com/meets/720750-2026-lloyd-invitational-meet-is-full-2026/results",
-    "events": [
-      {
-        "eventName": "1600m Run",
-        "timeScore": " 5:41.06",
-        "place": "1st",
-        "notable": []
-      }
+      { "eventName": "4x800m Relay", "timeScore": "9:53.76", "place": "1st", "notable": [] }
     ]
   },
   {
@@ -90,98 +53,41 @@
     "location": "Highlands Tower Park Track - Fort Thomas, KY",
     "link": "https://ky.milesplit.com/meets/720463-campbell-county-championships-2026/results",
     "events": [
-      {
-        "eventName": "1600m Run",
-        "timeScore": "5:29.75",
-        "place": "1st",
-        "notable": []
-      },
-      {
-        "eventName": "4x800m Relay",
-        "timeScore": "10:00.31",
-        "place": "1st",
-        "notable": []
-      }
+      { "eventName": "1600m Run", "timeScore": "5:29.75", "place": "1st", "notable": [] },
+      { "eventName": "4x800m Relay", "timeScore": "10:00.31", "place": "1st", "notable": [] }
     ]
   },
   {
     "season": "2025-2026",
     "sport": "Track & Field",
-    "meetName": "NKAC Division I Championships",
-    "date": "2026-04-28",
-    "location": "Notre Dame Academy - Covington, KY",
-    "link": "https://ky.milesplit.com/meets/725628-nkac-division-i-championships-2026/results",
+    "meetName": "Lloyd Invitational",
+    "date": "2026-04-18",
+    "location": "Lloyd Memorial High School - Erlanger, KY",
+    "link": "https://ky.milesplit.com/meets/720750-2026-lloyd-invitational-meet-is-full-2026/results",
     "events": [
-      {
-        "eventName": "4x800m Relay",
-        "timeScore": " 9:53.76",
-        "place": "1st",
-        "notable": []
-      }
-    ]
-  },
-   {
-    "season": "2025-2026",
-    "sport": "Cross Country",
-    "meetName": "Saturday Night Lights",
-    "date": "2025-08-23",
-    "location": "Centerville High School - Centerville, OH",
-    "link": "https://oh.milesplit.com/meets/645970-saturday-night-lights-hs-presented-by-nike-and-runners-plus-2025/results/1223142/formatted/",
-    "events": [
-      {
-        "eventName": "5000m Run",
-        "timeScore": " 20:57.30",
-        "place": "28th",
-        "notable": []
-      }
+      { "eventName": "1600m Run", "timeScore": "5:41.06", "place": "1st", "notable": [] }
     ]
   },
   {
     "season": "2025-2026",
-    "sport": "Cross Country",
-    "meetName": "Ryle Invite",
-    "date": "2025-08-30",
-    "location": "Ryle High School - Union, KY",
-    "link": "https://ky.milesplit.com/meets/689169-ryle-invite-2025/results",
+    "sport": "Track & Field",
+    "meetName": "Stan Steidel Invitational",
+    "date": "2026-03-28",
+    "location": "Holmes High School - Covington, KY",
+    "link": "https://ky.milesplit.com/meets/716868-stan-steidel-invitational-2026/results",
     "events": [
-      {
-        "eventName": "5000m Run",
-        "timeScore": " 20:56.10 ",
-        "place": "14th",
-        "notable": []
-      }
+      { "eventName": "1600m Run", "timeScore": "5:26.46", "place": "3rd", "notable": [] }
     ]
   },
   {
     "season": "2025-2026",
-    "sport": "Cross Country",
-    "meetName": "Trinity / Valkyrie Invitational",
-    "date": "2025-09-20",
-    "location": "Trinity - Louisville, K&",
-    "link": "https://ky.milesplit.com/meets/660251-trinity-valkyrie-invitational-2025/results/1210821/formatted/",
+    "sport": "Track & Field",
+    "meetName": "Boone County Opening Relays",
+    "date": "2026-03-20",
+    "location": "Boone County High School - Florence, KY",
+    "link": "https://ky.milesplit.com/meets/706419-boone-co-opening-relays-2026/results",
     "events": [
-      {
-        "eventName": "5000m Run",
-        "timeScore": " 21:19.80",
-        "place": "116th",
-        "notable": []
-      }
-    ]
-  },
-  {
-    "season": "2025-2026",
-    "sport": "Cross Country",
-    "meetName": "Milford XC Invitational",
-    "date": "2025-10-04",
-    "location": "Milford - Milford, OH",
-    "link": "https://oh.milesplit.com/meets/689303-hs-milford-xc-invitational-2025/results/1222282/formatted/",
-    "events": [
-      {
-        "eventName": "5000m Run",
-        "timeScore": "20:14.90",
-        "place": "37th",
-        "notable": []
-      }
+      { "eventName": "1600m Run", "timeScore": "5:44.56", "place": "1st", "notable": [] }
     ]
   },
   {
@@ -192,92 +98,51 @@
     "location": "Idlewild Park - Burlington, KY",
     "link": "https://ky.milesplit.com/meets/692216-2025-nkacst-henry-invite-2025/results/1227152/formatted/",
     "events": [
-      {
-        "eventName": "5000m Run",
-        "timeScore": " 20:42.80",
-        "place": "15th",
-        "notable": []
-      }
+      { "eventName": "5000m Run", "timeScore": "20:42.80", "place": "15th", "notable": [] }
     ]
   },
   {
-    "season": "2024-2025",
+    "season": "2025-2026",
     "sport": "Cross Country",
-    "meetName": "Panda Classic",
-    "date": "2024-08-24",
-    "location": "Williamstown, KY",
-    "link": "https://ky.milesplit.com/meets/609747-panda-classic-2024/results/1063415/raw",
+    "meetName": "Milford XC Invitational",
+    "date": "2025-10-04",
+    "location": "Milford - Milford, OH",
+    "link": "https://oh.milesplit.com/meets/689303-hs-milford-xc-invitational-2025/results/1222282/formatted/",
     "events": [
-      {
-        "eventName": "5000m Run",
-        "timeScore": "25:09",
-        "place": "6th",
-        "notable": []
-      }
+      { "eventName": "5000m Run", "timeScore": "20:14.90", "place": "37th", "notable": [] }
     ]
   },
   {
-    "season": "2024-2025",
+    "season": "2025-2026",
     "sport": "Cross Country",
-    "meetName": "Ryle invitational",
-    "date": "2024-08-31",
-    "location": "Ryle High School - Union, KY",
-    "link": "https://ky.milesplit.com/meets/625880-ryle-invitational-2024/results",
-    "events": [
-      {
-        "eventName": "5000m Run",
-        "timeScore": " 25:52.82 ",
-        "place": "70th",
-        "notable": []
-      }
-    ]
-  },
-  {
-    "season": "2024-2025",
-    "sport": "Cross Country",
-    "meetName": "Mason County Invitational",
-    "date": "2024-09-07",
-    "location": "Mason Athletic Complex - Maysville, KY",
-    "link": "https://ky.milesplit.com/meets/591940-mason-county-invitational-2024/results/1068684/formatted/",
-    "events": [
-      {
-        "eventName": "5000m Run",
-        "timeScore": " 24:02.29",
-        "place": "61st",
-        "notable": []
-      }
-    ]
-  },
-  {
-    "season": "2024-2025",
-    "sport": "Cross Country",
-    "meetName": " Trinity / Valkyrie Invitational",
-    "date": "2024-09-21",
+    "meetName": "Trinity / Valkyrie Invitational",
+    "date": "2025-09-20",
     "location": "Trinity - Louisville, KY",
-    "link": "https://ky.milesplit.com/meets/598802-trinity-valkyrie-invitational-2024/results/1078996/formatted/",
+    "link": "https://ky.milesplit.com/meets/660251-trinity-valkyrie-invitational-2025/results/1210821/formatted/",
     "events": [
-      {
-        "eventName": "5000m Run",
-        "timeScore": " 23:40.21",
-        "place": "101st",
-        "notable": []
-      }
+      { "eventName": "5000m Run", "timeScore": "21:19.80", "place": "116th", "notable": [] }
     ]
   },
   {
-    "season": "2024-2025",
+    "season": "2025-2026",
+    "sport": "Cross Country",
+    "meetName": "Ryle Invite",
+    "date": "2025-08-30",
+    "location": "Ryle High School - Union, KY",
+    "link": "https://ky.milesplit.com/meets/689169-ryle-invite-2025/results",
+    "events": [
+      { "eventName": "5000m Run", "timeScore": "20:56.10", "place": "14th", "notable": [] }
+    ]
+  },
+  {
+    "season": "2025-2026",
     "sport": "Cross Country",
     "meetName": "Saturday Night Lights",
-    "date": "2024-09-29",
+    "date": "2025-08-23",
     "location": "Centerville High School - Centerville, OH",
-    "link": "https://oh.milesplit.com/meets/574694-saturday-night-lights-presented-by-runners-plus-2024/results",
+    "link": "https://oh.milesplit.com/meets/645970-saturday-night-lights-hs-presented-by-nike-and-runners-plus-2025/results/1223142/formatted/",
     "events": [
-      {
-        "eventName": "5000m Run",
-        "timeScore": "25:48.10",
-        "place": "98th",
-        "notable": []
-      }
+      { "eventName": "5000m Run", "timeScore": "20:57.30", "place": "28th", "notable": [] }
     ]
   },
   {
@@ -288,12 +153,62 @@
     "location": "Idlewild Park - Burlington, KY",
     "link": "https://ky.milesplit.com/meets/627280-2024-nkacst-henry-invite-2024/results/1092821/formatted/",
     "events": [
-      {
-        "eventName": "5000m Run",
-        "timeScore": "24:19.00",
-        "place": "54th",
-        "notable": []
-      }
+      { "eventName": "5000m Run", "timeScore": "24:19.00", "place": "54th", "notable": [] }
+    ]
+  },
+  {
+    "season": "2024-2025",
+    "sport": "Cross Country",
+    "meetName": "Saturday Night Lights",
+    "date": "2024-09-29",
+    "location": "Centerville High School - Centerville, OH",
+    "link": "https://oh.milesplit.com/meets/574694-saturday-night-lights-presented-by-runners-plus-2024/results",
+    "events": [
+      { "eventName": "5000m Run", "timeScore": "25:48.10", "place": "98th", "notable": [] }
+    ]
+  },
+  {
+    "season": "2024-2025",
+    "sport": "Cross Country",
+    "meetName": "Trinity / Valkyrie Invitational",
+    "date": "2024-09-21",
+    "location": "Trinity - Louisville, KY",
+    "link": "https://ky.milesplit.com/meets/598802-trinity-valkyrie-invitational-2024/results/1078996/formatted/",
+    "events": [
+      { "eventName": "5000m Run", "timeScore": "23:40.21", "place": "101st", "notable": [] }
+    ]
+  },
+  {
+    "season": "2024-2025",
+    "sport": "Cross Country",
+    "meetName": "Mason County Invitational",
+    "date": "2024-09-07",
+    "location": "Mason Athletic Complex - Maysville, KY",
+    "link": "https://ky.milesplit.com/meets/591940-mason-county-invitational-2024/results/1068684/formatted/",
+    "events": [
+      { "eventName": "5000m Run", "timeScore": "24:02.29", "place": "61st", "notable": [] }
+    ]
+  },
+  {
+    "season": "2024-2025",
+    "sport": "Cross Country",
+    "meetName": "Ryle Invitational",
+    "date": "2024-08-31",
+    "location": "Ryle High School - Union, KY",
+    "link": "https://ky.milesplit.com/meets/625880-ryle-invitational-2024/results",
+    "events": [
+      { "eventName": "5000m Run", "timeScore": "25:52.82", "place": "70th", "notable": [] }
+    ]
+  },
+  {
+    "season": "2024-2025",
+    "sport": "Cross Country",
+    "meetName": "Panda Classic",
+    "date": "2024-08-24",
+    "location": "Williamstown, KY",
+    "link": "https://ky.milesplit.com/meets/609747-panda-classic-2024/results/1063415/raw",
+    "events": [
+      { "eventName": "5000m Run", "timeScore": "25:09", "place": "6th", "notable": [] }
     ]
   }
 ]
