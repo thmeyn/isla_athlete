@@ -5,7 +5,8 @@
     "eventName": "Saturday Night Lights",
     "location": "Centerville, OH",
     "date": "2026-08-29",
-    "status": "upcoming"
+    "status": "upcoming",
+    "link": "https://oh.milesplit.com/meets/710276-saturday-night-lights-hs-2026"
   },
   {
     "season": "2026-2027",
@@ -21,7 +22,8 @@
     "eventName": "Trinity Valkyrie Invitational",
     "location": "Louisville, KY",
     "date": "2026-09-19",
-    "status": "upcoming"
+    "status": "upcoming",
+    "link": "https://ky.milesplit.com/meets/755977-trinity-valkyrie-invitational-2026"
   },
   {
     "season": "2026-2027",
@@ -29,15 +31,17 @@
     "eventName": "Bluegrass Invitational",
     "location": "Lexington, KY",
     "date": "2026-09-26",
-    "status": "upcoming"
+    "status": "upcoming",
+    "link": "https://ky.milesplit.com/meets/740163-bluegrass-invitational-2026"
   },
   {
     "season": "2026-2027",
     "sport": "Cross Country",
-    "eventName": "Conference Championship",
+    "eventName": "Conference Championship (NKAC / St. Henry Invite)",
     "location": "Burlington, KY",
     "date": "2026-10-10",
-    "status": "upcoming"
+    "status": "upcoming",
+    "link": "https://ky.milesplit.com/meets/714527-nkacst-henry-invite-2026"
   },
   {
     "season": "2026-2027",

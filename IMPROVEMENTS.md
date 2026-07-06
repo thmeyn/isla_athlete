@@ -36,7 +36,8 @@ The homepage currently has no `<h1>` — removed along with the "Defining the Ne
 
 - [x] Preliminary fall 2026 XC schedule from Tommy — 7 meets (8/29 through State 10/31) in `data/schedule.json`.
 - [x] 9/5 entry is a squad split (Run for the Gold vs. Ryle Invitational) — marked `status: "tentative"`; update to the actual meet once decided.
-- [ ] Follow-ups as season firms up: Regional location (currently TBA), add MileSplit meet links, official names for Conference/Regional/State entries.
+- [x] MileSplit links added for SNL, Trinity Valkyrie, Bluegrass, and Conference (2026-07-06). Conference identified on MileSplit as NKAC/St. Henry Invite, Burlington 10/10.
+- [ ] Follow-ups as season firms up: Regional location + link (KHSAA not yet posted), State link (not yet posted), resolve 9/5 squad split — links ready for both: Run for the Gold `ky.milesplit.com/meets/733745` (MileSplit lists it in Boston, KY, not Hardin County — verify), Ryle Invite `ky.milesplit.com/meets/755559`.
 
 ---
 
