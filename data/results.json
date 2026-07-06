@@ -1,6 +1,17 @@
 [
   {
     "season": "2025-2026",
+    "sport": "Road Racing",
+    "meetName": "Firecracker 5k",
+    "date": "2026-07-04",
+    "location": "Independence, KY",
+    "link": "https://results.raceroster.com/v3/events/se42ybszpxnzx6yv/race/299463?filter_search=",
+    "events": [
+      { "eventName": "Road 5k", "timeScore": "19:46", "place": "1st", "notable": ["Overall Female"] }
+    ]
+  },
+  {
+    "season": "2025-2026",
     "sport": "Track & Field",
     "meetName": "Class 3A KHSAA Track & Field State Championship",
     "date": "2026-05-23",
@@ -143,6 +154,17 @@
     "link": "https://oh.milesplit.com/meets/645970-saturday-night-lights-hs-presented-by-nike-and-runners-plus-2025/results/1223142/formatted/",
     "events": [
       { "eventName": "5000m Run", "timeScore": "20:57.30", "place": "28th", "notable": [] }
+    ]
+  },
+  {
+    "season": "2024-2025",
+    "sport": "Road Racing",
+    "meetName": "Firecracker 5k",
+    "date": "2025-07-04",
+    "location": "Independence, KY",
+    "link": "https://results.raceroster.com/v3/events/frjkwrhwhd4hexkf/race/233528?filter_search=Isla",
+    "events": [
+      { "eventName": "Road 5k", "timeScore": "21:26", "place": "1st", "notable": ["Female : Age 1-15"] }
     ]
   },
   {
