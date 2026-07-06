@@ -14,7 +14,7 @@
     <link rel="icon" type="image/png" href="images/images.png"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="css/styles.css?v=1"/>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="stylesheet" href="css/tailwind.css?v=1"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JEV517DHM7"></script>
@@ -190,7 +190,7 @@
 
         // Personal bests: fastest time per event across all meets
         const PR_ORDER  = ['800m Run', '1600m Run', '3200m Run', '5000m Run', 'Road 5k', '4x800m Relay'];
-        const PR_LABELS = { '800m Run': '800m', '1600m Run': '1600m', '3200m Run': '3200m', '5000m Run': '5K — Cross Country', 'Road 5k': '5K — Road', '4x800m Relay': '4x800m Relay' };
+        const PR_LABELS = { '800m Run': '800m', '1600m Run': '1600m', '3200m Run': '3200m', '5000m Run': '5K · Cross Country', 'Road 5k': '5K · Road', '4x800m Relay': '4x800m Relay' };
 
         function renderPRs(meets) {
             const prs = {};
