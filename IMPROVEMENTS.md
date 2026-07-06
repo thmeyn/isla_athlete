@@ -22,14 +22,15 @@ Fake-looking template content undermines everything real on the site.
 - [x] Grepped site for remaining artifacts — clean.
 
 ### 2. Restore homepage identity (hero headline)
-**Status:** TODO · **Priority:** Critical · **Effort:** Small
+**Status:** DONE (2026-07-06) · **Priority:** Critical · **Effort:** Small
 
-The homepage currently has no `<h1>` — removed along with the "Defining the Next Generation" tagline. Above the fold must answer: who, what sport, what class year, headline numbers.
-
-- [ ] Add h1 to hero in `index.html`: **"Isla Meyn"** with subhead **"Distance Runner · Class of 2028 · Fort Thomas, KY"** (style consistent with existing display typography; keep the "Recruiting Class of 2028" badge or fold it into the subhead — don't duplicate).
-- [ ] Replace generic hero copy ("raw power with strategic precision… building a legacy") with specific, factual copy naming her sport and top credentials: 1600m 5:21 PR, 2x KHSAA state qualifier, 3.95 GPA. Short — two sentences max.
-- [ ] Fix "on and off the field" → "on and off the track" in the bio section (~line 95).
-- [ ] Bio section ("Meet Isla") copy is also generic — rewrite with her actual story: no prior sports experience → varsity in one meet → team MVP → state qualifier. Coach Brady's letter in `data/endorsements.json` has the raw material (3.5 min 5k improvement, 5:45→5:21 1600m, injury comeback via swim team).
+- [x] Hero h1 "Isla Meyn" + subhead "Distance Runner · Highlands High School · Fort Thomas, KY" + factual blurb (5:21 mile, state qualifier, 4.5 weighted GPA).
+- [x] Bio rewritten from **Isla's own draft** (she wrote two; draft 1 chosen): rising junior, 4.509 weighted GPA, 4 AP exams passed, state-qualifying 4x800 freshman + sophomore years, freshman MVP, ~3.5-min XC improvement, MileSplit Most Improved feature, Tekluve + D1 Training, YMCA lifeguard/swim instructor.
+- [x] Copy style note from Tommy: **no em dashes** — reads as AI-written. Applied site-wide to Claude-drafted copy.
+- [x] Bonus fixes: stat numbers were rendering at 16px site-wide (`font-display-xl` class never existed — real Tailwind sizes now used); hero `h-[921px]` → `min-h-[85vh]`.
+- [x] GPA updated everywhere to current: 4.509 weighted / 3.966 unweighted.
+- [x] Recognition & Awards restored on endorsements page with first real entry: MileSplit KY "Most Improved Girls" XC feature, linked (paywalled but headline/tag visible; upgrade to exact rank if Pro access obtained).
+- [x] Community Involvement section on academics page: YMCA lifeguard/swim instructor + Camp Ernst summer lifeguard (camper there since age 8).
 
 ### 3. Populate the schedule for fall XC season
 **Status:** DONE (2026-07-06, preliminary) · **Priority:** Critical · **Effort:** Small
@@ -44,16 +45,11 @@ The homepage currently has no `<h1>` — removed along with the "Defining the Ne
 ## Phase 2 — Recruiter-scan features
 
 ### 4. Personal Bests strip (auto-computed)
-**Status:** TODO · **Priority:** High · **Effort:** Medium
+**Status:** DONE (2026-07-06) · **Priority:** High · **Effort:** Medium
 
-The single biggest content win. PRs per event with date + meet, computed from `data/results.json` so it never goes stale.
-
-Implementation plan:
-- [ ] Write a `computePRs(meets)` function (can live in `js/main.js` or inline in `profile.html`): for each unique `eventName`, find the minimum parsed time using the existing `parseTime()` logic in `profile.html`. Return `{ eventName, time, meetName, date }`.
-- [ ] Decide which events to feature (suggest: 1600m Run, 800m, 5000m Run XC, Road 5k — confirm list with Tommy). Filter out relays from the headline strip (relay times aren't individual PRs) or label them clearly as relay splits if split data exists.
-- [ ] Render a "Personal Bests" card row at the top of `profile.html` (above the tabs). Style: big time in `--secondary`, event name label, small meet/date caption — mirror the stat-card pattern in `achievements.html` (GPA cards).
-- [ ] Echo top 3 PRs on the homepage "Key Stats" card (see task 12 — do these together).
-- [ ] Edge cases: `parseTime` currently handles `MM:SS.cs` and a malformed `HH:MM:SS`; verify all timeScore values in results.json parse correctly before trusting the min.
+- [x] `renderPRs()` inline in `profile.html`, reuses `parseTime()`. PR strip renders above the tabs: 1600m · 5K Cross Country · 5K Road · 4x800m Relay, each with time, meet, and date. New events appear automatically after the featured four (PR_ORDER/PR_LABELS constants).
+- [x] Homepage Key Stats echo PRs (task 12).
+- [x] All current timeScore values verified parseable.
 
 ### 5. Link MileSplit / Athletic.net profiles
 **Status:** TODO · **Priority:** High · **Effort:** Small (needs URLs from Tommy)
@@ -131,13 +127,11 @@ Implementation plan:
 - [x] Deleted the unused IntersectionObserver / `[data-animate]` block. If subtle fade-ins are wanted later, reintroduce deliberately as part of a design pass.
 
 ### 12. Derive Key Stats from data (stop hardcoding)
-**Status:** TODO · **Priority:** Medium · **Effort:** Small
+**Status:** DONE (2026-07-06) · **Priority:** Medium · **Effort:** Small
 
-"12 Podium Finishes" is hardcoded in `index.html` and will drift from `data/results.json`.
-
-- [ ] On homepage load, fetch `results.json` and compute podium count (places 1st–3rd across all events).
-- [ ] Consider replacing/augmenting the two-stat card with: podium count, GPA, and top PRs (coordinate with task 4's `computePRs` — share the function).
-- [ ] GPA stays hardcoded (not in any data file) — fine, or add a `data/profile.json` for bio-level facts (GPA, grad year, school, MileSplit URL) so all copy pulls from one place. **Decide with Tommy: only worth it if it stays simple.**
+- [x] Homepage Key Stats now 4 cells: 1600m PR, 5K PR (best of XC + road), podium count, weighted GPA. First three computed from `results.json` on load (inline script in `index.html`); static markup values remain as fallback if fetch fails.
+- [x] Hardcoded "12 Podium Finishes" was wrong — verifiable count is 10.
+- [ ] Optional later: `data/profile.json` for bio-level facts (GPA, grad year, MileSplit URL) — revisit with Pages CMS setup (task 14).
 
 ### 13. Retire the admin panel
 **Status:** DONE (2026-07-06) · **Priority:** Medium · **Effort:** Small
@@ -212,3 +206,5 @@ Still open (Tommy's call, not tracked): confirming Coach Brady consents to her p
 | 2026-07-06 | Task 14 added | Pages CMS for no-code editing (old task 14 → 15). Chosen over Decap (needs OAuth server) and paid options (CloudCannon, Squarespace) — free and purpose-built for GitHub Pages + JSON. |
 | 2026-07-06 | Task 16 added | Security hardening approved: passkey + 2FA + scoped app install (Tommy), delete fake admin login (Claude). Task 13 decision made: retire admin panel. Git identity configured (15 partial). |
 | 2026-07-06 | Tasks 1, 11, 13 DONE | Placeholders removed (incl. fake SAT score + extracurriculars, confirmed with Tommy), main.js bugs fixed, admin panel deleted. Claude's half of task 16 complete. |
+| 2026-07-06 | Task 3 DONE | Preliminary fall XC schedule + MileSplit meet links. Recruiting email switched to isla.meyn2028@gmail.com site-wide. Class rank removed (competitive school, number undersells). |
+| 2026-07-06 | Tasks 2, 4, 12 DONE | Hero identity, PR strip, derived stats. Bio from Isla's own draft. GPA current (4.509W/3.966UW). MileSplit Most Improved recognition added (featured-in phrasing; rank unverified behind paywall). Copy rule: no em dashes. Pages deploys flaky today (3 failures) — empty-commit retry works. |
