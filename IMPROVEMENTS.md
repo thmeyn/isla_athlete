@@ -148,7 +148,24 @@ Implementation plan:
 - [ ] Alternative if a web editor is wanted: Decap CMS (free, git-backed, works with GitHub Pages) — separate project, scope later.
 - [ ] **Ask Tommy before deleting** — confirm nobody uses the panel.
 
-### 14. Deploy hygiene: 404, favicon, JSON validation
+### 14. Pages CMS for no-code content editing
+**Status:** TODO · **Priority:** Medium · **Effort:** Medium
+
+Replace the "edit JSON + git push" workflow with [Pages CMS](https://pagescms.org) — free, git-backed, hosted UI with mobile-friendly forms. Every save commits to the repo → GitHub Pages auto-deploys. Tommy can add a meet result from his phone at the meet.
+
+Implementation plan:
+- [ ] Write `.pages.yml` in the repo root defining media config and content schemas for:
+  - `data/results.json` — file collection; fields: season (select), sport (select: Track & Field / Cross Country / Road Racing), meetName, date, location, link, events (list: eventName, timeScore, place, notable list — document the `sq`/`pr` codes + free-text badge convention in field descriptions)
+  - `data/schedule.json` — meetName, date, location, link
+  - `data/academics.json` — awardName, description, date, category
+  - `data/endorsements.json` — quote, name, title, email, fullLetter (textarea)
+- [ ] Validate the schema shapes against the render functions in `profile.html` before finalizing (field names must match exactly).
+- [ ] **Tommy:** install the Pages CMS GitHub App on `thmeyn/isla_athlete` at pagescms.org and log in with GitHub.
+- [ ] Test round-trip: edit a result via CMS UI → verify commit lands → verify deploy → verify page renders.
+- [ ] Coordinate with task 12: if bio-level facts (GPA, grad year, MileSplit URL) move to `data/profile.json`, add it to `.pages.yml` too so nearly all content is CMS-editable. Coursework lists in `achievements.html` remain HTML-only unless also migrated.
+- [ ] Update README with the new editing workflow; consider retiring the admin panel (task 13) at the same time since the CMS replaces it.
+
+### 15. Deploy hygiene: 404, favicon, JSON validation
 **Status:** TODO · **Priority:** Low · **Effort:** Small
 
 - [ ] Add `404.html` (GitHub Pages picks it up automatically) — simple branded page linking home.
@@ -175,3 +192,4 @@ Implementation plan:
 | Date | Task | Notes |
 |------|------|-------|
 | 2026-07-06 | — | File created. Tasks 1–14 catalogued from full site review. |
+| 2026-07-06 | Task 14 added | Pages CMS for no-code editing (old task 14 → 15). Chosen over Decap (needs OAuth server) and paid options (CloudCannon, Squarespace) — free and purpose-built for GitHub Pages + JSON. |
