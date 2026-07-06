@@ -1,0 +1,160 @@
+# Pages CMS configuration (https://pagescms.org/docs/configuration/)
+# Gives mobile-friendly forms for editing the site's data files.
+# Setup: install the Pages CMS GitHub App on this repo (scope to ONLY this
+# repo), then log in at app.pagescms.org with GitHub.
+
+media:
+  input: images
+  output: /images
+
+content:
+  - name: results
+    label: Meet Results
+    type: file
+    path: data/results.json
+    format: json
+    list: true
+    fields:
+      - name: season
+        label: Season
+        type: string
+        required: true
+        description: "School year, e.g. 2026-2027"
+      - name: sport
+        label: Sport
+        type: select
+        required: true
+        options:
+          values: [Track & Field, Cross Country, Indoor Track, Road Racing]
+      - name: meetName
+        label: Meet Name
+        type: string
+        required: true
+      - name: date
+        label: Date
+        type: date
+        required: true
+      - name: location
+        label: Location
+        type: string
+        description: "Venue - City, ST"
+      - name: link
+        label: Results Link
+        type: string
+        description: "MileSplit / RaceRoster / KHSAA results URL"
+      - name: events
+        label: Events
+        type: object
+        list: true
+        fields:
+          - name: eventName
+            label: Event
+            type: string
+            required: true
+            description: "e.g. 1600m Run, 5000m Run, Road 5k, 4x800m Relay"
+          - name: timeScore
+            label: Time
+            type: string
+            required: true
+            description: "e.g. 5:21.66"
+          - name: place
+            label: Place
+            type: string
+            required: true
+            description: "e.g. 1st, 14th"
+          - name: notable
+            label: Badges
+            type: string
+            list: true
+            description: "sq renders a State Qualifier badge, pr renders Personal Record, any other text renders as-is in a purple badge"
+
+  - name: schedule
+    label: Schedule
+    type: file
+    path: data/schedule.json
+    format: json
+    list: true
+    fields:
+      - name: season
+        label: Season
+        type: string
+        required: true
+        description: "School year, e.g. 2026-2027"
+      - name: sport
+        label: Sport
+        type: select
+        required: true
+        options:
+          values: [Track & Field, Cross Country, Indoor Track, Road Racing]
+      - name: eventName
+        label: Meet Name
+        type: string
+        required: true
+      - name: location
+        label: Location
+        type: string
+      - name: date
+        label: Date
+        type: date
+        required: true
+      - name: status
+        label: Status
+        type: select
+        required: true
+        description: "Renders as the badge on the schedule card"
+        options:
+          values: [upcoming, tentative]
+      - name: link
+        label: Meet Info Link
+        type: string
+
+  - name: achievements
+    label: Athletic Achievements
+    type: file
+    path: data/academics.json
+    format: json
+    list: true
+    fields:
+      - name: awardName
+        label: Award
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+      - name: date
+        label: Year
+        type: string
+        required: true
+        description: "Year only, e.g. 2026"
+      - name: category
+        label: Category
+        type: select
+        options:
+          values: [athletic, academic]
+
+  - name: endorsements
+    label: Endorsements
+    type: file
+    path: data/endorsements.json
+    format: json
+    list: true
+    fields:
+      - name: quote
+        label: Pull Quote
+        type: text
+        required: true
+      - name: name
+        label: Name
+        type: string
+        required: true
+      - name: title
+        label: Title
+        type: string
+      - name: email
+        label: Email
+        type: string
+      - name: fullLetter
+        label: Full Letter
+        type: text
+        description: "Optional. Separate paragraphs with a blank line."

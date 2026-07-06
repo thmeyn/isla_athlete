@@ -1,0 +1,26 @@
+name: Validate data files
+
+on:
+  push:
+    paths:
+      - "data/*.json"
+  pull_request:
+    paths:
+      - "data/*.json"
+
+jobs:
+  validate-json:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate JSON syntax
+        run: |
+          for f in data/*.json; do
+            echo "Checking $f"
+            jq empty "$f"
+          done
+      - name: Check required fields
+        run: |
+          # Every meet needs season/sport/meetName/date; every event needs eventName/timeScore/place
+          jq -e 'all(.[]; has("season") and has("sport") and has("meetName") and has("date") and (.events | all(has("eventName") and has("timeScore") and has("place"))))' data/results.json
+          jq -e 'all(.[]; has("season") and has("sport") and has("eventName") and has("date") and has("status"))' data/schedule.json
