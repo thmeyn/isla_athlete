@@ -52,12 +52,10 @@ Fake-looking template content undermines everything real on the site.
 - [x] All current timeScore values verified parseable.
 
 ### 5. Link MileSplit / Athletic.net profiles
-**Status:** TODO · **Priority:** High · **Effort:** Small (needs URLs from Tommy)
+**Status:** DONE (2026-07-06) · **Priority:** High · **Effort:** Small
 
-Recruiters verify times on MileSplit anyway; direct links signal transparency.
-
-- [ ] Get Isla's MileSplit profile URL and Athletic.net URL (if she has one) from Tommy.
-- [ ] Add links in two places: (a) homepage Key Stats card or bio section, (b) Results page hero blurb. Small text links or badge-style buttons — not loud.
+- [x] MileSplit profile linked: `ky.milesplit.com/athletes/15029501-isla-meyn` — "MileSplit Profile →" under homepage Key Stats, "Verify on MileSplit →" in Results page hero.
+- [ ] Athletic.net profile: not provided; add later if she has one.
 
 ### 6. Surface the PDF one-pager
 **Status:** TODO · **Priority:** High · **Effort:** Small
