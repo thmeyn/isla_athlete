@@ -4,10 +4,17 @@
     "sport": "Road Racing",
     "meetName": "Firecracker 5k",
     "date": "2026-07-04",
-    "location": "Independence, KY",
+    "location": "Fort Thomas, KY",
     "link": "https://results.raceroster.com/v3/events/se42ybszpxnzx6yv/race/299463?filter_search=",
     "events": [
-      { "eventName": "Road 5k", "timeScore": "19:46", "place": "1st", "notable": ["Overall Female"] }
+      {
+        "eventName": "Road 5k",
+        "timeScore": "19:46",
+        "place": "1st",
+        "notable": [
+          "Overall Female"
+        ]
+      }
     ]
   },
   {
@@ -18,8 +25,16 @@
     "location": "UK Track & Field Complex • Lexington, KY",
     "link": "https://ky.milesplit.com/meets/745058-class-3a-khsaa-track-and-field-state-championship-2026/info",
     "events": [
-      { "eventName": "4x800m Relay", "timeScore": "9:55.32", "place": "8th", "notable": [] },
-      { "eventName": "1600m Run", "timeScore": "5:33.05", "place": "16th", "notable": [] }
+      {
+        "eventName": "4x800m Relay",
+        "timeScore": "9:55.32",
+        "place": "8th"
+      },
+      {
+        "eventName": "1600m Run",
+        "timeScore": "5:33.05",
+        "place": "16th"
+      }
     ]
   },
   {
@@ -30,8 +45,22 @@
     "location": "Scott High School • Taylor Mill, KY",
     "link": "https://khsaa.org/httpdocs/track/2026/outdoor/regionresults/Class%203A%20Region%205%20Results.htm",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "5:23.02", "place": "5th", "notable": ["sq"] },
-      { "eventName": "4x800m Relay", "timeScore": "9:43.89", "place": "1st", "notable": ["sq"] }
+      {
+        "eventName": "1600m Run",
+        "timeScore": "5:23.02",
+        "place": "5th",
+        "notable": [
+          "sq"
+        ]
+      },
+      {
+        "eventName": "4x800m Relay",
+        "timeScore": "9:43.89",
+        "place": "1st",
+        "notable": [
+          "sq"
+        ]
+      }
     ]
   },
   {
@@ -42,7 +71,15 @@
     "location": "Scott High School • Taylor Mill, KY",
     "link": "https://ky.milesplit.com/meets/725631-scott-eagle-classic-2026/results",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "5:21.66", "place": "1st", "notable": ["pr", "All-State 2nd Team"] }
+      {
+        "eventName": "1600m Run",
+        "timeScore": "5:21.66",
+        "place": "1st",
+        "notable": [
+          "pr",
+          "All-State 2nd Team"
+        ]
+      }
     ]
   },
   {
@@ -53,7 +90,11 @@
     "location": "Notre Dame Academy - Covington, KY",
     "link": "https://ky.milesplit.com/meets/725628-nkac-division-i-championships-2026/results",
     "events": [
-      { "eventName": "4x800m Relay", "timeScore": "9:53.76", "place": "1st", "notable": [] }
+      {
+        "eventName": "4x800m Relay",
+        "timeScore": "9:53.76",
+        "place": "1st"
+      }
     ]
   },
   {
@@ -64,8 +105,16 @@
     "location": "Highlands Tower Park Track - Fort Thomas, KY",
     "link": "https://ky.milesplit.com/meets/720463-campbell-county-championships-2026/results",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "5:29.75", "place": "1st", "notable": [] },
-      { "eventName": "4x800m Relay", "timeScore": "10:02.34", "place": "1st", "notable": [] }
+      {
+        "eventName": "1600m Run",
+        "timeScore": "5:29.75",
+        "place": "1st"
+      },
+      {
+        "eventName": "4x800m Relay",
+        "timeScore": "10:02.34",
+        "place": "1st"
+      }
     ]
   },
   {
@@ -76,7 +125,11 @@
     "location": "Lloyd Memorial High School - Erlanger, KY",
     "link": "https://ky.milesplit.com/meets/720750-2026-lloyd-invitational-meet-is-full-2026/results",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "5:41.06", "place": "1st", "notable": [] }
+      {
+        "eventName": "1600m Run",
+        "timeScore": "5:41.06",
+        "place": "1st"
+      }
     ]
   },
   {
@@ -87,7 +140,11 @@
     "location": "Holmes High School - Covington, KY",
     "link": "https://ky.milesplit.com/meets/716868-stan-steidel-invitational-2026/results",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "5:26.46", "place": "3rd", "notable": [] }
+      {
+        "eventName": "1600m Run",
+        "timeScore": "5:26.46",
+        "place": "3rd"
+      }
     ]
   },
   {
@@ -98,7 +155,11 @@
     "location": "Boone County High School - Florence, KY",
     "link": "https://ky.milesplit.com/meets/706419-boone-co-opening-relays-2026/results",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "5:44.56", "place": "1st", "notable": [] }
+      {
+        "eventName": "1600m Run",
+        "timeScore": "5:44.56",
+        "place": "1st"
+      }
     ]
   },
   {
@@ -109,7 +170,11 @@
     "location": "Idlewild Park - Burlington, KY",
     "link": "https://ky.milesplit.com/meets/692216-2025-nkacst-henry-invite-2025/results/1227152/formatted/",
     "events": [
-      { "eventName": "5000m Run", "timeScore": "20:42.80", "place": "15th", "notable": [] }
+      {
+        "eventName": "5000m Run",
+        "timeScore": "20:42.80",
+        "place": "15th"
+      }
     ]
   },
   {
@@ -120,7 +185,11 @@
     "location": "Milford - Milford, OH",
     "link": "https://oh.milesplit.com/meets/689303-hs-milford-xc-invitational-2025/results/1222282/formatted/",
     "events": [
-      { "eventName": "5000m Run", "timeScore": "20:14.90", "place": "37th", "notable": [] }
+      {
+        "eventName": "5000m Run",
+        "timeScore": "20:14.90",
+        "place": "37th"
+      }
     ]
   },
   {
@@ -131,7 +200,11 @@
     "location": "Trinity - Louisville, KY",
     "link": "https://ky.milesplit.com/meets/660251-trinity-valkyrie-invitational-2025/results/1210821/formatted/",
     "events": [
-      { "eventName": "5000m Run", "timeScore": "21:19.80", "place": "116th", "notable": [] }
+      {
+        "eventName": "5000m Run",
+        "timeScore": "21:19.80",
+        "place": "116th"
+      }
     ]
   },
   {
@@ -142,7 +215,11 @@
     "location": "Ryle High School - Union, KY",
     "link": "https://ky.milesplit.com/meets/689169-ryle-invite-2025/results",
     "events": [
-      { "eventName": "5000m Run", "timeScore": "20:56.10", "place": "14th", "notable": [] }
+      {
+        "eventName": "5000m Run",
+        "timeScore": "20:56.10",
+        "place": "14th"
+      }
     ]
   },
   {
@@ -153,7 +230,11 @@
     "location": "Centerville High School - Centerville, OH",
     "link": "https://oh.milesplit.com/meets/645970-saturday-night-lights-hs-presented-by-nike-and-runners-plus-2025/results/1223142/formatted/",
     "events": [
-      { "eventName": "5000m Run", "timeScore": "20:57.30", "place": "28th", "notable": [] }
+      {
+        "eventName": "5000m Run",
+        "timeScore": "20:57.30",
+        "place": "28th"
+      }
     ]
   },
   {
@@ -164,7 +245,14 @@
     "location": "Independence, KY",
     "link": "https://results.raceroster.com/v3/events/frjkwrhwhd4hexkf/race/233528?filter_search=Isla",
     "events": [
-      { "eventName": "Road 5k", "timeScore": "21:26", "place": "1st", "notable": ["Female : Age 1-15"] }
+      {
+        "eventName": "Road 5k",
+        "timeScore": "21:26",
+        "place": "1st",
+        "notable": [
+          "Female : Age 1-15"
+        ]
+      }
     ]
   },
   {
@@ -175,7 +263,11 @@
     "location": "UK Track & Field Complex • Lexington, KY",
     "link": "https://khsaa.org/track/2025/class3adetailed.htm",
     "events": [
-      { "eventName": "4x800m Relay", "timeScore": "10:19.56", "place": "19th", "notable": [] }
+      {
+        "eventName": "4x800m Relay",
+        "timeScore": "10:19.56",
+        "place": "19th"
+      }
     ]
   },
   {
@@ -186,8 +278,19 @@
     "location": "Scott High School • Taylor Mill, KY",
     "link": "https://ky.milesplit.com/meets/681774-class-3a-region-5-2025/results/1179021",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "5:56.87", "place": "11th", "notable": [] },
-      { "eventName": "4x800m Relay", "timeScore": "10:14.25", "place": "6th", "notable": ["sq"] }
+      {
+        "eventName": "1600m Run",
+        "timeScore": "5:56.87",
+        "place": "11th"
+      },
+      {
+        "eventName": "4x800m Relay",
+        "timeScore": "10:14.25",
+        "place": "6th",
+        "notable": [
+          "sq"
+        ]
+      }
     ]
   },
   {
@@ -198,7 +301,11 @@
     "location": "Cooper High School - Union, KY",
     "link": "https://ky.milesplit.com/meets/647442-nky-freshman-regionalscooper-3200-2025/results/1174625",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "5:48.99", "place": "3rd", "notable": [] }
+      {
+        "eventName": "1600m Run",
+        "timeScore": "5:48.99",
+        "place": "3rd"
+      }
     ]
   },
   {
@@ -209,7 +316,14 @@
     "location": "Scott High School • Taylor Mill, KY",
     "link": "https://ky.milesplit.com/meets/666785-16th-annual-villa-for-life-2025/results/1171534",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "5:45.32", "place": "5th", "notable": ["pr"] }
+      {
+        "eventName": "1600m Run",
+        "timeScore": "5:45.32",
+        "place": "5th",
+        "notable": [
+          "pr"
+        ]
+      }
     ]
   },
   {
@@ -220,7 +334,11 @@
     "location": "Dixie Heights High School - Edgewood, KY",
     "link": "https://ky.milesplit.com/meets/678681-dixie-invite-2025/results/1167638",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "5:49.95", "place": "2nd", "notable": [] }
+      {
+        "eventName": "1600m Run",
+        "timeScore": "5:49.95",
+        "place": "2nd"
+      }
     ]
   },
   {
@@ -231,7 +349,11 @@
     "location": "Bishop Brossart Mustang Athletic Complex - Alexandria, KY",
     "link": "https://ky.milesplit.com/meets/650408-campbell-co-hs-championships-2025/results/1155845",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "5:47.52", "place": "2nd", "notable": [] }
+      {
+        "eventName": "1600m Run",
+        "timeScore": "5:47.52",
+        "place": "2nd"
+      }
     ]
   },
   {
@@ -242,7 +364,11 @@
     "location": "Cincinnati Country Day School - Cincinnati, OH",
     "link": "https://ky.milesplit.com/meets/648260-ccd-invitational-2025/results/1145195",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "5:54.44", "place": "5th", "notable": [] }
+      {
+        "eventName": "1600m Run",
+        "timeScore": "5:54.44",
+        "place": "5th"
+      }
     ]
   },
   {
@@ -253,8 +379,19 @@
     "location": "Holmes High School - Covington, KY",
     "link": "https://ky.milesplit.com/meets/645461-stan-steidel-invitational-2025/results/1132053",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "5:57.43", "place": "9th", "notable": [] },
-      { "eventName": "800m Run", "timeScore": "2:49.52", "place": "18th", "notable": ["pr"] }
+      {
+        "eventName": "1600m Run",
+        "timeScore": "5:57.43",
+        "place": "9th"
+      },
+      {
+        "eventName": "800m Run",
+        "timeScore": "2:49.52",
+        "place": "18th",
+        "notable": [
+          "pr"
+        ]
+      }
     ]
   },
   {
@@ -265,7 +402,11 @@
     "location": "Boone County High School - Florence, KY",
     "link": "https://ky.milesplit.com/meets/634536-boone-co-opening-relays-2025/results/1127101",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "6:04.87", "place": "3rd", "notable": [] }
+      {
+        "eventName": "1600m Run",
+        "timeScore": "6:04.87",
+        "place": "3rd"
+      }
     ]
   },
   {
@@ -276,7 +417,14 @@
     "location": "Cooper High School - Union, KY",
     "link": "https://ky.milesplit.com/meets/623714-northern-kentucky-freshman-regionals-2024/results/1094219",
     "events": [
-      { "eventName": "3200m Run", "timeScore": "15:03.50", "place": "4th", "notable": ["pr"] }
+      {
+        "eventName": "3200m Run",
+        "timeScore": "15:03.50",
+        "place": "4th",
+        "notable": [
+          "pr"
+        ]
+      }
     ]
   },
   {
@@ -287,8 +435,16 @@
     "location": "Norton Healthcare Sports & Learning Center - Louisville, KY",
     "link": "https://ky.milesplit.com/meets/628187-ktccca-presidents-day-weekend-invite-saturday-2025/results/1115629",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "6:14.56", "place": "34th", "notable": [] },
-      { "eventName": "800m Run", "timeScore": "2:58.13", "place": "49th", "notable": [] }
+      {
+        "eventName": "1600m Run",
+        "timeScore": "6:14.56",
+        "place": "34th"
+      },
+      {
+        "eventName": "800m Run",
+        "timeScore": "2:58.13",
+        "place": "49th"
+      }
     ]
   },
   {
@@ -299,7 +455,11 @@
     "location": "Wittenberg University - Springfield, OH",
     "link": "https://ky.milesplit.com/meets/612222-wittenberg-hs-open-1-2025/results/1111345",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "6:29.21", "place": "35th", "notable": [] }
+      {
+        "eventName": "1600m Run",
+        "timeScore": "6:29.21",
+        "place": "35th"
+      }
     ]
   },
   {
@@ -310,7 +470,11 @@
     "location": "Idlewild Park - Burlington, KY",
     "link": "https://ky.milesplit.com/meets/627280-2024-nkacst-henry-invite-2024/results/1092821/formatted/",
     "events": [
-      { "eventName": "5000m Run", "timeScore": "24:19.00", "place": "54th", "notable": [] }
+      {
+        "eventName": "5000m Run",
+        "timeScore": "24:19.00",
+        "place": "54th"
+      }
     ]
   },
   {
@@ -321,7 +485,11 @@
     "location": "Centerville High School - Centerville, OH",
     "link": "https://oh.milesplit.com/meets/574694-saturday-night-lights-presented-by-runners-plus-2024/results",
     "events": [
-      { "eventName": "5000m Run", "timeScore": "25:48.10", "place": "98th", "notable": [] }
+      {
+        "eventName": "5000m Run",
+        "timeScore": "25:48.10",
+        "place": "98th"
+      }
     ]
   },
   {
@@ -332,7 +500,11 @@
     "location": "Trinity - Louisville, KY",
     "link": "https://ky.milesplit.com/meets/598802-trinity-valkyrie-invitational-2024/results/1078996/formatted/",
     "events": [
-      { "eventName": "5000m Run", "timeScore": "23:40.21", "place": "101st", "notable": [] }
+      {
+        "eventName": "5000m Run",
+        "timeScore": "23:40.21",
+        "place": "101st"
+      }
     ]
   },
   {
@@ -343,7 +515,11 @@
     "location": "Mason Athletic Complex - Maysville, KY",
     "link": "https://ky.milesplit.com/meets/591940-mason-county-invitational-2024/results/1068684/formatted/",
     "events": [
-      { "eventName": "5000m Run", "timeScore": "24:02.29", "place": "61st", "notable": [] }
+      {
+        "eventName": "5000m Run",
+        "timeScore": "24:02.29",
+        "place": "61st"
+      }
     ]
   },
   {
@@ -354,7 +530,11 @@
     "location": "Ryle High School - Union, KY",
     "link": "https://ky.milesplit.com/meets/625880-ryle-invitational-2024/results",
     "events": [
-      { "eventName": "5000m Run", "timeScore": "25:52.82", "place": "70th", "notable": [] }
+      {
+        "eventName": "5000m Run",
+        "timeScore": "25:52.82",
+        "place": "70th"
+      }
     ]
   },
   {
@@ -365,7 +545,11 @@
     "location": "Williamstown, KY",
     "link": "https://ky.milesplit.com/meets/609747-panda-classic-2024/results/1063415/raw",
     "events": [
-      { "eventName": "5000m Run", "timeScore": "25:09", "place": "6th", "notable": [] }
+      {
+        "eventName": "5000m Run",
+        "timeScore": "25:09",
+        "place": "6th"
+      }
     ]
   }
 ]
