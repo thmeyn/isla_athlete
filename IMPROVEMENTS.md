@@ -66,18 +66,10 @@ Fake-looking template content undermines everything real on the site.
 - [ ] Add a "Download Athletic Profile (PDF)" button — suggest homepage hero area and/or nav Contact area. One prominent placement, not five.
 
 ### 7. Open Graph / social preview tags
-**Status:** TODO · **Priority:** High · **Effort:** Small
+**Status:** DONE (2026-07-06) · **Priority:** High · **Effort:** Small
 
-No OG tags exist. When the link is texted/emailed to a coach, the preview card is the first impression.
-
-- [ ] Add to `<head>` of all 5 public pages (index, profile, schedule, achievements, endorsements):
-  - `og:title` — e.g. "Isla Meyn | Class of 2028 Distance Runner"
-  - `og:description` — one line with PRs + GPA
-  - `og:image` — absolute URL to a strong photo, 1200×630 crop (may need to create; see task 8)
-  - `og:url`, `og:type` (`profile` or `website`)
-  - `twitter:card` = `summary_large_image`
-- [ ] Per-page titles/descriptions (Results page describes results, etc.).
-- [ ] Validate with an OG preview tool after deploy.
+- [x] OG + description meta on all 5 pages, per-page titles/descriptions, `og:image` = `images/og-image.jpg` (1200×630 crop of hero photo).
+- [ ] Swap og-image for a stronger race photo when task 8 delivers; re-validate with an OG preview tool.
 
 ### 8. Add race photos
 **Status:** TODO · **Priority:** High · **Effort:** Small (needs photos from Tommy)
@@ -93,7 +85,9 @@ One photo site-wide (`images/IMG_5202.jpg`). Visual proof matters more than copy
 ## Phase 3 — Infrastructure & hygiene
 
 ### 9. Replace Tailwind CDN with precompiled CSS
-**Status:** TODO · **Priority:** Medium · **Effort:** Medium
+**Status:** DONE (2026-07-06) · **Priority:** Medium · **Effort:** Medium
+
+Done via `npx tailwindcss@3.4.17` (matches CDN v3 behavior; no node_modules). `css/tailwind.css` (12.7KB min) linked after styles.css on all pages. Rebuild with `npm run build:css` after adding new Tailwind classes. All pages visually verified against pre-swap screenshots. Original plan below for reference:
 
 All pages load `https://cdn.tailwindcss.com` — the dev-only, compile-in-browser build. Slow, logs a console warning, breaks if CDN is unreachable.
 
@@ -107,15 +101,11 @@ Implementation plan:
 - [ ] Verify visually on every page before committing — the CDN build allows arbitrary classes; the compiled build only includes classes present at build time. Dynamic classes built in JS strings (e.g. in `profile.html` render functions) must be safelisted or present in scanned files.
 
 ### 10. Optimize hero image
-**Status:** TODO · **Priority:** Medium · **Effort:** Small
+**Status:** DONE (2026-07-06) · **Priority:** Medium · **Effort:** Small
 
-`images/IMG_5202.jpg` is 458KB; hero uses fixed `h-[921px]`.
-
-- [ ] Convert to WebP at reasonable width (~1600px, quality ~80): `cwebp` or `sips` + ImageMagick. Target under 120KB. Keep JPEG as fallback via `<picture>` if desired, or just swap (WebP support is universal now).
-- [ ] Add explicit `width`/`height` attributes (prevents layout shift).
-- [ ] Add `fetchpriority="high"` to the hero img (it's the LCP element).
-- [x] ~~Change `h-[921px]` → `min-h-[85vh]`~~ — DONE 2026-07-06.
-- [ ] Same pipeline for any new photos (task 8).
+- [x] No WebP encoder on this machine (no cwebp/ImageMagick; sips won't write webp). Used optimized JPEG instead: `images/hero.jpg`, 1600px q55, 234KB (from 458KB) — artifacts hidden by the hero's dark overlay. Original kept as `IMG_5202.jpg` for future re-encodes.
+- [x] `width`/`height` + `fetchpriority="high"` on hero img; `min-h-[85vh]`.
+- [ ] Same pipeline for any new photos (task 8): `sips -Z 1600 -s format jpeg -s formatOptions 55`.
 
 ### 11. Fix js/main.js bugs
 **Status:** DONE (2026-07-06) · **Priority:** Medium · **Effort:** Small
@@ -147,7 +137,7 @@ Implementation plan:
 Replace the "edit JSON + git push" workflow with [Pages CMS](https://pagescms.org) — free, git-backed, hosted UI with mobile-friendly forms. Every save commits to the repo → GitHub Pages auto-deploys. Tommy can add a meet result from his phone at the meet.
 
 Implementation plan:
-- [ ] Write `.pages.yml` in the repo root defining media config and content schemas for (field names verified against actual data 2026-07-06 — re-verify against the JSON files before writing config):
+- [x] `.pages.yml` written 2026-07-06 (schemas for all four data files, verified field names, badge conventions documented in field descriptions). Validate against Pages CMS on first login; original schema notes below:
   - `data/results.json` — fields: season, sport (select: Track & Field / Cross Country / Road Racing), meetName, date, location, link, events (list: eventName, timeScore, place, notable list — `sq` renders "State Qualifier" badge, `pr` renders "Personal Record", any other string renders as-is in a purple badge; document in field descriptions)
   - `data/schedule.json` — fields: season, sport, eventName, location, date, status (select: upcoming / tentative — status text renders as the card badge), link (optional)
   - `data/academics.json` — fields: awardName, description, date, category (currently all "athletic"; renders on Results page Achievements tab, despite the filename)
@@ -159,17 +149,13 @@ Implementation plan:
 - [ ] Update README with the new editing workflow (admin panel already retired, task 13).
 
 ### 15. Deploy hygiene: 404, favicon, JSON validation
-**Status:** TODO · **Priority:** Low · **Effort:** Small
+**Status:** DONE (2026-07-06) · **Priority:** Low · **Effort:** Small
 
-- [ ] Add `404.html` (GitHub Pages picks it up automatically) — simple branded page linking home.
-- [ ] Verify favicon: pages don't declare one; browsers request `/favicon.ico` (404s now). Generate from `images/images.png` bluebird logo; add `<link rel="icon">` to all pages.
-- [ ] Add GitHub Action to validate JSON on push — a stray comma in `results.json` silently blanks the Results page:
-  ```yaml
-  # .github/workflows/validate.yml
-  # on: push → for f in data/*.json; do jq empty "$f"; done
-  ```
-- [ ] Remove the no-cache meta tags (`Cache-Control`, `Pragma`, `Expires`) from all pages — they fight normal caching; the `?v=1` query strings + `Date.now()` fetch busting already handle staleness. Optional cleanup, low stakes.
-- [x] ~~Set git identity on this machine~~ — DONE 2026-07-06 (GitHub no-reply email configured globally).
+- [x] Branded `404.html` (self-contained inline styles, noindex).
+- [x] Favicon `<link rel="icon">` (bluebird png) on all pages.
+- [x] `.github/workflows/validate.yml`: jq syntax check + required-field assertions on `data/*.json` pushes.
+- [x] No-cache meta tags removed from all pages.
+- [x] Git identity configured (GitHub no-reply email).
 
 ### 16. Security hardening for mobile editing
 **Status:** TODO · **Priority:** High · **Effort:** Small
@@ -218,4 +204,5 @@ Still open (Tommy's call, not tracked): confirming Coach Brady consents to her p
 | 2026-07-06 | Task 3 DONE | Preliminary fall XC schedule + MileSplit meet links. Recruiting email switched to isla.meyn2028@gmail.com site-wide. Class rank removed (competitive school, number undersells). |
 | 2026-07-06 | Tasks 2, 4, 12 DONE | Hero identity, PR strip, derived stats. Bio from Isla's own draft. GPA current (4.509W/3.966UW). MileSplit Most Improved recognition added (featured-in phrasing; rank unverified behind paywall). Copy rule: no em dashes. Pages deploys flaky today (3 failures) — empty-commit retry works. |
 | 2026-07-06 | Results verified vs MileSplit | Full audit of results.json against her MileSplit profile (browser session): 25/26 entries matched exactly; fixed one date (SNL 2024: 9/29→9/28). Added missing history: freshman outdoor 2025 (8 meets, incl. 800m 2:49.52 PR), fall 3200m 15:03.50 PR, freshman indoor 2025 (2 meets, new "Indoor Track" sport group). Site PRs now match MileSplit's PR panel exactly (800/1600/3200/5K). Podium count 10→14 (auto). Relay audit (same day): State 2026, Region 2026, NKAC 2026 verified exact; Campbell 2026 corrected 10:00.31→10:02.34 (typo). Added freshman relays from meet pages: Region 5 2025 4x800 10:14.25 6th (sq) and State 2025 4x800 10:19.56 19th (khsaa.org source; team was at-large qualifier after 6th at region). All results on the site are now verified against primary sources. |
+| 2026-07-06 | Tasks 7, 9, 10, 15 DONE; 14a done | OG tags + og-image, precompiled Tailwind (12.7KB, CDN gone, visually verified), hero image 458→234KB, 404/favicon/JSON-validation action, .pages.yml written. Remaining on task 14: Tommy installs the GitHub App. |
 | 2026-07-06 | Task 5 DONE; MileSplit sweep | MileSplit profile linked (homepage + results). Full review of her ~170 tagged MileSplit articles via Chrome extension (Tommy's Pro login): added All-State T&F 2nd Team + All-Sophomore (2026), All-State XC 3rd Team + All-Sophomore (2025), 2028 Distance Recruits 9th, Final Outdoor Rankings 9th/15th/29th, Most Improved (exact: 23:40.21→20:14.90). Skipped (verified below bar): Returning 5K #92, Impressive Soph #31, Overall 1600m #48, All Events #49, 2028 Returning #27 (stale), National 2028 #528. Hero now leads "All-State miler". Recognition bar: All-State/awards yes; rankings top-15 class-scoped yes; deeper skip. |
