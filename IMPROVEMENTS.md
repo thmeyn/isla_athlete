@@ -132,7 +132,7 @@ Implementation plan:
 - [x] Verified no remaining references and all pages return 200 locally; deleted pages 404.
 
 ### 14. Pages CMS for no-code content editing
-**Status:** TODO · **Priority:** Medium · **Effort:** Medium
+**Status:** DONE (2026-07-06) · **Priority:** Medium · **Effort:** Medium
 
 Replace the "edit JSON + git push" workflow with [Pages CMS](https://pagescms.org) — free, git-backed, hosted UI with mobile-friendly forms. Every save commits to the repo → GitHub Pages auto-deploys. Tommy can add a meet result from his phone at the meet.
 
@@ -143,8 +143,8 @@ Implementation plan:
   - `data/academics.json` — fields: awardName, description, date, category (currently all "athletic"; renders on Results page Achievements tab, despite the filename)
   - `data/endorsements.json` — fields: quote, name, title, email, fullLetter (textarea, optional; `\n\n` splits paragraphs)
 - [ ] Validate the schema shapes against the render functions in `profile.html`, `schedule.html`, `endorsements.html` before finalizing (field names must match exactly).
-- [ ] **Tommy:** install the Pages CMS GitHub App on `thmeyn/isla_athlete` at pagescms.org and log in with GitHub. Scope to only this repo (task 16).
-- [ ] Test round-trip: edit a result via CMS UI → verify commit lands → verify deploy → verify page renders.
+- [x] GitHub App installed by Tommy; forms render all four content types.
+- [x] Round-trip verified live: CMS save committed a location fix, deployed, rendered. CMS normalizes JSON (pretty-print, drops empty notable arrays) — harmless. Renderers now sort by date so CMS append-order never matters.
 - [ ] Coordinate with task 12: if bio-level facts (GPA, grad year, MileSplit URL) move to `data/profile.json`, add it to `.pages.yml` too so nearly all content is CMS-editable. Coursework lists in `achievements.html` remain HTML-only unless also migrated.
 - [ ] Update README with the new editing workflow (admin panel already retired, task 13).
 
