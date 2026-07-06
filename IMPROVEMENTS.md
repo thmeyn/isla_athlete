@@ -72,13 +72,13 @@ The static `docs/Meyn-Isla.pdf` was already stale (predated state meet, All-Stat
 - [ ] Swap og-image for a stronger race photo when task 8 delivers; re-validate with an OG preview tool.
 
 ### 8. Add race photos
-**Status:** TODO · **Priority:** High · **Effort:** Small (needs photos from Tommy)
+**Status:** IN PROGRESS · **Priority:** High · **Effort:** Small (needs photos from Tommy)
 
-One photo site-wide (`images/IMG_5202.jpg`). Visual proof matters more than copy.
+Workflow: Tommy AirDrops originals to `photos-inbox/` (gitignored); Claude reads EXIF/matches to meets, optimizes (`sips -Z 1000 -s format jpeg -s formatOptions 62`), places, commits web versions to `images/`.
 
-- [ ] Get 2–3 photos from Tommy: finish line, relay handoff, podium/medal moments.
-- [ ] Placement suggestions: bio section in `index.html` (currently text-only next to Key Stats), endorsements page header, achievements page. Keep it restrained — one photo per page beyond the homepage.
-- [ ] Optimize before committing (see task 10 — same pipeline).
+- [x] Photo 1 (2026-07-06): Firecracker 5K award photo → homepage bio section with caption "1st Overall Female · Firecracker 5K · July 2026". Key Stats card moved below, full-width 4-across.
+- [ ] 1–2 more photos wanted: finish line / relay handoff → endorsements header and/or achievements page. Keep restrained: one photo per page.
+- [ ] A landscape race shot would make a stronger `og-image` than the current hero crop (task 7 follow-up).
 
 ---
 
