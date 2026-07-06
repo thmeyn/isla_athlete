@@ -192,6 +192,7 @@ Still open (Tommy's call, not tracked): confirming Coach Brady consents to her p
 - **Content lives in** `data/*.json` (results, schedule, academics = athletic achievements, endorsements); rendering is inline `<script>` in each page's HTML, not in js/main.js. Validate JSON before pushing: `python3 -m json.tool data/*.json`.
 - **Facts:** Isla Meyn, Highlands HS, Fort Thomas KY, Class of 2028 (rising junior fall 2026). GPA 4.509 weighted / 3.966 unweighted (as of July 2026). Contact: isla.meyn2028@gmail.com (shared parent/athlete recruiting address). MileSplit: ky.milesplit.com/athletes/15029501-isla-meyn.
 - **Copy review:** Tommy reviews all user-facing copy before push; he and Isla have final voice.
+- **Results audits:** the full procedure for verifying/correcting results against MileSplit/KHSAA/RaceRoster lives in `.claude/skills/verify-results/SKILL.md` (invocable as /verify-results in Claude Code; also human-readable). Run it whenever results are added manually or a season wraps.
 
 ## Progress log
 
