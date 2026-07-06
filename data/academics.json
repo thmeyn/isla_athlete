@@ -22,5 +22,17 @@
     "description": "Qualified for the KHSAA State Championship in both the 4x800 relay and the 1600m run, sophomore year Outdoor Track season",
     "date": "2026",
     "category": "athletic"
+  },
+  {
+    "awardName": "Kentucky All-State Track & Field, Second Team",
+    "description": "Selected to the 2026 Kentucky All-State second team in the 1600 Meter Run",
+    "date": "2026",
+    "category": "athletic"
+  },
+  {
+    "awardName": "Kentucky All-State Track & Field, All-Sophomore Team",
+    "description": "Selected to the 2026 Kentucky All-State sophomore team in the 1600 Meter Run",
+    "date": "2026",
+    "category": "athletic"
   }
 ]
