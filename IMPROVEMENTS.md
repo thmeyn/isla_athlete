@@ -58,12 +58,12 @@ Fake-looking template content undermines everything real on the site.
 - [ ] Athletic.net profile: not provided; add later if she has one.
 
 ### 6. Surface the PDF one-pager
-**Status:** TODO · **Priority:** High · **Effort:** Small
+**Status:** DONE (2026-07-06, approach changed) · **Priority:** High · **Effort:** Small
 
-`docs/Meyn-Isla.pdf` exists but is linked nowhere. Coaches forward one-pagers internally.
+The static `docs/Meyn-Isla.pdf` was already stale (predated state meet, All-State honors, current GPA). Replaced with **`one-pager.html`**: a print-optimized page that renders PRs, honors, academics, and the coach reference from the live data files, so it can never go stale. Workflow: open the page, Print / Save as PDF, attach to intro emails / questionnaires / print for camps.
 
-- [ ] Check the PDF content is current (it's from May 2026 — predates state championship results and Firecracker 5k win). Flag to Tommy if stale.
-- [ ] Add a "Download Athletic Profile (PDF)" button — suggest homepage hero area and/or nav Contact area. One prominent placement, not five.
+- [x] "Printable Profile →" link on homepage Key Stats card (next to MileSplit link).
+- [x] `docs/Meyn-Isla.pdf` left in repo unlinked (archival). Safe to delete whenever.
 
 ### 7. Open Graph / social preview tags
 **Status:** DONE (2026-07-06) · **Priority:** High · **Effort:** Small
@@ -158,14 +158,13 @@ Implementation plan:
 - [x] Git identity configured (GitHub no-reply email).
 
 ### 16. Security hardening for mobile editing
-**Status:** TODO · **Priority:** High · **Effort:** Small
+**Status:** DONE (2026-07-06) · **Priority:** High · **Effort:** Small
 
 Approved by Tommy 2026-07-06. With Pages CMS (task 14), the GitHub account is the only door — the CMS has no separate password; it defers entirely to GitHub auth + repo write access. These steps secure that door for bleacher editing on public wifi.
 
 **Tommy's actions (5 min on phone, do before/during CMS setup):**
-- [ ] Add a passkey to GitHub account (github.com/settings/security) — log in with Face ID, nothing typed over public wifi, phishing-proof.
-- [ ] Confirm 2FA is enabled; download recovery codes and store in iCloud Keychain (recovery path if phone is lost at a meet).
-- [ ] When installing the Pages CMS GitHub App, scope it to **only** `thmeyn/isla_athlete` — not "all repositories" — so worst-case blast radius is one public site.
+- [x] Passkey + 2FA with recovery codes set up (Tommy, 2026-07-06).
+- [x] Pages CMS GitHub App confirmed scoped to only `thmeyn/isla_athlete`.
 
 **Claude's actions:**
 - [x] Deleted the fake admin login (task 13, 2026-07-06).

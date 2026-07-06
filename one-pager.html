@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="Printable athletic profile for Isla Meyn, Class of 2028 distance runner at Highlands High School."/>
+    <meta name="robots" content="noindex"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+    <link rel="icon" type="image/png" href="images/images.png"/>
+    <title>Isla Meyn | Athletic Profile One-Pager</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --ink: #00020a; --red: #bb0027; --gray: #44474f; --line: #c5c6d0; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            color: var(--ink);
+            background: #ebeef0;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .sheet {
+            background: #ffffff;
+            max-width: 8.5in;
+            margin: 24px auto;
+            padding: 0.55in 0.6in;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+        }
+        header { border-bottom: 3px solid var(--red); padding-bottom: 14px; margin-bottom: 16px; }
+        h1 { font-size: 34px; font-weight: 900; letter-spacing: -0.03em; text-transform: uppercase; }
+        .subhead { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--red); margin-top: 2px; }
+        .contact { font-size: 11px; color: var(--gray); margin-top: 6px; }
+        .contact a { color: var(--gray); }
+        h2 {
+            font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+            color: var(--red); border-bottom: 1px solid var(--line); padding-bottom: 4px; margin: 14px 0 8px;
+        }
+        .stat-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+        .stat { text-align: left; }
+        .stat .v { font-size: 20px; font-weight: 900; letter-spacing: -0.02em; color: var(--red); white-space: nowrap; }
+        .stat .l { font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gray); margin-top: 1px; }
+        .stat .m { font-size: 8px; color: var(--gray); }
+        .two-col { display: grid; grid-template-columns: 1.2fr 1fr; gap: 0 24px; }
+        ul { list-style: none; }
+        li.honor { font-size: 11px; padding: 3px 0; border-bottom: 1px dotted var(--line); }
+        li.honor .yr { color: var(--red); font-weight: 700; margin-right: 6px; }
+        .bio, .quote { font-size: 11px; line-height: 1.5; color: var(--ink); }
+        .quote { font-style: italic; color: var(--gray); }
+        .quote-attrib { font-size: 10px; font-weight: 700; margin-top: 4px; color: var(--ink); font-style: normal; }
+        .acad { font-size: 11px; line-height: 1.55; }
+        footer { margin-top: 14px; padding-top: 8px; border-top: 1px solid var(--line); font-size: 9px; color: var(--gray); display: flex; justify-content: space-between; }
+        .printbar { max-width: 8.5in; margin: 16px auto 0; text-align: right; }
+        .printbar button {
+            font-family: inherit; background: var(--red); color: #fff; border: none; cursor: pointer;
+            padding: 10px 24px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 12px;
+        }
+        @media print {
+            body { background: #fff; }
+            .sheet { margin: 0; box-shadow: none; padding: 0; max-width: none; }
+            .printbar { display: none; }
+        }
+        @page { size: letter; margin: 0.5in; }
+    </style>
+</head>
+<body>
+    <div class="printbar"><button onclick="window.print()">Print / Save as PDF</button></div>
+    <div class="sheet">
+        <header>
+            <h1>Isla Meyn</h1>
+            <p class="subhead">Distance Runner · Class of 2028 · Highlands High School · Fort Thomas, KY</p>
+            <p class="contact">
+                <a href="mailto:isla.meyn2028@gmail.com">isla.meyn2028@gmail.com</a> ·
+                <a href="https://islameyn.com">islameyn.com</a> ·
+                MileSplit: <a href="https://ky.milesplit.com/athletes/15029501-isla-meyn">ky.milesplit.com/athletes/15029501-isla-meyn</a>
+            </p>
+        </header>
+
+        <h2>Personal Bests</h2>
+        <div class="stat-grid" id="prGrid"></div>
+
+        <div class="two-col">
+            <div>
+                <h2>Honors &amp; Achievements</h2>
+                <ul id="honorsList"></ul>
+            </div>
+            <div>
+                <h2>Academics</h2>
+                <p class="acad" id="academics">
+                    <strong>4.509 weighted GPA</strong> / 3.966 unweighted (cumulative).<br/>
+                    Passing scores on four AP exams through sophomore year: Human Geography, Biology, World History, Seminar.<br/>
+                    Junior year: AP Research, European History, Language &amp; Composition, Pre-Calculus, US History.
+                </p>
+                <h2>Beyond the Track</h2>
+                <p class="acad">
+                    Supplemental training at Tekulve Acceleration and D1 Training. YMCA lifeguard and swim instructor; summer camp lifeguard at YMCA Camp Ernst, where she was a camper every summer since age 8.
+                </p>
+            </div>
+        </div>
+
+        <h2>Coach Reference</h2>
+        <p class="quote" id="quote"></p>
+        <p class="quote-attrib" id="quoteAttrib"></p>
+
+        <footer>
+            <span>Full verified results, schedule, and references: <strong>islameyn.com</strong></span>
+            <span id="generated"></span>
+        </footer>
+    </div>
+
+    <script>
+        const toSecs = t => { const p = t.trim().split(':'); return parseFloat(p[0]) * 60 + parseFloat(p[1]); };
+        const PR_ORDER  = ['800m Run', '1600m Run', '3200m Run', '5000m Run', 'Road 5k', '4x800m Relay'];
+        const PR_LABELS = { '800m Run': '800m', '1600m Run': '1600m', '3200m Run': '3200m', '5000m Run': '5K (XC)', 'Road 5k': '5K (Road)', '4x800m Relay': '4x800 Relay' };
+
+        fetch('data/results.json?_=' + Date.now()).then(r => r.json()).then(meets => {
+            const prs = {};
+            meets.forEach(m => (m.events || []).forEach(e => {
+                const n = e.eventName.trim(), s = toSecs(e.timeScore);
+                if (isNaN(s)) return;
+                if (!prs[n] || s < prs[n].secs) prs[n] = { secs: s, t: e.timeScore.trim(), meet: m.meetName, date: m.date };
+            }));
+            const names = [...PR_ORDER.filter(n => prs[n]), ...Object.keys(prs).filter(n => !PR_ORDER.includes(n)).sort()];
+            document.getElementById('prGrid').innerHTML = names.map(n => {
+                const p = prs[n];
+                const d = new Date(p.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+                return `<div class="stat"><div class="v">${p.t}</div><div class="l">${PR_LABELS[n] || n}</div><div class="m">${p.meet.length > 26 ? p.meet.slice(0, 24) + '…' : p.meet} · ${d}</div></div>`;
+            }).join('');
+        });
+
+        fetch('data/academics.json?_=' + Date.now()).then(r => r.json()).then(items => {
+            document.getElementById('honorsList').innerHTML = [...items].reverse().map(i =>
+                `<li class="honor"><span class="yr">${i.date}</span>${i.awardName}</li>`
+            ).join('');
+        });
+
+        fetch('data/endorsements.json?_=' + Date.now()).then(r => r.json()).then(es => {
+            if (!es.length) return;
+            const e = es[0];
+            const q = e.quote.length > 320 ? e.quote.slice(0, e.quote.lastIndexOf(' ', 320)) + '…"' : e.quote;
+            document.getElementById('quote').textContent = '"' + q.replace(/^"|"$/g, '') + '"';
+            document.getElementById('quoteAttrib').textContent = e.name + ' · ' + e.title;
+        });
+
+        document.getElementById('generated').textContent = 'Generated ' + new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    </script>
+</body>
+</html>
