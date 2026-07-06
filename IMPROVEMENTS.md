@@ -139,14 +139,15 @@ Implementation plan:
 - [ ] Consider replacing/augmenting the two-stat card with: podium count, GPA, and top PRs (coordinate with task 4's `computePRs` — share the function).
 - [ ] GPA stays hardcoded (not in any data file) — fine, or add a `data/profile.json` for bio-level facts (GPA, grad year, school, MileSplit URL) so all copy pulls from one place. **Decide with Tommy: only worth it if it stays simple.**
 
-### 13. Retire or fix the admin panel
-**Status:** TODO · **Priority:** Low · **Effort:** Small (retire) / Large (fix)
+### 13. Retire the admin panel
+**Status:** TODO · **Priority:** Medium · **Effort:** Small
 
-`admin/panel.html` edits localStorage only — changes never reach the live site (user downloads JSON and commits manually). The password gate is client-side (hash visible in source) and the "Secure Access" footer link invites poking.
+**Decided 2026-07-06: retire it** (Tommy approved as part of security hardening, task 16). `admin/panel.html` edits localStorage only — changes never reach the live site. The password gate is client-side (hash visible in source), so it's decoration, not security, and the "Secure Access" footer link advertises an attack surface. Pages CMS (task 14) replaces it.
 
-- [ ] **Recommend: retire.** Delete `admin/`, `admin-login.html`, `login.html`, and the footer "Secure Access" link. Content edits happen via direct JSON edits + git (current actual workflow with Claude).
-- [ ] Alternative if a web editor is wanted: Decap CMS (free, git-backed, works with GitHub Pages) — separate project, scope later.
-- [ ] **Ask Tommy before deleting** — confirm nobody uses the panel.
+- [ ] Delete `admin/`, `admin-login.html`, and `login.html`.
+- [ ] Remove the "Secure Access" link from the `index.html` footer.
+- [ ] Grep for any other references to the deleted pages before committing.
+- [ ] Sequencing: fine to do immediately — the panel isn't part of the current editing workflow (direct JSON edits + git).
 
 ### 14. Pages CMS for no-code content editing
 **Status:** TODO · **Priority:** Medium · **Effort:** Medium
@@ -176,7 +177,22 @@ Implementation plan:
   # on: push → for f in data/*.json; do jq empty "$f"; done
   ```
 - [ ] Remove the no-cache meta tags (`Cache-Control`, `Pragma`, `Expires`) from all pages — they fight normal caching; the `?v=1` query strings + `Date.now()` fetch busting already handle staleness. Optional cleanup, low stakes.
-- [ ] Set git identity on this machine (commit warning observed): `git config --global user.name / user.email`.
+- [x] ~~Set git identity on this machine~~ — DONE 2026-07-06 (GitHub no-reply email configured globally).
+
+### 16. Security hardening for mobile editing
+**Status:** TODO · **Priority:** High · **Effort:** Small
+
+Approved by Tommy 2026-07-06. With Pages CMS (task 14), the GitHub account is the only door — the CMS has no separate password; it defers entirely to GitHub auth + repo write access. These steps secure that door for bleacher editing on public wifi.
+
+**Tommy's actions (5 min on phone, do before/during CMS setup):**
+- [ ] Add a passkey to GitHub account (github.com/settings/security) — log in with Face ID, nothing typed over public wifi, phishing-proof.
+- [ ] Confirm 2FA is enabled; download recovery codes and store in iCloud Keychain (recovery path if phone is lost at a meet).
+- [ ] When installing the Pages CMS GitHub App, scope it to **only** `thmeyn/isla_athlete` — not "all repositories" — so worst-case blast radius is one public site.
+
+**Claude's action:**
+- [ ] Delete the fake admin login (task 13 — decided, execute it). Client-side password check is security theater and the footer link advertises it.
+
+Out of scope (discussed, Tommy's call, not tracked): switching contact email to a parent-monitored address; confirming Coach Brady consents to her personal email being published in `data/endorsements.json`.
 
 ---
 
@@ -193,3 +209,4 @@ Implementation plan:
 |------|------|-------|
 | 2026-07-06 | — | File created. Tasks 1–14 catalogued from full site review. |
 | 2026-07-06 | Task 14 added | Pages CMS for no-code editing (old task 14 → 15). Chosen over Decap (needs OAuth server) and paid options (CloudCannon, Squarespace) — free and purpose-built for GitHub Pages + JSON. |
+| 2026-07-06 | Task 16 added | Security hardening approved: passkey + 2FA + scoped app install (Tommy), delete fake admin login (Claude). Task 13 decision made: retire admin panel. Git identity configured (15 partial). |
