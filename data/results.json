@@ -65,7 +65,7 @@
     "link": "https://ky.milesplit.com/meets/720463-campbell-county-championships-2026/results",
     "events": [
       { "eventName": "1600m Run", "timeScore": "5:29.75", "place": "1st", "notable": [] },
-      { "eventName": "4x800m Relay", "timeScore": "10:00.31", "place": "1st", "notable": [] }
+      { "eventName": "4x800m Relay", "timeScore": "10:02.34", "place": "1st", "notable": [] }
     ]
   },
   {
@@ -170,12 +170,24 @@
   {
     "season": "2024-2025",
     "sport": "Track & Field",
+    "meetName": "Class 3A KHSAA Track & Field State Championship",
+    "date": "2025-05-31",
+    "location": "UK Track & Field Complex • Lexington, KY",
+    "link": "https://khsaa.org/track/2025/class3adetailed.htm",
+    "events": [
+      { "eventName": "4x800m Relay", "timeScore": "10:19.56", "place": "19th", "notable": [] }
+    ]
+  },
+  {
+    "season": "2024-2025",
+    "sport": "Track & Field",
     "meetName": "Class 3A Region 5 Track & Field Championships",
     "date": "2025-05-21",
     "location": "Scott High School • Taylor Mill, KY",
     "link": "https://ky.milesplit.com/meets/681774-class-3a-region-5-2025/results/1179021",
     "events": [
-      { "eventName": "1600m Run", "timeScore": "5:56.87", "place": "11th", "notable": [] }
+      { "eventName": "1600m Run", "timeScore": "5:56.87", "place": "11th", "notable": [] },
+      { "eventName": "4x800m Relay", "timeScore": "10:14.25", "place": "6th", "notable": ["sq"] }
     ]
   },
   {
