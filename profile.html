@@ -292,6 +292,9 @@
                 return;
             }
 
+            // Sort newest first so entry order in the data file (e.g. CMS appends) never matters
+            meets = [...meets].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
             const grouped = {};
             meets.forEach(meet => {
                 const season = meet.season || 'Other';

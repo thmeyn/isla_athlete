@@ -190,6 +190,9 @@
                 return;
             }
 
+            // Schedule reads soonest-first; entry order in the data file (e.g. CMS appends) never matters
+            events = [...events].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+
             const grouped = {};
             events.forEach(event => {
                 const season = event.season || 'Other';
