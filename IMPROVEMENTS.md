@@ -72,7 +72,7 @@ The static `docs/Meyn-Isla.pdf` was already stale (predated state meet, All-Stat
 - [ ] Swap og-image for a stronger race photo when task 8 delivers; re-validate with an OG preview tool.
 
 ### 8. Add race photos
-**Status:** IN PROGRESS · **Priority:** High · **Effort:** Small (needs photos from Tommy)
+**Status:** DONE (2026-07-06) · **Priority:** High · **Effort:** Small
 
 Workflow: Tommy AirDrops originals to `photos-inbox/` (gitignored); Claude reads EXIF/matches to meets, optimizes (`sips -Z 1000 -s format jpeg -s formatOptions 62`), places, commits web versions to `images/`.
 
