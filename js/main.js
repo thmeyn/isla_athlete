@@ -46,47 +46,4 @@ function setupEventListeners() {
             }
         });
     });
-    
-    // Contact button functionality
-    const contactButton = document.querySelector('button:contains("Contact")');
-    if (contactButton) {
-        contactButton.addEventListener('click', () => {
-            // Open contact modal or scroll to contact section
-            console.log('Contact button clicked');
-        });
-    }
 }
-
-// Utility function: Check if element contains text
-Element.prototype.contains = function(text) {
-    return this.textContent.includes(text);
-};
-
-// Performance monitoring (optional)
-if (window.performance && window.performance.timing) {
-    window.addEventListener('load', () => {
-        const timing = window.performance.timing;
-        const loadTime = timing.loadEventEnd - timing.navigationStart;
-        console.log(`Page loaded in ${loadTime}ms`);
-    });
-}
-
-// Intersection Observer for lazy animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in');
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-// Observe elements with animation class
-document.querySelectorAll('[data-animate]').forEach(el => {
-    observer.observe(el);
-});

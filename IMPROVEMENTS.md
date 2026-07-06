@@ -11,14 +11,15 @@ Statuses: `TODO` · `IN PROGRESS` · `DONE` · `DEFERRED`
 ## Phase 1 — Credibility fixes (do first)
 
 ### 1. Remove placeholder content site-wide
-**Status:** TODO · **Priority:** Critical · **Effort:** Small
+**Status:** DONE (2026-07-06) · **Priority:** Critical · **Effort:** Small
 
 Fake-looking template content undermines everything real on the site.
 
-- [ ] `data/endorsements.json` — delete the 4 placeholder entries ("Coach Name", "Mentor Name", "Training Director", "Team Captain, Former"). Keep only Coach Savannah Brady's real letter. One real letter beats four fake quotes.
-- [ ] `achievements.html` (Awards & Honors section, ~lines 98–115) — remove the two "Award Name / Brief description" placeholder cards. Either populate with real academic awards (honor roll, etc.) or hide the section until there's real content.
-- [ ] `index.html` Extracurricular check — verify "Student Body Vice President", "Debate Team Captain", "Volunteer Coordinator" in `achievements.html` are real, not template leftovers. **Ask Tommy before deleting.**
-- [ ] Grep the whole site for other template artifacts: `grep -rn "Award Name\|Coach Name\|Brief description\|placeholder" --include="*.html" --include="*.json"`
+- [x] `data/endorsements.json` — deleted the 4 placeholder entries; only Coach Savannah Brady's real letter remains.
+- [x] `achievements.html` — removed the Awards & Honors section (two "Award Name" placeholder cards). Re-add the section when real academic awards exist.
+- [x] Extracurricular Leadership section — Tommy confirmed all three entries were template leftovers; section removed.
+- [x] SAT card ("1520") on achievements.html — Tommy confirmed placeholder (she hasn't taken the SAT yet); removed. Class rank 50/240 confirmed real and kept. **Re-add SAT card when she has a real score.**
+- [x] Grepped site for remaining artifacts — clean.
 
 ### 2. Restore homepage identity (hero headline)
 **Status:** TODO · **Priority:** Critical · **Effort:** Small
@@ -123,12 +124,12 @@ Implementation plan:
 - [ ] Same pipeline for any new photos (task 8).
 
 ### 11. Fix js/main.js bugs
-**Status:** TODO · **Priority:** Medium · **Effort:** Small
+**Status:** DONE (2026-07-06) · **Priority:** Medium · **Effort:** Small
 
-- [ ] Delete the contact-button block (~lines 50–57): `document.querySelector('button:contains("Contact")')` is an invalid selector that **throws on every page load**.
-- [ ] Delete the `Element.prototype.contains` override (~lines 60–63): clobbers the native DOM `contains()` method.
-- [ ] Delete or keep the performance-timing logger (harmless, uses deprecated API) — suggest delete.
-- [ ] The IntersectionObserver block observes `[data-animate]` elements; none exist in any page. Either delete it or actually use it (subtle fade-ins could serve the "pop without busy" goal — pair with task 13).
+- [x] Deleted the contact-button block (invalid `:contains` selector that threw on every page load).
+- [x] Deleted the `Element.prototype.contains` override.
+- [x] Deleted the performance-timing logger.
+- [x] Deleted the unused IntersectionObserver / `[data-animate]` block. If subtle fade-ins are wanted later, reintroduce deliberately as part of a design pass.
 
 ### 12. Derive Key Stats from data (stop hardcoding)
 **Status:** TODO · **Priority:** Medium · **Effort:** Small
@@ -140,14 +141,13 @@ Implementation plan:
 - [ ] GPA stays hardcoded (not in any data file) — fine, or add a `data/profile.json` for bio-level facts (GPA, grad year, school, MileSplit URL) so all copy pulls from one place. **Decide with Tommy: only worth it if it stays simple.**
 
 ### 13. Retire the admin panel
-**Status:** TODO · **Priority:** Medium · **Effort:** Small
+**Status:** DONE (2026-07-06) · **Priority:** Medium · **Effort:** Small
 
-**Decided 2026-07-06: retire it** (Tommy approved as part of security hardening, task 16). `admin/panel.html` edits localStorage only — changes never reach the live site. The password gate is client-side (hash visible in source), so it's decoration, not security, and the "Secure Access" footer link advertises an attack surface. Pages CMS (task 14) replaces it.
+**Decided 2026-07-06: retire it** (Tommy approved as part of security hardening, task 16). `admin/panel.html` edited localStorage only — changes never reached the live site. The password gate was client-side (hash visible in source). Pages CMS (task 14) replaces it.
 
-- [ ] Delete `admin/`, `admin-login.html`, and `login.html`.
-- [ ] Remove the "Secure Access" link from the `index.html` footer.
-- [ ] Grep for any other references to the deleted pages before committing.
-- [ ] Sequencing: fine to do immediately — the panel isn't part of the current editing workflow (direct JSON edits + git).
+- [x] Deleted `admin/`, `admin-login.html`, and `login.html`.
+- [x] Removed the "Secure Access" footer link from `index.html` **and** `endorsements.html` (grep found it in both).
+- [x] Verified no remaining references and all pages return 200 locally; deleted pages 404.
 
 ### 14. Pages CMS for no-code content editing
 **Status:** TODO · **Priority:** Medium · **Effort:** Medium
@@ -210,3 +210,4 @@ Out of scope (discussed, Tommy's call, not tracked): switching contact email to 
 | 2026-07-06 | — | File created. Tasks 1–14 catalogued from full site review. |
 | 2026-07-06 | Task 14 added | Pages CMS for no-code editing (old task 14 → 15). Chosen over Decap (needs OAuth server) and paid options (CloudCannon, Squarespace) — free and purpose-built for GitHub Pages + JSON. |
 | 2026-07-06 | Task 16 added | Security hardening approved: passkey + 2FA + scoped app install (Tommy), delete fake admin login (Claude). Task 13 decision made: retire admin panel. Git identity configured (15 partial). |
+| 2026-07-06 | Tasks 1, 11, 13 DONE | Placeholders removed (incl. fake SAT score + extracurriculars, confirmed with Tommy), main.js bugs fixed, admin panel deleted. Claude's half of task 16 complete. |
