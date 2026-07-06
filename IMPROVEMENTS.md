@@ -192,7 +192,9 @@ Approved by Tommy 2026-07-06. With Pages CMS (task 14), the GitHub account is th
 **Claude's action:**
 - [ ] Delete the fake admin login (task 13 — decided, execute it). Client-side password check is security theater and the footer link advertises it.
 
-Out of scope (discussed, Tommy's call, not tracked): switching contact email to a parent-monitored address; confirming Coach Brady consents to her personal email being published in `data/endorsements.json`.
+- [x] Contact email switched to dedicated shared recruiting address `isla.meyn2028@gmail.com` (2026-07-06) — parent+athlete access, keeps scrapers out of her personal inbox.
+
+Still open (Tommy's call, not tracked): confirming Coach Brady consents to her personal email being published in `data/endorsements.json`.
 
 ---
 
