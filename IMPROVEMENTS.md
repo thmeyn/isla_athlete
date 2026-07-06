@@ -32,13 +32,11 @@ The homepage currently has no `<h1>` — removed along with the "Defining the Ne
 - [ ] Bio section ("Meet Isla") copy is also generic — rewrite with her actual story: no prior sports experience → varsity in one meet → team MVP → state qualifier. Coach Brady's letter in `data/endorsements.json` has the raw material (3.5 min 5k improvement, 5:45→5:21 1600m, injury comeback via swim team).
 
 ### 3. Populate the schedule for fall XC season
-**Status:** TODO · **Priority:** Critical · **Effort:** Small (needs data from Tommy)
+**Status:** DONE (2026-07-06, preliminary) · **Priority:** Critical · **Effort:** Small
 
-`data/schedule.json` is `[]`. "Come watch her race" is the #1 recruiter call-to-action.
-
-- [ ] Get fall 2026 cross country meet schedule from Tommy (Highlands High School XC).
-- [ ] Read `schedule.html` first to determine the expected JSON shape before writing entries.
-- [ ] Include: meet name, date, location, and MileSplit meet link where available.
+- [x] Preliminary fall 2026 XC schedule from Tommy — 7 meets (8/29 through State 10/31) in `data/schedule.json`.
+- [x] 9/5 entry is a squad split (Run for the Gold vs. Ryle Invitational) — marked `status: "tentative"`; update to the actual meet once decided.
+- [ ] Follow-ups as season firms up: Regional location (currently TBA), add MileSplit meet links, official names for Conference/Regional/State entries.
 
 ---
 

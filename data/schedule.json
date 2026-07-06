@@ -1,1 +1,58 @@
-[]
+[
+  {
+    "season": "2026-2027",
+    "sport": "Cross Country",
+    "eventName": "Saturday Night Lights",
+    "location": "Centerville, OH",
+    "date": "2026-08-29",
+    "status": "upcoming"
+  },
+  {
+    "season": "2026-2027",
+    "sport": "Cross Country",
+    "eventName": "Central Kentucky Run for the Gold or Ryle Invitational",
+    "location": "Hardin County, KY or Union, KY (squad split)",
+    "date": "2026-09-05",
+    "status": "tentative"
+  },
+  {
+    "season": "2026-2027",
+    "sport": "Cross Country",
+    "eventName": "Trinity Valkyrie Invitational",
+    "location": "Louisville, KY",
+    "date": "2026-09-19",
+    "status": "upcoming"
+  },
+  {
+    "season": "2026-2027",
+    "sport": "Cross Country",
+    "eventName": "Bluegrass Invitational",
+    "location": "Lexington, KY",
+    "date": "2026-09-26",
+    "status": "upcoming"
+  },
+  {
+    "season": "2026-2027",
+    "sport": "Cross Country",
+    "eventName": "Conference Championship",
+    "location": "Burlington, KY",
+    "date": "2026-10-10",
+    "status": "upcoming"
+  },
+  {
+    "season": "2026-2027",
+    "sport": "Cross Country",
+    "eventName": "Regional Championship",
+    "location": "TBA",
+    "date": "2026-10-24",
+    "status": "upcoming"
+  },
+  {
+    "season": "2026-2027",
+    "sport": "Cross Country",
+    "eventName": "State Championship",
+    "location": "Lexington, KY",
+    "date": "2026-10-31",
+    "status": "upcoming"
+  }
+]
