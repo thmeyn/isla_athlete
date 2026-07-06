@@ -169,6 +169,129 @@
   },
   {
     "season": "2024-2025",
+    "sport": "Track & Field",
+    "meetName": "Class 3A Region 5 Track & Field Championships",
+    "date": "2025-05-21",
+    "location": "Scott High School • Taylor Mill, KY",
+    "link": "https://ky.milesplit.com/meets/681774-class-3a-region-5-2025/results/1179021",
+    "events": [
+      { "eventName": "1600m Run", "timeScore": "5:56.87", "place": "11th", "notable": [] }
+    ]
+  },
+  {
+    "season": "2024-2025",
+    "sport": "Track & Field",
+    "meetName": "NKY Freshman Regionals / Cooper 3200",
+    "date": "2025-05-14",
+    "location": "Cooper High School - Union, KY",
+    "link": "https://ky.milesplit.com/meets/647442-nky-freshman-regionalscooper-3200-2025/results/1174625",
+    "events": [
+      { "eventName": "1600m Run", "timeScore": "5:48.99", "place": "3rd", "notable": [] }
+    ]
+  },
+  {
+    "season": "2024-2025",
+    "sport": "Track & Field",
+    "meetName": "16th Annual Villa for Life",
+    "date": "2025-05-10",
+    "location": "Scott High School • Taylor Mill, KY",
+    "link": "https://ky.milesplit.com/meets/666785-16th-annual-villa-for-life-2025/results/1171534",
+    "events": [
+      { "eventName": "1600m Run", "timeScore": "5:45.32", "place": "5th", "notable": ["pr"] }
+    ]
+  },
+  {
+    "season": "2024-2025",
+    "sport": "Track & Field",
+    "meetName": "Dixie Invite",
+    "date": "2025-05-06",
+    "location": "Dixie Heights High School - Edgewood, KY",
+    "link": "https://ky.milesplit.com/meets/678681-dixie-invite-2025/results/1167638",
+    "events": [
+      { "eventName": "1600m Run", "timeScore": "5:49.95", "place": "2nd", "notable": [] }
+    ]
+  },
+  {
+    "season": "2024-2025",
+    "sport": "Track & Field",
+    "meetName": "Campbell County Championship",
+    "date": "2025-04-23",
+    "location": "Bishop Brossart Mustang Athletic Complex - Alexandria, KY",
+    "link": "https://ky.milesplit.com/meets/650408-campbell-co-hs-championships-2025/results/1155845",
+    "events": [
+      { "eventName": "1600m Run", "timeScore": "5:47.52", "place": "2nd", "notable": [] }
+    ]
+  },
+  {
+    "season": "2024-2025",
+    "sport": "Track & Field",
+    "meetName": "CCD Invitational",
+    "date": "2025-04-12",
+    "location": "Cincinnati Country Day School - Cincinnati, OH",
+    "link": "https://ky.milesplit.com/meets/648260-ccd-invitational-2025/results/1145195",
+    "events": [
+      { "eventName": "1600m Run", "timeScore": "5:54.44", "place": "5th", "notable": [] }
+    ]
+  },
+  {
+    "season": "2024-2025",
+    "sport": "Track & Field",
+    "meetName": "Stan Steidel Invitational",
+    "date": "2025-03-29",
+    "location": "Holmes High School - Covington, KY",
+    "link": "https://ky.milesplit.com/meets/645461-stan-steidel-invitational-2025/results/1132053",
+    "events": [
+      { "eventName": "1600m Run", "timeScore": "5:57.43", "place": "9th", "notable": [] },
+      { "eventName": "800m Run", "timeScore": "2:49.52", "place": "18th", "notable": ["pr"] }
+    ]
+  },
+  {
+    "season": "2024-2025",
+    "sport": "Track & Field",
+    "meetName": "Boone County Opening Relays",
+    "date": "2025-03-22",
+    "location": "Boone County High School - Florence, KY",
+    "link": "https://ky.milesplit.com/meets/634536-boone-co-opening-relays-2025/results/1127101",
+    "events": [
+      { "eventName": "1600m Run", "timeScore": "6:04.87", "place": "3rd", "notable": [] }
+    ]
+  },
+  {
+    "season": "2024-2025",
+    "sport": "Track & Field",
+    "meetName": "Northern Kentucky Freshman Regionals",
+    "date": "2024-10-14",
+    "location": "Cooper High School - Union, KY",
+    "link": "https://ky.milesplit.com/meets/623714-northern-kentucky-freshman-regionals-2024/results/1094219",
+    "events": [
+      { "eventName": "3200m Run", "timeScore": "15:03.50", "place": "4th", "notable": ["pr"] }
+    ]
+  },
+  {
+    "season": "2024-2025",
+    "sport": "Indoor Track",
+    "meetName": "KTCCCA President's Day Weekend Invite",
+    "date": "2025-02-15",
+    "location": "Norton Healthcare Sports & Learning Center - Louisville, KY",
+    "link": "https://ky.milesplit.com/meets/628187-ktccca-presidents-day-weekend-invite-saturday-2025/results/1115629",
+    "events": [
+      { "eventName": "1600m Run", "timeScore": "6:14.56", "place": "34th", "notable": [] },
+      { "eventName": "800m Run", "timeScore": "2:58.13", "place": "49th", "notable": [] }
+    ]
+  },
+  {
+    "season": "2024-2025",
+    "sport": "Indoor Track",
+    "meetName": "Wittenberg HS Open #1",
+    "date": "2025-01-11",
+    "location": "Wittenberg University - Springfield, OH",
+    "link": "https://ky.milesplit.com/meets/612222-wittenberg-hs-open-1-2025/results/1111345",
+    "events": [
+      { "eventName": "1600m Run", "timeScore": "6:29.21", "place": "35th", "notable": [] }
+    ]
+  },
+  {
+    "season": "2024-2025",
     "sport": "Cross Country",
     "meetName": "NKAC St. Henry Invite",
     "date": "2024-10-12",
@@ -182,7 +305,7 @@
     "season": "2024-2025",
     "sport": "Cross Country",
     "meetName": "Saturday Night Lights",
-    "date": "2024-09-29",
+    "date": "2024-09-28",
     "location": "Centerville High School - Centerville, OH",
     "link": "https://oh.milesplit.com/meets/574694-saturday-night-lights-presented-by-runners-plus-2024/results",
     "events": [

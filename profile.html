@@ -183,8 +183,8 @@
             .catch(error => console.error('Error loading results:', error));
 
         // Personal bests: fastest time per event across all meets
-        const PR_ORDER  = ['1600m Run', '5000m Run', 'Road 5k', '4x800m Relay'];
-        const PR_LABELS = { '1600m Run': '1600m', '5000m Run': '5K — Cross Country', 'Road 5k': '5K — Road', '4x800m Relay': '4x800m Relay' };
+        const PR_ORDER  = ['800m Run', '1600m Run', '3200m Run', '5000m Run', 'Road 5k', '4x800m Relay'];
+        const PR_LABELS = { '800m Run': '800m', '1600m Run': '1600m', '3200m Run': '3200m', '5000m Run': '5K — Cross Country', 'Road 5k': '5K — Road', '4x800m Relay': '4x800m Relay' };
 
         function renderPRs(meets) {
             const prs = {};
