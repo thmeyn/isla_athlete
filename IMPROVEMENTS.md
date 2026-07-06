@@ -100,8 +100,9 @@ All pages load `https://cdn.tailwindcss.com` — the dev-only, compile-in-browse
 Implementation plan:
 - [ ] Install Tailwind standalone CLI (no node_modules needed: `brew install tailwindcss` or download binary).
 - [ ] Create `tailwind.config.js` capturing the custom tokens currently used in class names (`font-label-bold`, `text-headline-md`, `bg-surface`, `margin-mobile`, `container-max`, etc.). **Audit `css/styles.css` first** — the design tokens (CSS vars like `--secondary`) live there; the config must map Tailwind utilities to them.
+- [ ] **KNOWN GOTCHA (discovered 2026-07-06):** many typography classes in the HTML (`font-display-xl`, `text-display-xl`, `text-headline-md`, `text-label-bold`, `font-body-lg`, etc.) are defined NOWHERE — styles.css defines `.display-xl` (no `font-`/`text-` prefix) and the CDN has no config, so they're silent no-ops. The visible design comes from styles.css element/utility rules plus real Tailwind utilities. Stat numbers were fixed 2026-07-06 with real utilities (`text-5xl font-black`). When precompiling, either define these tokens in the config or sweep the no-op classes from the HTML — do NOT assume they currently do anything.
 - [ ] Build: `tailwindcss -i css/styles.css -o css/tailwind.css --minify` scanning `*.html`.
-- [ ] Replace the CDN `<script>` tag with `<link rel="stylesheet" href="css/tailwind.css">` on all pages (including admin pages if kept).
+- [ ] Replace the CDN `<script>` tag with `<link rel="stylesheet" href="css/tailwind.css">` on all 5 pages (admin pages deleted 2026-07-06).
 - [ ] Add build command to `package.json` scripts. Document in README: "run `npm run build:css` after adding new Tailwind classes."
 - [ ] Verify visually on every page before committing — the CDN build allows arbitrary classes; the compiled build only includes classes present at build time. Dynamic classes built in JS strings (e.g. in `profile.html` render functions) must be safelisted or present in scanned files.
 
@@ -113,7 +114,7 @@ Implementation plan:
 - [ ] Convert to WebP at reasonable width (~1600px, quality ~80): `cwebp` or `sips` + ImageMagick. Target under 120KB. Keep JPEG as fallback via `<picture>` if desired, or just swap (WebP support is universal now).
 - [ ] Add explicit `width`/`height` attributes (prevents layout shift).
 - [ ] Add `fetchpriority="high"` to the hero img (it's the LCP element).
-- [ ] Change `h-[921px]` → `min-h-[85vh]` so it fits laptop viewports.
+- [x] ~~Change `h-[921px]` → `min-h-[85vh]`~~ — DONE 2026-07-06.
 - [ ] Same pipeline for any new photos (task 8).
 
 ### 11. Fix js/main.js bugs
@@ -146,16 +147,16 @@ Implementation plan:
 Replace the "edit JSON + git push" workflow with [Pages CMS](https://pagescms.org) — free, git-backed, hosted UI with mobile-friendly forms. Every save commits to the repo → GitHub Pages auto-deploys. Tommy can add a meet result from his phone at the meet.
 
 Implementation plan:
-- [ ] Write `.pages.yml` in the repo root defining media config and content schemas for:
-  - `data/results.json` — file collection; fields: season (select), sport (select: Track & Field / Cross Country / Road Racing), meetName, date, location, link, events (list: eventName, timeScore, place, notable list — document the `sq`/`pr` codes + free-text badge convention in field descriptions)
-  - `data/schedule.json` — meetName, date, location, link
-  - `data/academics.json` — awardName, description, date, category
-  - `data/endorsements.json` — quote, name, title, email, fullLetter (textarea)
-- [ ] Validate the schema shapes against the render functions in `profile.html` before finalizing (field names must match exactly).
-- [ ] **Tommy:** install the Pages CMS GitHub App on `thmeyn/isla_athlete` at pagescms.org and log in with GitHub.
+- [ ] Write `.pages.yml` in the repo root defining media config and content schemas for (field names verified against actual data 2026-07-06 — re-verify against the JSON files before writing config):
+  - `data/results.json` — fields: season, sport (select: Track & Field / Cross Country / Road Racing), meetName, date, location, link, events (list: eventName, timeScore, place, notable list — `sq` renders "State Qualifier" badge, `pr` renders "Personal Record", any other string renders as-is in a purple badge; document in field descriptions)
+  - `data/schedule.json` — fields: season, sport, eventName, location, date, status (select: upcoming / tentative — status text renders as the card badge), link (optional)
+  - `data/academics.json` — fields: awardName, description, date, category (currently all "athletic"; renders on Results page Achievements tab, despite the filename)
+  - `data/endorsements.json` — fields: quote, name, title, email, fullLetter (textarea, optional; `\n\n` splits paragraphs)
+- [ ] Validate the schema shapes against the render functions in `profile.html`, `schedule.html`, `endorsements.html` before finalizing (field names must match exactly).
+- [ ] **Tommy:** install the Pages CMS GitHub App on `thmeyn/isla_athlete` at pagescms.org and log in with GitHub. Scope to only this repo (task 16).
 - [ ] Test round-trip: edit a result via CMS UI → verify commit lands → verify deploy → verify page renders.
 - [ ] Coordinate with task 12: if bio-level facts (GPA, grad year, MileSplit URL) move to `data/profile.json`, add it to `.pages.yml` too so nearly all content is CMS-editable. Coursework lists in `achievements.html` remain HTML-only unless also migrated.
-- [ ] Update README with the new editing workflow; consider retiring the admin panel (task 13) at the same time since the CMS replaces it.
+- [ ] Update README with the new editing workflow (admin panel already retired, task 13).
 
 ### 15. Deploy hygiene: 404, favicon, JSON validation
 **Status:** TODO · **Priority:** Low · **Effort:** Small
@@ -180,9 +181,8 @@ Approved by Tommy 2026-07-06. With Pages CMS (task 14), the GitHub account is th
 - [ ] Confirm 2FA is enabled; download recovery codes and store in iCloud Keychain (recovery path if phone is lost at a meet).
 - [ ] When installing the Pages CMS GitHub App, scope it to **only** `thmeyn/isla_athlete` — not "all repositories" — so worst-case blast radius is one public site.
 
-**Claude's action:**
-- [ ] Delete the fake admin login (task 13 — decided, execute it). Client-side password check is security theater and the footer link advertises it.
-
+**Claude's actions:**
+- [x] Deleted the fake admin login (task 13, 2026-07-06).
 - [x] Contact email switched to dedicated shared recruiting address `isla.meyn2028@gmail.com` (2026-07-06) — parent+athlete access, keeps scrapers out of her personal inbox.
 
 Still open (Tommy's call, not tracked): confirming Coach Brady consents to her personal email being published in `data/endorsements.json`.
@@ -194,7 +194,18 @@ Still open (Tommy's call, not tracked): confirming Coach Brady consents to her p
 - **Restraint is the brand.** The current aesthetic — big type, red/dark palette, generous whitespace — is good. Add information density, not decoration.
 - **Every number verifiable.** Times link to MileSplit/RaceRoster wherever possible.
 - **No manufactured hype.** Per coach feedback, division-neutral language only (already removed "Division I Prospect"). Facts pop harder than adjectives.
+- **No em dashes in site copy** (Tommy, 2026-07-06): reads as AI-written. Use commas, periods, or restructure. Arrows (→) in UI links are fine.
 - **Mobile first-class.** Coaches open texted links on phones. Test every change at 375px width.
+- **Recognition bar** (set 2026-07-06 during MileSplit sweep): All-State selections and awards always in; class-scoped rankings roughly top-15 in; deeper rankings, watch lists, weekly-marks roundups out.
+
+## Working notes (for any session picking this up)
+
+- **Run locally:** `python3 -m http.server 8000` from the repo root, then http://localhost:8000. Static site, no build step (until task 9).
+- **Deploy:** push to `main` → GitHub Pages "pages build and deployment" workflow → live at islameyn.com in ~1 min. **Deploys flake intermittently** (build succeeds, deploy step fails, ~3x on 2026-07-06). Fix: `git commit --allow-empty -m "Retry Pages deploy" && git push`. Watch status: `curl -s "https://api.github.com/repos/thmeyn/isla_athlete/actions/runs?per_page=1"` (no auth needed; `gh` is not installed on this machine).
+- **Verify live after every push** by curl-grepping islameyn.com for the new content; don't trust the workflow status alone (runs occasionally report under the prior commit's SHA).
+- **Content lives in** `data/*.json` (results, schedule, academics = athletic achievements, endorsements); rendering is inline `<script>` in each page's HTML, not in js/main.js. Validate JSON before pushing: `python3 -m json.tool data/*.json`.
+- **Facts:** Isla Meyn, Highlands HS, Fort Thomas KY, Class of 2028 (rising junior fall 2026). GPA 4.509 weighted / 3.966 unweighted (as of July 2026). Contact: isla.meyn2028@gmail.com (shared parent/athlete recruiting address). MileSplit: ky.milesplit.com/athletes/15029501-isla-meyn.
+- **Copy review:** Tommy reviews all user-facing copy before push; he and Isla have final voice.
 
 ## Progress log
 
