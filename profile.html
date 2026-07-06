@@ -67,6 +67,12 @@
             </div>
         </section>
 
+        <!-- Personal Bests (auto-computed from results) -->
+        <section class="mb-12 hidden" id="prSection">
+            <h2 class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant mb-4">Personal Bests</h2>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6" id="prStrip"></div>
+        </section>
+
         <!-- Tabs -->
         <div class="border-b border-outline-variant mb-12 flex gap-8">
             <button id="tabMeetResults" onclick="switchTab('meetResults')" class="font-label-bold text-label-bold uppercase tracking-widest pb-3 border-b-2 border-secondary text-secondary transition-colors">Meet Results</button>
@@ -171,8 +177,46 @@
                 buildFilters(data);
                 buildMetricFilters(data);
                 renderResults(data);
+                renderPRs(data);
             })
             .catch(error => console.error('Error loading results:', error));
+
+        // Personal bests: fastest time per event across all meets
+        const PR_ORDER  = ['1600m Run', '5000m Run', 'Road 5k', '4x800m Relay'];
+        const PR_LABELS = { '1600m Run': '1600m', '5000m Run': '5K — Cross Country', 'Road 5k': '5K — Road', '4x800m Relay': '4x800m Relay' };
+
+        function renderPRs(meets) {
+            const prs = {};
+            meets.forEach(meet => {
+                (meet.events || []).forEach(e => {
+                    const name = e.eventName.trim();
+                    let secs;
+                    try { secs = parseTime(e.timeScore); } catch (_) { return; }
+                    if (isNaN(secs)) return;
+                    if (!prs[name] || secs < prs[name].secs) {
+                        prs[name] = { secs, time: e.timeScore.trim(), meet: meet.meetName, date: meet.date };
+                    }
+                });
+            });
+
+            const names = [
+                ...PR_ORDER.filter(n => prs[n]),
+                ...Object.keys(prs).filter(n => !PR_ORDER.includes(n)).sort()
+            ];
+            if (!names.length) return;
+
+            document.getElementById('prStrip').innerHTML = names.map(n => {
+                const pr = prs[n];
+                const dateStr = new Date(pr.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+                return `
+                    <div class="card p-4 md:p-6">
+                        <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-2">${PR_LABELS[n] || n}</p>
+                        <p class="text-xl md:text-3xl lg:text-4xl font-black tracking-tight text-secondary whitespace-nowrap">${pr.time}</p>
+                        <p class="font-label-sm text-label-sm text-on-surface-variant mt-2">${pr.meet} · ${dateStr}</p>
+                    </div>`;
+            }).join('');
+            document.getElementById('prSection').classList.remove('hidden');
+        }
 
         fetch('data/academics.json?_=' + Date.now())
             .then(response => response.json())
