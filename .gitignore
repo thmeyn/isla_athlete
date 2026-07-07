@@ -143,3 +143,5 @@ vite.config.ts.timestamp-*
 .vite/
 photos-inbox/
 .DS_Store
+videos-inbox/
+video-review/
