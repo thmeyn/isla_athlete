@@ -185,6 +185,7 @@ Still open (Tommy's call, not tracked): confirming Coach Brady consents to her p
 
 ## Working notes (for any session picking this up)
 
+- **CSS cache-busting:** after rebuilding `css/tailwind.css`, bump the `?v=N` query on the stylesheet link in all 5 pages or clients keep the stale build for ~10 min (or indefinitely on mobile).
 - **Run locally:** `python3 -m http.server 8000` from the repo root, then http://localhost:8000. Static site, no build step (until task 9).
 - **Deploy:** push to `main` → GitHub Pages "pages build and deployment" workflow → live at islameyn.com in ~1 min. **Deploys flake intermittently** (build succeeds, deploy step fails, ~3x on 2026-07-06). Fix: `git commit --allow-empty -m "Retry Pages deploy" && git push`. Watch status: `curl -s "https://api.github.com/repos/thmeyn/isla_athlete/actions/runs?per_page=1"` (no auth needed; `gh` is not installed on this machine).
 - **Verify live after every push** by curl-grepping islameyn.com for the new content; don't trust the workflow status alone (runs occasionally report under the prior commit's SHA).
