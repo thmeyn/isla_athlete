@@ -82,13 +82,13 @@
 
         <!-- Tabs -->
         <div class="border-b border-outline-variant mb-12 flex gap-8">
-            <button id="tabMeetResults" onclick="switchTab('meetResults')" class="font-label-bold text-label-bold uppercase tracking-widest pb-3 border-b-2 border-secondary text-secondary transition-colors">Meet Results</button>
-            <button id="tabMetrics" onclick="switchTab('metrics')" class="font-label-bold text-label-bold uppercase tracking-widest pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-secondary transition-colors">Progression</button>
+            <button id="tabMetrics" onclick="switchTab('metrics')" class="font-label-bold text-label-bold uppercase tracking-widest pb-3 border-b-2 border-secondary text-secondary transition-colors">Progression</button>
+            <button id="tabMeetResults" onclick="switchTab('meetResults')" class="font-label-bold text-label-bold uppercase tracking-widest pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-secondary transition-colors">Meet Results</button>
             <button id="tabAchievements" onclick="switchTab('achievements')" class="font-label-bold text-label-bold uppercase tracking-widest pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-secondary transition-colors">Achievements</button>
         </div>
 
         <!-- Meet Results Tab -->
-        <div id="panelMeetResults">
+        <div id="panelMeetResults" class="hidden">
             <!-- Filters -->
             <div class="mb-8 flex gap-4" id="filtersArea">
                 <select id="seasonFilter" onchange="applyFilters()" class="flex-1 px-4 py-2 border border-outline-variant bg-surface text-on-surface font-label-bold text-label-bold uppercase tracking-widest focus:outline-none focus:border-secondary">
@@ -104,7 +104,7 @@
         </div>
 
         <!-- Metrics Tab -->
-        <div id="panelMetrics" class="hidden">
+        <div id="panelMetrics">
             <div class="flex gap-4 mb-8">
                 <select id="metricEventFilter" onchange="renderMetrics()" class="flex-1 px-4 py-2 border border-outline-variant bg-surface text-on-surface font-label-bold text-label-bold uppercase tracking-widest focus:outline-none focus:border-secondary">
                     <option value="">Select an event…</option>
@@ -215,6 +215,10 @@
                 buildMetricFilters(data);
                 renderResults(data);
                 renderPRs(data);
+                // Progression is the default tab; open on her signature event
+                const sel = document.getElementById('metricEventFilter');
+                if ([...sel.options].some(o => o.value === '1600m Run')) sel.value = '1600m Run';
+                renderMetrics();
             })
             .catch(error => console.error('Error loading results:', error));
 
