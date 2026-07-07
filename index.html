@@ -33,6 +33,18 @@
             -webkit-text-stroke: 1px currentColor;
             -webkit-text-fill-color: transparent;
         }
+        /* Rotating hero media: still photo + race clips share the same treatment */
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            filter: grayscale(1);
+            transition: opacity 1.2s ease;
+        }
+        .hero-slide.hero-active { opacity: 0.6; }
     </style>
 </head>
 <body class="bg-background text-on-surface selection:bg-secondary selection:text-white">
@@ -76,10 +88,12 @@
     <main>
         <!-- Hero Section -->
         <section class="relative min-h-[85vh] flex items-end bg-primary overflow-hidden">
-            <div class="absolute inset-0 z-0">
-                <img class="w-full h-full object-cover opacity-60 grayscale hover:grayscale-0 transition-all duration-700"
+            <div class="absolute inset-0 z-0" id="heroMedia">
+                <img class="hero-slide hero-active"
                      alt="Isla Meyn athletic profile hero"
                      src="images/hero.jpg" width="1600" height="1054" fetchpriority="high"/>
+                <video class="hero-slide" muted playsinline preload="none" aria-hidden="true" src="videos/scott-eagle-1600-finish.mp4" data-src-mobile="videos/scott-eagle-1600-finish-mobile.mp4"></video>
+                <video class="hero-slide" muted playsinline preload="none" aria-hidden="true" src="videos/campbell-county-1600.mp4" data-src-mobile="videos/campbell-county-1600-mobile.mp4"></video>
                 <div class="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent"></div>
             </div>
             <div class="relative z-10 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full pb-20">
@@ -204,6 +218,60 @@
                 if (fivek) document.getElementById('stat5k').textContent  = trim(fivek.t);
             })
             .catch(() => {}); // static fallbacks in markup remain
+
+        // Hero rotation: still photo first, then race clips, crossfading through
+        (function () {
+            if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            const slides = [...document.querySelectorAll('#heroMedia .hero-slide')];
+            if (slides.length < 2) return;
+            const STILL_MS = 7000;
+            let i = 0;
+            const narrow = matchMedia('(max-width: 767px)');
+            let panRaf = null;
+
+            // Phones get the tighter close-up cuts; desktop gets the full builds
+            if (narrow.matches) {
+                slides.forEach(s => { if (s.dataset && s.dataset.srcMobile) s.src = s.dataset.srcMobile; });
+            }
+
+            // On phones the cover-crop hides the sides; pan the visible window
+            // left-to-right with playback so the runner stays in frame.
+            function startPan(v) {
+                cancelAnimationFrame(panRaf);
+                if (!narrow.matches) { v.style.objectPosition = ''; return; }
+                const step = () => {
+                    if (v.duration) v.style.objectPosition = ((v.currentTime / v.duration) * 100) + '% center';
+                    if (!v.paused && !v.ended) panRaf = requestAnimationFrame(step);
+                };
+                panRaf = requestAnimationFrame(step);
+            }
+
+            function preloadNext() {
+                const nxt = slides[(i + 1) % slides.length];
+                if (nxt.tagName === 'VIDEO' && nxt.preload === 'none') nxt.preload = 'auto';
+            }
+
+            function advance() {
+                const prev = slides[i];
+                if (prev.tagName === 'VIDEO') { prev.pause(); prev.onended = null; }
+                i = (i + 1) % slides.length;
+                const cur = slides[i];
+                slides.forEach((s, j) => s.classList.toggle('hero-active', j === i));
+                preloadNext();
+                if (cur.tagName === 'VIDEO') {
+                    cur.currentTime = 0;
+                    cur.onended = advance;
+                    cur.play().then(() => startPan(cur)).catch(() => setTimeout(advance, 1500));
+                } else {
+                    setTimeout(advance, STILL_MS);
+                }
+            }
+
+            window.addEventListener('load', () => {
+                preloadNext(); // fetch the first clip while the still is up
+                setTimeout(advance, STILL_MS);
+            });
+        })();
     </script>
 </body>
 </html>

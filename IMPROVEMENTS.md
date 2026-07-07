@@ -198,6 +198,7 @@ Still open (Tommy's call, not tracked): confirming Coach Brady consents to her p
 
 | Date | Task | Notes |
 |------|------|-------|
+| 2026-07-06 | Video pipeline + rotating hero | Two rough clips processed into hero rotation (still → Scott Eagle PR finish → Campbell County win), grayscale locked, mobile-specific tighter cuts + playback-synced pan. Labeled "Race Footage" section built, then removed per Tommy: video = ambiance only. Full procedure in `.claude/skills/video-highlights/SKILL.md`; more clips coming. |
 | 2026-07-06 | Mobile audit | Full phone-width pass on all 7 pages: programmatic overflow scan + visual review. Fixed: page-nav card labels (16px no-op class overflowed cards; now 12px/tight tracking mobile, 14px/wide md+) and one-pager responsiveness (2/3/6 stat columns, stacked sections; print layout pinned). Everything else clean. Results tables intentionally overflow with scroll + fade hint. |
 | 2026-07-06 | — | File created. Tasks 1–14 catalogued from full site review. |
 | 2026-07-06 | Task 14 added | Pages CMS for no-code editing (old task 14 → 15). Chosen over Decap (needs OAuth server) and paid options (CloudCannon, Squarespace) — free and purpose-built for GitHub Pages + JSON. |
