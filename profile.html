@@ -222,7 +222,10 @@
             })
             .catch(error => console.error('Error loading results:', error));
 
-        // Personal bests: fastest time per event across all meets
+        // Personal bests: fastest time per event. An event is featured only if
+        // it has 3+ races OR a race within the last 12 months; single stale
+        // marks (e.g. a freshman-year 800) undersell current fitness. They
+        // stay in the meet ledger and progression dropdown regardless.
         const PR_ORDER  = ['800m Run', '1600m Run', '3200m Run', '5000m Run', 'Road 5k', '4x800m Relay'];
         const PR_LABELS = { '800m Run': '800m', '1600m Run': '1600m', '3200m Run': '3200m', '5000m Run': '5K · Cross Country', 'Road 5k': '5K · Road', '4x800m Relay': '4x800m Relay' };
 
@@ -234,15 +237,21 @@
                     let secs;
                     try { secs = parseTime(e.timeScore); } catch (_) { return; }
                     if (isNaN(secs)) return;
-                    if (!prs[name] || secs < prs[name].secs) {
-                        prs[name] = { secs, time: e.timeScore.trim(), meet: meet.meetName, date: meet.date };
+                    if (!prs[name]) prs[name] = { count: 0, latest: '' };
+                    prs[name].count++;
+                    if (meet.date > prs[name].latest) prs[name].latest = meet.date;
+                    if (!prs[name].secs || secs < prs[name].secs) {
+                        Object.assign(prs[name], { secs, time: e.timeScore.trim(), meet: meet.meetName, date: meet.date });
                     }
                 });
             });
 
+            const yearAgo = new Date(Date.now() - 365 * 24 * 3600 * 1000).toISOString().slice(0, 10);
+            // Road races always show (Tommy's call); track events need 3+ races or one within 12 months
+            const current = n => prs[n] && (n.startsWith('Road') || prs[n].count >= 3 || prs[n].latest >= yearAgo);
             const names = [
-                ...PR_ORDER.filter(n => prs[n]),
-                ...Object.keys(prs).filter(n => !PR_ORDER.includes(n)).sort()
+                ...PR_ORDER.filter(current),
+                ...Object.keys(prs).filter(n => !PR_ORDER.includes(n) && current(n)).sort()
             ];
             if (!names.length) return;
 

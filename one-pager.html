@@ -126,9 +126,15 @@
             meets.forEach(m => (m.events || []).forEach(e => {
                 const n = e.eventName.trim(), s = toSecs(e.timeScore);
                 if (isNaN(s)) return;
-                if (!prs[n] || s < prs[n].secs) prs[n] = { secs: s, t: e.timeScore.trim(), meet: m.meetName, date: m.date };
+                if (!prs[n]) prs[n] = { count: 0, latest: '' };
+                prs[n].count++;
+                if (m.date > prs[n].latest) prs[n].latest = m.date;
+                if (!prs[n].secs || s < prs[n].secs) Object.assign(prs[n], { secs: s, t: e.timeScore.trim(), meet: m.meetName, date: m.date });
             }));
-            const names = [...PR_ORDER.filter(n => prs[n]), ...Object.keys(prs).filter(n => !PR_ORDER.includes(n)).sort()];
+            // Featured rule (mirrors profile.html): road races always; track events need 3+ races or one within 12 months
+            const yearAgo = new Date(Date.now() - 365 * 24 * 3600 * 1000).toISOString().slice(0, 10);
+            const current = n => prs[n] && (n.startsWith('Road') || prs[n].count >= 3 || prs[n].latest >= yearAgo);
+            const names = [...PR_ORDER.filter(current), ...Object.keys(prs).filter(n => !PR_ORDER.includes(n) && current(n)).sort()];
             document.getElementById('prGrid').innerHTML = names.map(n => {
                 const p = prs[n];
                 const d = new Date(p.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
