@@ -117,6 +117,28 @@
                 <canvas id="metricsChart" class="hidden"></canvas>
                 <p id="metricsEmpty" class="text-center text-on-surface-variant font-body-md py-8">Select an event to view its progression.</p>
             </div>
+            <div id="metricsStats" class="hidden grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-6">
+                <div class="card p-4 md:p-6">
+                    <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-2">Best</p>
+                    <p class="text-xl md:text-3xl font-black tracking-tight text-secondary whitespace-nowrap" id="statBest"></p>
+                    <p class="font-label-sm text-label-sm text-on-surface-variant mt-2" id="statBestMeet"></p>
+                </div>
+                <div class="card p-4 md:p-6">
+                    <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-2">Average</p>
+                    <p class="text-xl md:text-3xl font-black tracking-tight text-on-surface whitespace-nowrap" id="statAvg"></p>
+                    <p class="font-label-sm text-label-sm text-on-surface-variant mt-2">Across all races shown</p>
+                </div>
+                <div class="card p-4 md:p-6">
+                    <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-2">Improvement</p>
+                    <p class="text-xl md:text-3xl font-black tracking-tight text-on-surface whitespace-nowrap" id="statImprove"></p>
+                    <p class="font-label-sm text-label-sm text-on-surface-variant mt-2">First race to best</p>
+                </div>
+                <div class="card p-4 md:p-6">
+                    <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-2">Races</p>
+                    <p class="text-xl md:text-3xl font-black tracking-tight text-on-surface" id="statCount"></p>
+                    <p class="font-label-sm text-label-sm text-on-surface-variant mt-2" id="statSpan"></p>
+                </div>
+            </div>
         </div>
 
         <!-- Achievements Tab -->
@@ -171,6 +193,14 @@
                 btn.classList.toggle('border-transparent', key !== tab);
                 btn.classList.toggle('text-on-surface-variant', key !== tab);
             });
+            // Default the progression chart to her signature event
+            if (tab === 'metrics') {
+                const sel = document.getElementById('metricEventFilter');
+                if (!sel.value && [...sel.options].some(o => o.value === '1600m Run')) {
+                    sel.value = '1600m Run';
+                }
+                renderMetrics();
+            }
         }
 
         let allMeets = [];
@@ -426,7 +456,7 @@
                 meet.events.forEach(e => {
                     if (e.eventName.trim() === eventName) {
                         try {
-                            points.push({ date: new Date(meet.date + 'T12:00:00'), raw: parseTime(e.timeScore), label: meet.meetName });
+                            points.push({ date: new Date(meet.date + 'T12:00:00'), raw: parseTime(e.timeScore), label: meet.meetName, place: e.place });
                         } catch(_) {}
                     }
                 });
@@ -434,14 +464,29 @@
 
             points.sort((a, b) => a.date - b.date);
 
+            const statsBox = document.getElementById('metricsStats');
             if (points.length === 0) {
                 canvas.classList.add('hidden');
                 empty.classList.remove('hidden');
+                statsBox.classList.add('hidden');
                 return;
             }
 
             canvas.classList.remove('hidden');
             empty.classList.add('hidden');
+
+            // Stat strip: best, average, first-race-to-best improvement, count
+            const bestIdx = points.reduce((b, p, idx) => p.raw < points[b].raw ? idx : b, 0);
+            const best = points[bestIdx];
+            const avg = points.reduce((s, p) => s + p.raw, 0) / points.length;
+            const improve = points[0].raw - best.raw;
+            document.getElementById('statBest').textContent = formatTime(best.raw);
+            document.getElementById('statBestMeet').textContent = best.label + ' · ' + best.date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+            document.getElementById('statAvg').textContent = formatTime(avg);
+            document.getElementById('statImprove').textContent = improve > 0 ? '-' + formatTime(improve) : '—';
+            document.getElementById('statCount').textContent = points.length;
+            document.getElementById('statSpan').textContent = points[0].date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) + ' to ' + points[points.length - 1].date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+            statsBox.classList.remove('hidden');
 
             if (metricsChartInstance) metricsChartInstance.destroy();
 
@@ -457,9 +502,10 @@
                         data: points.map(p => p.raw),
                         borderColor: colorSecondary,
                         backgroundColor: colorSecondary + '22',
-                        pointBackgroundColor: colorSecondary,
-                        pointRadius: 5,
-                        pointHoverRadius: 7,
+                        pointBackgroundColor: points.map((p, idx) => idx === bestIdx ? '#d4a017' : colorSecondary),
+                        pointBorderColor: points.map((p, idx) => idx === bestIdx ? '#d4a017' : colorSecondary),
+                        pointRadius: points.map((p, idx) => idx === bestIdx ? 8 : 5),
+                        pointHoverRadius: points.map((p, idx) => idx === bestIdx ? 10 : 7),
                         tension: 0.3,
                         fill: true
                     }]
@@ -470,7 +516,13 @@
                         legend: { display: false },
                         tooltip: {
                             callbacks: {
-                                label: ctx => formatTime(ctx.parsed.y),
+                                label: ctx => {
+                                    const p = points[ctx.dataIndex];
+                                    let s = formatTime(ctx.parsed.y);
+                                    if (p.place) s += ' · ' + p.place;
+                                    if (ctx.dataIndex === bestIdx) s += ' · Best';
+                                    return s;
+                                },
                                 title: (items) => {
                                     const i = items[0].dataIndex;
                                     return [points[i].label, items[0].label];
