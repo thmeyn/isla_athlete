@@ -35,13 +35,16 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
-      - name: Commit venue updates
+      - name: Rebuild calendar feed
+        run: node scripts/build-calendar.mjs
+
+      - name: Commit venue and calendar updates
         run: |
-          if ! git diff --quiet data/schedule.json; then
+          if ! git diff --quiet data/schedule.json calendar.ics; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/schedule.json
-            git commit -m "Fill venue addresses from MileSplit"
+            git add data/schedule.json calendar.ics
+            git commit -m "Fill venues from MileSplit and rebuild calendar feed"
             git push
           fi
 

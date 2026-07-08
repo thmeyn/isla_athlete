@@ -72,6 +72,20 @@
             </div>
         </section>
 
+        <!-- Subscribe to the meet calendar feed -->
+        <section class="mb-16">
+            <div class="card">
+                <h2 class="font-label-bold text-label-bold uppercase tracking-widest text-secondary mb-2">Subscribe to All Meets</h2>
+                <p class="font-body-md text-on-surface-variant mb-4">Add Isla's full schedule to your calendar once — new meets and venue updates appear automatically.</p>
+                <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+                    <a href="webcal://islameyn.com/calendar.ics" class="font-label-bold text-label-bold text-secondary hover:underline uppercase tracking-widest">Apple Calendar</a>
+                    <a href="https://calendar.google.com/calendar/r?cid=webcal%3A%2F%2Fislameyn.com%2Fcalendar.ics" target="_blank" rel="noopener noreferrer" class="font-label-bold text-label-bold text-secondary hover:underline uppercase tracking-widest">Google Calendar</a>
+                    <a href="https://outlook.office.com/calendar/addfromweb?url=https%3A%2F%2Fislameyn.com%2Fcalendar.ics&name=Isla%20Meyn%20Meets" target="_blank" rel="noopener noreferrer" class="font-label-bold text-label-bold text-secondary hover:underline uppercase tracking-widest">Office 365</a>
+                    <button onclick="copyFeedUrl(this)" class="font-label-bold text-label-bold text-secondary hover:underline uppercase tracking-widest cursor-pointer bg-transparent border-0 p-0">Copy Feed URL</button>
+                </div>
+            </div>
+        </section>
+
         <!-- Events by Season & Sport -->
         <section class="mb-16">
             <div id="eventsContainer">
@@ -177,6 +191,14 @@
 
     <script src="js/main.js?v=1"></script>
     <script>
+        function copyFeedUrl(btn) {
+            navigator.clipboard.writeText('https://islameyn.com/calendar.ics').then(() => {
+                const original = btn.textContent;
+                btn.textContent = 'Copied!';
+                setTimeout(() => { btn.textContent = original; }, 2000);
+            });
+        }
+
         // Load schedule data from JSON
         fetch('data/schedule.json?_=' + Date.now())
             .then(response => response.json())

@@ -1,0 +1,107 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//islameyn.com//Meet Schedule//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Isla Meyn – Meet Schedule
+X-WR-CALDESC:Upcoming meets for Isla Meyn\, Class of 2028 di
+ stance runner\, Highlands High School
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VEVENT
+UID:2026-08-29-Saturday20Night20Lights@islameyn.com
+DTSTAMP:20260829T000000Z
+DTSTART;VALUE=DATE:20260829
+DTEND;VALUE=DATE:20260830
+SUMMARY:Saturday Night Lights – Isla Meyn
+LOCATION:Centerville HS Night Race Course\, 500 East Frankli
+ n Street\, Centerville\, OH 45459
+DESCRIPTION:Cross Country meet — Isla Meyn\, Highlands High 
+ School\, Class of 2028.\nMeet info: https://oh.milesplit.co
+ m/meets/710276-saturday-night-lights-hs-2026\n\nContact: is
+ la.meyn2028@gmail.com\nAthlete profile: https://islameyn.co
+ m\nMileSplit: https://ky.milesplit.com/athletes/15029501-is
+ la-meyn\nSchedule: https://islameyn.com/schedule.html
+URL:https://oh.milesplit.com/meets/710276-saturday-night-lig
+ hts-hs-2026
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-19-Trinity20Valkyrie20Invitational@islameyn.com
+DTSTAMP:20260919T000000Z
+DTSTART;VALUE=DATE:20260919
+DTEND;VALUE=DATE:20260920
+SUMMARY:Trinity Valkyrie Invitational – Isla Meyn
+LOCATION:Tom Sawyer State Park\, 3000 Freys Hill Rd\, Louisv
+ ille\, KY 40241
+DESCRIPTION:Cross Country meet — Isla Meyn\, Highlands High 
+ School\, Class of 2028.\nMeet info: https://ky.milesplit.co
+ m/meets/755977-trinity-valkyrie-invitational-2026\n\nContac
+ t: isla.meyn2028@gmail.com\nAthlete profile: https://islame
+ yn.com\nMileSplit: https://ky.milesplit.com/athletes/150295
+ 01-isla-meyn\nSchedule: https://islameyn.com/schedule.html
+URL:https://ky.milesplit.com/meets/755977-trinity-valkyrie-i
+ nvitational-2026
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-26-Bluegrass20Invitational@islameyn.com
+DTSTAMP:20260926T000000Z
+DTSTART;VALUE=DATE:20260926
+DTEND;VALUE=DATE:20260927
+SUMMARY:Bluegrass Invitational – Isla Meyn
+LOCATION:Masterson Station Park\, 3051 Leestown Rd\, Lexingt
+ on\, KY 40511
+DESCRIPTION:Cross Country meet — Isla Meyn\, Highlands High 
+ School\, Class of 2028.\nMeet info: https://ky.milesplit.co
+ m/meets/740163-bluegrass-invitational-2026\n\nContact: isla
+ .meyn2028@gmail.com\nAthlete profile: https://islameyn.com\
+ nMileSplit: https://ky.milesplit.com/athletes/15029501-isla
+ -meyn\nSchedule: https://islameyn.com/schedule.html
+URL:https://ky.milesplit.com/meets/740163-bluegrass-invitati
+ onal-2026
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-10-Conference20Championship20(NKAC202F20St.20Hen
+ ry20Invite)@islameyn.com
+DTSTAMP:20261010T000000Z
+DTSTART;VALUE=DATE:20261010
+DTEND;VALUE=DATE:20261011
+SUMMARY:Conference Championship (NKAC / St. Henry Invite) – 
+ Isla Meyn
+LOCATION:Idlewild Park\, 5550 Idlewild\, Burlington\, KY 410
+ 05
+DESCRIPTION:Cross Country meet — Isla Meyn\, Highlands High 
+ School\, Class of 2028.\nMeet info: https://ky.milesplit.co
+ m/meets/714527-nkacst-henry-invite-2026\n\nContact: isla.me
+ yn2028@gmail.com\nAthlete profile: https://islameyn.com\nMi
+ leSplit: https://ky.milesplit.com/athletes/15029501-isla-me
+ yn\nSchedule: https://islameyn.com/schedule.html
+URL:https://ky.milesplit.com/meets/714527-nkacst-henry-invit
+ e-2026
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-24-Regional20Championship@islameyn.com
+DTSTAMP:20261024T000000Z
+DTSTART;VALUE=DATE:20261024
+DTEND;VALUE=DATE:20261025
+SUMMARY:Regional Championship – Isla Meyn
+LOCATION:TBA
+DESCRIPTION:Cross Country meet — Isla Meyn\, Highlands High 
+ School\, Class of 2028.\n\nContact: isla.meyn2028@gmail.com
+ \nAthlete profile: https://islameyn.com\nMileSplit: https:/
+ /ky.milesplit.com/athletes/15029501-isla-meyn\nSchedule: ht
+ tps://islameyn.com/schedule.html
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-31-State20Championship@islameyn.com
+DTSTAMP:20261031T000000Z
+DTSTART;VALUE=DATE:20261031
+DTEND;VALUE=DATE:20261101
+SUMMARY:State Championship – Isla Meyn
+LOCATION:Lexington\, KY
+DESCRIPTION:Cross Country meet — Isla Meyn\, Highlands High 
+ School\, Class of 2028.\n\nContact: isla.meyn2028@gmail.com
+ \nAthlete profile: https://islameyn.com\nMileSplit: https:/
+ /ky.milesplit.com/athletes/15029501-isla-meyn\nSchedule: ht
+ tps://islameyn.com/schedule.html
+END:VEVENT
+END:VCALENDAR
