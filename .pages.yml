@@ -93,6 +93,7 @@ content:
       - name: location
         label: Location
         type: string
+        description: "City, ST shown on the card. Optional — filled automatically from the MileSplit link"
       - name: date
         label: Date
         type: date
@@ -107,6 +108,10 @@ content:
       - name: link
         label: Meet Info Link
         type: string
+      - name: venue
+        label: Venue Address
+        type: string
+        description: "Filled automatically from the MileSplit link after saving; edit to override"
 
   - name: achievements
     label: Athletic Achievements

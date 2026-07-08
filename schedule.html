@@ -14,7 +14,7 @@
     <link rel="icon" type="image/png" href="images/images.png"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="css/styles.css?v=1"/>
-    <link rel="stylesheet" href="css/tailwind.css?v=2"/>
+    <link rel="stylesheet" href="css/tailwind.css?v=3"/>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JEV517DHM7"></script>
     <script>
@@ -183,6 +183,106 @@
             .then(data => renderScheduleEvents(data))
             .catch(error => console.error('Error loading schedule:', error));
 
+        // "Add to calendar" links. Meets have no published start time, so
+        // they're created as all-day events (DTEND/end date is exclusive).
+        function calendarLinks(event) {
+            const pad = n => String(n).padStart(2, '0');
+            const fmt = d => `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}`;
+            const startDate = new Date(event.date + 'T12:00:00');
+            const endDate = new Date(startDate);
+            endDate.setDate(endDate.getDate() + 1);
+            const start = fmt(startDate);
+            const end = fmt(endDate);
+
+            const title = `${event.eventName} – Isla Meyn`;
+            const details = `${event.sport} meet — Isla Meyn, Highlands High School, Class of 2028.` +
+                (event.link ? `\nMeet info: ${event.link}` : '') +
+                `\n\nContact: isla.meyn2028@gmail.com` +
+                `\nAthlete profile: https://islameyn.com` +
+                `\nMileSplit: https://ky.milesplit.com/athletes/15029501-isla-meyn` +
+                `\nSchedule: https://islameyn.com/schedule.html`;
+
+            // Full venue address when the lookup workflow has filled it in
+            const place = event.venue || event.location || '';
+
+            const google = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+                `&text=${encodeURIComponent(title)}` +
+                `&dates=${start}/${end}` +
+                `&location=${encodeURIComponent(place)}` +
+                `&details=${encodeURIComponent(details)}`;
+
+            const outlook = 'https://outlook.live.com/calendar/0/action/compose?rru=addevent' +
+                `&subject=${encodeURIComponent(title)}` +
+                `&startdt=${event.date}` +
+                `&enddt=${endDate.getFullYear()}-${pad(endDate.getMonth() + 1)}-${pad(endDate.getDate())}` +
+                '&allday=true' +
+                `&location=${encodeURIComponent(place)}` +
+                `&body=${encodeURIComponent(details)}`;
+
+            const icsEscape = s => String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,');
+            const ics = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//islameyn.com//Schedule//EN',
+                'BEGIN:VEVENT',
+                `UID:${event.date}-${encodeURIComponent(event.eventName).replace(/%/g, '')}@islameyn.com`,
+                `DTSTAMP:${start}T000000Z`,
+                `DTSTART;VALUE=DATE:${start}`,
+                `DTEND;VALUE=DATE:${end}`,
+                `SUMMARY:${icsEscape(title)}`,
+                `LOCATION:${icsEscape(place)}`,
+                `DESCRIPTION:${icsEscape(details).replace(/\n/g, '\\n')}`,
+                event.link ? `URL:${event.link}` : '',
+                'END:VEVENT',
+                'END:VCALENDAR'
+            ].filter(Boolean).join('\r\n');
+            // iOS/iPadOS Safari refuses data: URI downloads, so the .ics is
+            // handed over as a Blob created at click time instead.
+            const icsKey = `${event.date}-${event.eventName}`;
+            icsFiles[icsKey] = ics;
+
+            const linkClass = 'font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm';
+            return `
+                <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Add to calendar:</span>
+                    <a href="${google}" target="_blank" rel="noopener noreferrer" class="${linkClass}">Google</a>
+                    <a href="${outlook}" target="_blank" rel="noopener noreferrer" class="${linkClass}">Outlook</a>
+                    <a href="#" onclick="return downloadIcs(this.dataset.key)" data-key="${icsKey.replace(/"/g, '&quot;')}" class="${linkClass}">Apple / .ics</a>
+                </div>
+                ${mapLinks(event)}`;
+        }
+
+        const icsFiles = {};
+        function downloadIcs(key) {
+            const ics = icsFiles[key];
+            if (!ics) return false;
+            const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${key.slice(0, 10)}-isla-meyn.ics`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 10000);
+            return false;
+        }
+
+        function mapLinks(event) {
+            const place = event.venue || event.location;
+            // No venue to map yet (e.g. "TBA")
+            if (!place || /\bTBA\b/i.test(place)) return '';
+            const query = encodeURIComponent(place);
+            const linkClass = 'font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm';
+            return `
+                <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Map:</span>
+                    <a href="https://www.google.com/maps/search/?api=1&query=${query}" target="_blank" rel="noopener noreferrer" class="${linkClass}">Google Maps</a>
+                    <a href="https://maps.apple.com/?q=${query}" target="_blank" rel="noopener noreferrer" class="${linkClass}">Apple Maps</a>
+                    <a href="https://www.waze.com/ul?q=${query}&navigate=yes" target="_blank" rel="noopener noreferrer" class="${linkClass}">Waze</a>
+                </div>`;
+        }
+
         function renderScheduleEvents(events) {
             const container = document.getElementById('eventsContainer');
             if (events.length === 0) {
@@ -227,9 +327,10 @@
                                     <div class="flex-1">
                                         <span class="inline-block ${badgeClass} px-3 py-1 font-label-sm text-label-sm uppercase mb-3">${badgeText}</span>
                                         <h4 class="font-headline-md text-headline-md mb-1">${event.eventName}</h4>
-                                        <p class="font-body-md text-on-surface-variant mb-1">${event.location}</p>
+                                        <p class="font-body-md text-on-surface-variant mb-1">${event.location || ''}</p>
                                         <p class="font-label-sm text-on-surface-variant">${dateStr}</p>
                                         ${linkHtml}
+                                        ${isUpcoming && event.status !== 'tentative' ? calendarLinks(event) : ''}
                                     </div>
                                     <div class="text-right text-2xl ml-4">📍</div>
                                 </div>

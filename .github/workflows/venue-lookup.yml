@@ -1,0 +1,67 @@
+name: Venue lookup
+
+# Whenever the schedule changes (PagesCMS commits included), resolve each
+# new event's MileSplit link to a real venue address and commit it back.
+# Failed lookups become a GitHub issue so Tommy gets an email.
+on:
+  push:
+    branches: [main]
+    paths: [data/schedule.json]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  venues:
+    # The workflow's own commit also touches schedule.json; don't re-run on it
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Look up venues from MileSplit
+        id: lookup
+        run: |
+          node scripts/update-venues.mjs | tee lookup.log
+          {
+            echo "failures<<EOF"
+            grep '^FAILED:' lookup.log || true
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Commit venue updates
+        run: |
+          if ! git diff --quiet data/schedule.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/schedule.json
+            git commit -m "Fill venue addresses from MileSplit"
+            git push
+          fi
+
+      - name: Open issue for failed lookups
+        if: steps.lookup.outputs.failures != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FAILURES: ${{ steps.lookup.outputs.failures }}
+        run: |
+          TITLE="Venue lookup failed for schedule event(s)"
+          BODY="The venue-lookup workflow could not resolve a venue address for:
+
+          \`\`\`
+          $FAILURES
+          \`\`\`
+
+          Fix the event's MileSplit link in data/schedule.json (or fill the venue field manually in Pages CMS), then re-run the workflow from the Actions tab."
+          EXISTING=$(gh issue list --state open --search "in:title \"$TITLE\"" --json number --jq '.[0].number')
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --body "$BODY"
+          else
+            gh issue create --title "$TITLE" --body "$BODY"
+          fi
