@@ -92,8 +92,10 @@
                 <img class="hero-slide hero-active"
                      alt="Isla Meyn athletic profile hero"
                      src="images/hero.jpg" width="1600" height="1054" fetchpriority="high"/>
-                <video class="hero-slide" muted playsinline preload="none" aria-hidden="true" src="videos/scott-eagle-1600-finish.mp4" data-src-mobile="videos/scott-eagle-1600-finish-mobile.mp4"></video>
-                <video class="hero-slide" muted playsinline preload="none" aria-hidden="true" src="videos/campbell-county-1600.mp4" data-src-mobile="videos/campbell-county-1600-mobile.mp4"></video>
+                <!-- disableremoteplayback stops Safari's AirPlay discovery, which
+                     otherwise triggers a "local network" permission prompt -->
+                <video class="hero-slide" muted playsinline preload="none" aria-hidden="true" disableremoteplayback x-webkit-airplay="deny" src="videos/scott-eagle-1600-finish.mp4" data-src-mobile="videos/scott-eagle-1600-finish-mobile.mp4"></video>
+                <video class="hero-slide" muted playsinline preload="none" aria-hidden="true" disableremoteplayback x-webkit-airplay="deny" src="videos/campbell-county-1600.mp4" data-src-mobile="videos/campbell-county-1600-mobile.mp4"></video>
                 <div class="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent"></div>
             </div>
             <div class="relative z-10 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full pb-20">
