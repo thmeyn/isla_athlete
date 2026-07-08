@@ -53,6 +53,8 @@
         .bio, .quote { font-size: 11px; line-height: 1.5; color: var(--ink); }
         .quote { font-style: italic; color: var(--gray); }
         .quote-attrib { font-size: 10px; font-weight: 700; margin-top: 4px; color: var(--ink); font-style: normal; }
+        .quote-grid { display: grid; grid-template-columns: 1fr; gap: 12px 24px; }
+        @media (min-width: 700px) { .quote-grid { grid-template-columns: 1fr 1fr; } }
         .acad { font-size: 11px; line-height: 1.55; }
         footer { margin-top: 14px; padding-top: 8px; border-top: 1px solid var(--line); font-size: 9px; color: var(--gray); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px; }
         .printbar { max-width: 8.5in; margin: 16px auto 0; text-align: right; }
@@ -66,6 +68,7 @@
             .printbar { display: none; }
             .stat-grid { grid-template-columns: repeat(6, 1fr); gap: 8px; }
             .two-col { grid-template-columns: 1.2fr 1fr; }
+            .quote-grid { grid-template-columns: 1fr 1fr; }
             h1 { font-size: 34px; }
         }
         @page { size: letter; margin: 0.5in; }
@@ -106,9 +109,8 @@
             </div>
         </div>
 
-        <h2>Coach Reference</h2>
-        <p class="quote" id="quote"></p>
-        <p class="quote-attrib" id="quoteAttrib"></p>
+        <h2>Coach References</h2>
+        <div class="quote-grid" id="quoteGrid"></div>
 
         <footer>
             <span>Full verified results, schedule, and references: <strong>islameyn.com</strong></span>
@@ -149,11 +151,14 @@
         });
 
         fetch('data/endorsements.json?_=' + Date.now()).then(r => r.json()).then(es => {
-            if (!es.length) return;
-            const e = es[0];
-            const q = e.quote.length > 320 ? e.quote.slice(0, e.quote.lastIndexOf(' ', 320)) + '…"' : e.quote;
-            document.getElementById('quote').textContent = '"' + q.replace(/^"|"$/g, '') + '"';
-            document.getElementById('quoteAttrib').textContent = e.name + ' · ' + e.title;
+            const div = document.createElement('div');
+            document.getElementById('quoteGrid').innerHTML = es.slice(0, 2).map(e => {
+                const q = e.quote.length > 320 ? e.quote.slice(0, e.quote.lastIndexOf(' ', 320)).replace(/[,;:]+$/, '') + '…' : e.quote;
+                div.textContent = q.replace(/^"|"$/g, '');
+                const safeQuote = div.innerHTML;
+                div.textContent = e.name + ' · ' + e.title;
+                return `<div><p class="quote">"${safeQuote}"</p><p class="quote-attrib">${div.innerHTML}</p></div>`;
+            }).join('');
         });
 
         document.getElementById('generated').textContent = 'Generated ' + new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
