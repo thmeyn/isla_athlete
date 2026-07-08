@@ -174,6 +174,16 @@ Still open (Tommy's call, not tracked): confirming Coach Brady consents to her p
 
 ---
 
+## Open items (handoff, updated 2026-07-07)
+
+Waiting on Tommy / external:
+- **Coach contact block** for References page + one-pager: school athletics directory lists Jonathan McKenzie (XC, mckenziej1@nku.edu) and Jeremy Donelan (girls track) — UNCONFIRMED; Tommy is getting current-coach confirmation + permission before publishing. Also pending his call on Coach Brady's personal Gmail (keep / school email / available-on-request).
+- **Relay splits** from the coach (not published anywhere; verified absent from MileSplit + KHSAA). One 2026 4x800 split would modernize her 800 picture; add as a note/badge on relay entries when received.
+- **NCAA Eligibility Center**: registration in progress (see private session memory for state; do NOT put her NCAA ID in this public file). Remaining: finish Women's Track events section (two Firecracker 5K entries, both YMCA medal/trophy-only, no cash), Additional Questions tab, payment step (Tommy only).
+- **Recruiting email forwarding**: plan agreed for isla.meyn2028@gmail.com — Gmail filters forward .edu senders + known domains (ncaa.org, kyschools.us, milesplit.com, fieldlevel.com, sportsrecruits.com) to parents; everything else stays in-inbox for weekly review, nothing auto-deleted. Tommy implements in Gmail settings.
+- **Season follow-ups** (task 3): 9/5 squad-split decision, Regional venue/link, State link.
+- Test scores / camps / academic interests: add to site as they exist.
+
 ## Design principles (apply to all work)
 
 - **Restraint is the brand.** The current aesthetic — big type, red/dark palette, generous whitespace — is good. Add information density, not decoration.
@@ -199,6 +209,7 @@ Still open (Tommy's call, not tracked): confirming Coach Brady consents to her p
 | Date | Task | Notes |
 |------|------|-------|
 | 2026-07-06 | Video pipeline + rotating hero | Two rough clips processed into hero rotation (still → Scott Eagle PR finish → Campbell County win), grayscale locked, mobile-specific tighter cuts + playback-synced pan. Labeled "Race Footage" section built, then removed per Tommy: video = ambiance only. Full procedure in `.claude/skills/video-highlights/SKILL.md`; more clips coming. |
+| 2026-07-07 | Recruiter polish batch | Vernon Swim Club role added (work section renamed Work & Community Involvement; page renamed Academics & Activities; one-pager updated). Printable Profile promoted to hero + recruiting-CTA buttons. Recruiter review executed: nav Endorsements→References, Metrics tab→Progression, Progression is now the DEFAULT Results tab opening on the 1600m with stat strip (best/avg/first-to-best/-1:07.55/count) and gold PR point. PR strip + one-pager now feature events by freshness rule: road races always; track events need 3+ races or one within 12 months (drops stale freshman 800/3200 until she runs current ones; they stay in ledger + dropdown). AD contact verified for NCAA form: Wes Caldwell (school athletics site). |
 | 2026-07-06 | Mobile audit | Full phone-width pass on all 7 pages: programmatic overflow scan + visual review. Fixed: page-nav card labels (16px no-op class overflowed cards; now 12px/tight tracking mobile, 14px/wide md+) and one-pager responsiveness (2/3/6 stat columns, stacked sections; print layout pinned). Everything else clean. Results tables intentionally overflow with scroll + fade hint. |
 | 2026-07-06 | — | File created. Tasks 1–14 catalogued from full site review. |
 | 2026-07-06 | Task 14 added | Pages CMS for no-code editing (old task 14 → 15). Chosen over Decap (needs OAuth server) and paid options (CloudCannon, Squarespace) — free and purpose-built for GitHub Pages + JSON. |
