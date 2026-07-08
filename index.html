@@ -220,7 +220,9 @@
             })
             .catch(() => {}); // static fallbacks in markup remain
 
-        // Hero rotation: still photo first, then race clips, crossfading through
+        // Hero rotation: race clips lead, the still photo is the resting frame
+        // between loops. The photo still paints first (instant, no buffering)
+        // and hands off to the first clip as soon as it can play through.
         (function () {
             if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
             const slides = [...document.querySelectorAll('#heroMedia .hero-slide')];
@@ -268,9 +270,22 @@
                 }
             }
 
+            let started = false;
+            function start() {
+                if (started) return;
+                started = true;
+                advance();
+            }
+
             window.addEventListener('load', () => {
-                preloadNext(); // fetch the first clip while the still is up
-                setTimeout(advance, STILL_MS);
+                const first = slides[1];
+                if (first && first.tagName === 'VIDEO') {
+                    first.preload = 'auto';
+                    first.addEventListener('canplaythrough', start, { once: true });
+                    setTimeout(start, STILL_MS); // slow network: don't hold the photo forever
+                } else {
+                    setTimeout(start, STILL_MS);
+                }
             });
         })();
     </script>
