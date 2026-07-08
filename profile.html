@@ -68,7 +68,7 @@
             <div class="max-w-3xl">
                 <h1 class="font-display-xl-mobile md:font-display-xl text-4xl md:text-6xl uppercase mb-6">Performance <br class="hidden md:block"/>Records</h1>
                 <p class="font-body-lg text-on-surface-variant mt-6 max-w-2xl">
-                    A comprehensive log of competitive results, verified times, and athletic achievements.
+                    A comprehensive log of competitive results, verified times, and season-over-season progression. Honors and awards live on the <a href="endorsements.html" class="text-secondary hover:underline">References &amp; Recognition</a> page.
                 </p>
                 <a href="https://ky.milesplit.com/athletes/15029501-isla-meyn" target="_blank" rel="noopener noreferrer" class="inline-block mt-4 font-label-bold text-label-bold text-secondary hover:underline uppercase tracking-widest">Verify on MileSplit →</a>
             </div>
@@ -84,7 +84,6 @@
         <div class="border-b border-outline-variant mb-12 flex gap-8">
             <button id="tabMetrics" onclick="switchTab('metrics')" class="font-label-bold text-label-bold uppercase tracking-widest pb-3 border-b-2 border-secondary text-secondary transition-colors">Progression</button>
             <button id="tabMeetResults" onclick="switchTab('meetResults')" class="font-label-bold text-label-bold uppercase tracking-widest pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-secondary transition-colors">Meet Results</button>
-            <button id="tabAchievements" onclick="switchTab('achievements')" class="font-label-bold text-label-bold uppercase tracking-widest pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-secondary transition-colors">Achievements</button>
         </div>
 
         <!-- Meet Results Tab -->
@@ -141,12 +140,6 @@
             </div>
         </div>
 
-        <!-- Achievements Tab -->
-        <div id="panelAchievements" class="hidden">
-            <div class="space-y-4" id="achievementsContainer">
-                <!-- Loaded dynamically -->
-            </div>
-        </div>
     </main>
 
     <!-- Page Navigation -->
@@ -162,7 +155,7 @@
             </a>
             <a href="achievements.html" class="flex flex-col gap-2 p-6 bg-surface border border-outline-variant hover:border-secondary hover:bg-surface-container-low transition-colors">
                 <span class="font-label-bold text-label-bold text-xs md:text-sm uppercase tracking-wide md:tracking-widest text-secondary">Academics</span>
-                <span class="font-body-md text-on-surface-variant">Awards & coursework</span>
+                <span class="font-body-md text-on-surface-variant">Coursework, awards & activities</span>
             </a>
             <a href="endorsements.html" class="flex flex-col gap-2 p-6 bg-surface border border-outline-variant hover:border-secondary hover:bg-surface-container-low transition-colors">
                 <span class="font-label-bold text-label-bold text-xs md:text-sm uppercase tracking-wide md:tracking-widest text-secondary">References</span>
@@ -183,8 +176,8 @@
     <script src="js/main.js?v=1"></script>
     <script>
         function switchTab(tab) {
-            const tabs    = { meetResults: 'panelMeetResults', metrics: 'panelMetrics', achievements: 'panelAchievements' };
-            const buttons = { meetResults: 'tabMeetResults',   metrics: 'tabMetrics',   achievements: 'tabAchievements' };
+            const tabs    = { meetResults: 'panelMeetResults', metrics: 'panelMetrics' };
+            const buttons = { meetResults: 'tabMeetResults',   metrics: 'tabMetrics' };
             Object.keys(tabs).forEach(key => {
                 document.getElementById(tabs[key]).classList.toggle('hidden', key !== tab);
                 const btn = document.getElementById(buttons[key]);
@@ -268,11 +261,6 @@
             document.getElementById('prSection').classList.remove('hidden');
         }
 
-        fetch('data/academics.json?_=' + Date.now())
-            .then(response => response.json())
-            .then(data => renderAchievements(data))
-            .catch(error => console.error('Error loading achievements:', error));
-
         function buildFilters(meets) {
             const seasons = [...new Set(meets.map(m => m.season))].sort().reverse();
             const sports  = [...new Set(meets.map(m => m.sport))].sort();
@@ -303,25 +291,6 @@
                 (!sport  || m.sport  === sport)
             );
             renderResults(filtered);
-        }
-
-        function renderAchievements(items) {
-            const container = document.getElementById('achievementsContainer');
-            if (!items.length) {
-                container.innerHTML = '<div class="card"><p class="text-center text-on-surface-variant">No achievements yet.</p></div>';
-                return;
-            }
-            container.innerHTML = items.map(item => `
-                <div class="card">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h3 class="font-headline-md text-headline-md mb-2">${item.awardName}</h3>
-                            <p class="font-body-md text-on-surface-variant">${item.description}</p>
-                        </div>
-                        <span class="font-label-bold text-secondary whitespace-nowrap ml-4">${item.date}</span>
-                    </div>
-                </div>
-            `).join('');
         }
 
         function medalFor(place) {

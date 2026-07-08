@@ -132,6 +132,10 @@ content:
         type: select
         options:
           values: [athletic, academic]
+      - name: link
+        label: Verification Link
+        type: string
+        description: "Optional. MileSplit / KHSAA article verifying the honor"
 
   - name: endorsements
     label: Endorsements

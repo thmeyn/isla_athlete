@@ -89,44 +89,20 @@
             </div>
         </section>
 
-        <!-- Recognition Section -->
-        <section class="mb-16">
+        <!-- Recognition Strip (loaded from data/academics.json) -->
+        <section class="mb-16 hidden" id="recognitionSection">
             <h2 class="font-headline-lg text-headline-lg mb-8">Recognition & Awards</h2>
-            <div class="space-y-4">
-                <div class="card">
-                    <div class="flex justify-between items-start">
-                        <div class="flex-1">
-                            <h3 class="font-headline-md text-headline-md mb-2">Kentucky All-State Track & Field, Girls Second Team</h3>
-                            <p class="font-body-md text-on-surface-variant mb-2">Selected to the 2026 Kentucky All-State second team in the 1600 Meter Run (5:21.66, Scott Eagle Classic).</p>
-                            <a href="https://ky.milesplit.com/articles/709486/2026-kentucky-all-state-tandf-selections-girls-second-team" target="_blank" rel="noopener noreferrer" class="font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm">View the Selections →</a>
-                        </div>
-                        <span class="font-label-bold text-secondary whitespace-nowrap ml-4">2026</span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="flex justify-between items-start">
-                        <div class="flex-1">
-                            <h3 class="font-headline-md text-headline-md mb-2">Kentucky All-State Track & Field, All-Sophomore Girls Team</h3>
-                            <p class="font-body-md text-on-surface-variant mb-2">Selected to the 2026 Kentucky All-State sophomore team in the 1600 Meter Run.</p>
-                            <a href="https://ky.milesplit.com/articles/709478/2026-kentucky-all-state-tandf-selections-all-sophomore-girls-team" target="_blank" rel="noopener noreferrer" class="font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm">View the Selections →</a>
-                        </div>
-                        <span class="font-label-bold text-secondary whitespace-nowrap ml-4">2026</span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="flex justify-between items-start">
-                        <div class="flex-1">
-                            <h3 class="font-headline-md text-headline-md mb-2">Kentucky All-State Cross Country, Girls Third Team & All-Sophomore Team</h3>
-                            <p class="font-body-md text-on-surface-variant mb-2">Named to the 2025 Kentucky All-State cross country Girls Third Team and All-Sophomore Team (5K, 20:14.90).</p>
-                            <div class="flex flex-wrap gap-x-6 gap-y-1">
-                                <a href="https://ky.milesplit.com/articles/400965/2025-kentucky-all-state-xc-honors-girls-third-team" target="_blank" rel="noopener noreferrer" class="font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm">Third Team →</a>
-                                <a href="https://ky.milesplit.com/articles/400970/2025-kentucky-all-state-xc-honors-all-sophomore-girls-team" target="_blank" rel="noopener noreferrer" class="font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm">All-Sophomore Team →</a>
-                            </div>
-                        </div>
-                        <span class="font-label-bold text-secondary whitespace-nowrap ml-4">2025</span>
-                    </div>
-                </div>
-                <div class="card">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="recognitionStrip">
+                <!-- Awards loaded dynamically -->
+            </div>
+        </section>
+
+        <!-- Rankings & Coverage Section -->
+        <section class="mb-16">
+            <h2 class="font-headline-lg text-headline-lg mb-8">Rankings & Media Coverage</h2>
+            <div class="space-y-4" id="coverageContainer">
+                <!-- Awards with a verification link are inserted here from data/academics.json -->
+                <div class="card" data-date="2026">
                     <div class="flex justify-between items-start">
                         <div class="flex-1">
                             <h3 class="font-headline-md text-headline-md mb-2">Top Kentucky Class of 2028 Girls Distance Recruits</h3>
@@ -136,7 +112,7 @@
                         <span class="font-label-bold text-secondary whitespace-nowrap ml-4">2026</span>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card" data-date="2026">
                     <div class="flex justify-between items-start">
                         <div class="flex-1">
                             <h3 class="font-headline-md text-headline-md mb-2">MileSplit Kentucky Final Outdoor Rankings</h3>
@@ -150,7 +126,7 @@
                         <span class="font-label-bold text-secondary whitespace-nowrap ml-4">2026</span>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card" data-date="2025">
                     <div class="flex justify-between items-start">
                         <div class="flex-1">
                             <h3 class="font-headline-md text-headline-md mb-2">MileSplit Kentucky "Most Improved" Recognition</h3>
@@ -195,7 +171,7 @@
             </a>
             <a href="achievements.html" class="flex flex-col gap-2 p-6 bg-surface border border-outline-variant hover:border-secondary hover:bg-surface-container-low transition-colors">
                 <span class="font-label-bold text-label-bold text-xs md:text-sm uppercase tracking-wide md:tracking-widest text-secondary">Academics</span>
-                <span class="font-body-md text-on-surface-variant">Awards & coursework</span>
+                <span class="font-body-md text-on-surface-variant">Coursework, awards & activities</span>
             </a>
             <div class="flex flex-col gap-2 p-6 bg-secondary border border-secondary">
                 <span class="font-label-bold text-label-bold text-xs md:text-sm uppercase tracking-wide md:tracking-widest text-white">References</span>
@@ -219,6 +195,50 @@
             .then(response => response.json())
             .then(data => renderEndorsements(data))
             .catch(error => console.error('Error loading endorsements:', error));
+
+        fetch('data/academics.json?_=' + Date.now())
+            .then(response => response.json())
+            .then(data => renderRecognition(data))
+            .catch(error => console.error('Error loading recognition:', error));
+
+        function renderRecognition(items) {
+            const sorted = [...items].sort((a, b) => b.date.localeCompare(a.date));
+
+            // Plain honors go in the at-a-glance strip; anything with a
+            // verification link reads as coverage and joins that section.
+            const honors = sorted.filter(item => !item.link);
+            const linked = sorted.filter(item => item.link);
+
+            if (honors.length) {
+                document.getElementById('recognitionStrip').innerHTML = honors.map(item => `
+                    <div class="card p-4 md:p-6 flex flex-col gap-2">
+                        <div class="flex justify-between items-baseline gap-3">
+                            <h3 class="font-label-bold text-label-bold uppercase tracking-wide">${item.awardName}</h3>
+                            <span class="font-label-bold text-secondary whitespace-nowrap">${item.date}</span>
+                        </div>
+                        <p class="font-label-sm text-label-sm text-on-surface-variant">${item.description || ''}</p>
+                    </div>
+                `).join('');
+                document.getElementById('recognitionSection').classList.remove('hidden');
+            }
+
+            const coverage = document.getElementById('coverageContainer');
+            coverage.insertAdjacentHTML('afterbegin', linked.map(item => `
+                <div class="card" data-date="${item.date}">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <h3 class="font-headline-md text-headline-md mb-2">${item.awardName}</h3>
+                            <p class="font-body-md text-on-surface-variant mb-2">${item.description || ''}</p>
+                            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm">View the Selections →</a>
+                        </div>
+                        <span class="font-label-bold text-secondary whitespace-nowrap ml-4">${item.date}</span>
+                    </div>
+                </div>
+            `).join(''));
+            [...coverage.children]
+                .sort((a, b) => (b.dataset.date || '').localeCompare(a.dataset.date || ''))
+                .forEach(card => coverage.appendChild(card));
+        }
 
         function renderEndorsements(endorsements) {
             const container = document.getElementById('endorsementsContainer');
