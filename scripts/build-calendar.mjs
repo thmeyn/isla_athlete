@@ -51,7 +51,7 @@ for (const event of events) {
     const place = event.venue || event.location || '';
     const details = `${event.sport} meet — Isla Meyn, Highlands High School, Class of 2028.` +
         (event.link ? `\nMeet info: ${event.link}` : '') +
-        `\n\nContact: isla.meyn2028@gmail.com` +
+        `\n\nContact: isla.meyn@gmail.com` +
         `\nAthlete profile: https://islameyn.com` +
         `\nMileSplit: https://ky.milesplit.com/athletes/15029501-isla-meyn` +
         `\nSchedule: https://islameyn.com/schedule.html`;
