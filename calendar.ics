@@ -27,6 +27,24 @@ URL:https://oh.milesplit.com/meets/710276-saturday-night-lig
  hts-hs-2026
 END:VEVENT
 BEGIN:VEVENT
+UID:2026-09-05-Central20Kentucky20Run20for20the20Gold@islame
+ yn.com
+DTSTAMP:20260905T000000Z
+DTSTART;VALUE=DATE:20260905
+DTEND;VALUE=DATE:20260906
+SUMMARY:Central Kentucky Run for the Gold – Isla Meyn
+LOCATION:384 W. A. Jenkins Road Elizabethtown\, KY 42701
+DESCRIPTION:Cross Country meet — Isla Meyn\, Highlands High 
+ School\, Class of 2028.\nMeet info: https://ky.milesplit.co
+ m/meets/733745-central-kentucky-run-for-the-gold-2026/info\
+ n\nContact: isla.meyn@gmail.com\nNCAA ID: 2607988649\nAthle
+ te profile: https://islameyn.com\nMileSplit: https://ky.mil
+ esplit.com/athletes/15029501-isla-meyn\nSchedule: https://i
+ slameyn.com/schedule.html
+URL:https://ky.milesplit.com/meets/733745-central-kentucky-r
+ un-for-the-gold-2026/info
+END:VEVENT
+BEGIN:VEVENT
 UID:2026-09-19-Trinity20Valkyrie20Invitational@islameyn.com
 DTSTAMP:20260919T000000Z
 DTSTART;VALUE=DATE:20260919
