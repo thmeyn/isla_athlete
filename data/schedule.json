@@ -12,10 +12,12 @@
   {
     "season": "2026-2027",
     "sport": "Cross Country",
-    "eventName": "Central Kentucky Run for the Gold or Ryle Invitational",
-    "location": "Hardin County, KY or Union, KY (squad split)",
+    "eventName": "Central Kentucky Run for the Gold",
+    "location": "Hardin County, KY",
     "date": "2026-09-05",
-    "status": "tentative"
+    "status": "upcoming",
+    "link": "https://ky.milesplit.com/meets/733745-central-kentucky-run-for-the-gold-2026/info",
+    "venue": "384 W. A. Jenkins RoadElizabethtown, KY 42701"
   },
   {
     "season": "2026-2027",
