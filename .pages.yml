@@ -142,6 +142,83 @@ content:
         type: string
         description: "Optional. MileSplit / KHSAA article verifying the honor"
 
+  - name: academics-page
+    label: Academics Page
+    type: file
+    path: data/academics-page.json
+    format: json
+    description: "GPA, coursework and activities on the Academics page. The GPA also feeds the home page stat tile and the printable one-pager."
+    fields:
+      - name: gpa
+        label: GPA
+        type: object
+        fields:
+          - name: weighted
+            label: Weighted GPA
+            type: string
+            required: true
+          - name: unweighted
+            label: Unweighted GPA
+            type: string
+            required: true
+          - name: note
+            label: Caption
+            type: string
+            description: "Small text under each number, e.g. Cumulative"
+      - name: apClasses
+        label: AP Classes
+        type: object
+        list: true
+        fields:
+          - name: name
+            label: Course
+            type: string
+            required: true
+            description: "e.g. AP Biology"
+          - name: status
+            label: Status
+            type: select
+            required: true
+            description: "Completed courses list first, upcoming ones below"
+            options:
+              values: [completed, upcoming]
+          - name: badge
+            label: Badge
+            type: string
+            description: "Optional green badge, e.g. Exam Passed. Leave blank for none."
+      - name: honorsClasses
+        label: Honors Classes
+        type: object
+        list: true
+        fields:
+          - name: name
+            label: Course
+            type: string
+            required: true
+            description: "e.g. Advanced Chemistry"
+          - name: status
+            label: Status
+            type: select
+            required: true
+            options:
+              values: [completed, upcoming]
+          - name: badge
+            label: Badge
+            type: string
+            description: "Optional green badge. Leave blank for none."
+      - name: activities
+        label: Work & Community Involvement
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: Role
+            type: string
+            required: true
+          - name: description
+            label: Description
+            type: text
+
   - name: endorsements
     label: Endorsements
     type: file

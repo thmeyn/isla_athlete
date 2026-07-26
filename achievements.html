@@ -79,76 +79,39 @@
             </div>
         </section>
 
-        <!-- GPA and Academic Highlights -->
+        <!-- GPA and Academic Highlights (values from data/academics-page.json) -->
         <section class="grid md:grid-cols-2 gap-6 mb-16">
             <div class="card">
                 <p class="font-label-sm text-on-surface-variant uppercase mb-2">Unweighted GPA</p>
-                <p class="text-5xl md:text-6xl font-black tracking-tight text-secondary">3.966</p>
-                <p class="font-label-sm text-on-surface-variant mt-2">Cumulative</p>
+                <p class="text-5xl md:text-6xl font-black tracking-tight text-secondary" id="gpaUnweighted">3.966</p>
+                <p class="font-label-sm text-on-surface-variant mt-2 gpa-note">Cumulative</p>
             </div>
             <div class="card">
                 <p class="font-label-sm text-on-surface-variant uppercase mb-2">Weighted GPA</p>
-                <p class="text-5xl md:text-6xl font-black tracking-tight text-secondary">4.509</p>
-                <p class="font-label-sm text-on-surface-variant mt-2">Cumulative</p>
+                <p class="text-5xl md:text-6xl font-black tracking-tight text-secondary" id="gpaWeighted">4.509</p>
+                <p class="font-label-sm text-on-surface-variant mt-2 gpa-note">Cumulative</p>
             </div>
         </section>
 
-        <!-- Courses & Subjects -->
+        <!-- Courses & Subjects (loaded from data/academics-page.json) -->
         <section class="mb-16">
             <h2 class="font-headline-lg text-headline-lg mb-8">Advanced Coursework</h2>
             <div class="grid md:grid-cols-2 gap-4">
                 <div class="bg-surface-container p-6 rounded-lg border border-outline-variant">
                     <h3 class="font-label-bold text-label-bold uppercase mb-4">AP Classes</h3>
-                    <p class="font-label-sm text-on-surface-variant uppercase tracking-widest mb-2">Completed</p>
-                    <ul class="space-y-2 font-body-md text-on-surface-variant mb-6">
-                        <li class="flex items-center justify-between"><span>• AP Human Geography</span><span class="text-xs font-bold uppercase tracking-widest text-green-700 bg-green-100 px-2 py-0.5 ml-4">Exam Passed</span></li>
-                        <li class="flex items-center justify-between"><span>• AP Biology</span><span class="text-xs font-bold uppercase tracking-widest text-green-700 bg-green-100 px-2 py-0.5 ml-4">Exam Passed</span></li>
-                        <li class="flex items-center justify-between"><span>• AP World History</span><span class="text-xs font-bold uppercase tracking-widest text-green-700 bg-green-100 px-2 py-0.5 ml-4">Exam Passed</span></li>
-                        <li class="flex items-center justify-between"><span>• AP Seminar</span><span class="text-xs font-bold uppercase tracking-widest text-green-700 bg-green-100 px-2 py-0.5 ml-4">Exam Passed</span></li>
-                    </ul>
-                    <p class="font-label-sm text-on-surface-variant uppercase tracking-widest mb-2">Upcoming</p>
-                    <ul class="space-y-2 font-body-md text-on-surface-variant">
-                        <li>• AP Research</li>
-                        <li>• AP European History</li>
-                        <li>• AP Language & Composition</li>
-                        <li>• AP Pre-Calculus</li>
-                        <li>• AP US History</li>
-                    </ul>
+                    <div id="apClasses"></div>
                 </div>
                 <div class="bg-surface-container p-6 rounded-lg border border-outline-variant">
                     <h3 class="font-label-bold text-label-bold uppercase mb-4">Honors Classes</h3>
-                    <p class="font-label-sm text-on-surface-variant uppercase tracking-widest mb-2">Completed</p>
-                    <ul class="space-y-2 font-body-md text-on-surface-variant mb-6">
-                        <li>• Advanced Geometry</li>
-                        <li>• Advanced Algebra II</li>
-                        <li>• Advanced English</li>
-                    </ul>
-                    <p class="font-label-sm text-on-surface-variant uppercase tracking-widest mb-2">Upcoming</p>
-                    <ul class="space-y-2 font-body-md text-on-surface-variant">
-                        <li>• Advanced Chemistry</li>
-                        <li>• Advanced Spanish 3</li>
-                    </ul>
+                    <div id="honorsClasses"></div>
                 </div>
             </div>
         </section>
 
-        <!-- Work & Community Involvement -->
+        <!-- Work & Community Involvement (loaded from data/academics-page.json) -->
         <section>
             <h2 class="font-headline-lg text-headline-lg mb-8">Work & Community Involvement</h2>
-            <div class="space-y-4">
-                <div class="card">
-                    <h3 class="font-headline-md text-headline-md mb-2">Water Quality Technician, Vernon Swim Club</h3>
-                    <p class="font-body-md text-on-surface-variant">Serves as the club's dedicated water quality technician, testing and balancing pool chemicals seven days a week to keep the water safe and swim-ready for every member.</p>
-                </div>
-                <div class="card">
-                    <h3 class="font-headline-md text-headline-md mb-2">YMCA Lifeguard & Swim Instructor</h3>
-                    <p class="font-body-md text-on-surface-variant">Promotes water safety and helps young swimmers develop confidence and foundational skills in the water.</p>
-                </div>
-                <div class="card">
-                    <h3 class="font-headline-md text-headline-md mb-2">Summer Camp Lifeguard, YMCA Camp Ernst</h3>
-                    <p class="font-body-md text-on-surface-variant">Serves three weeks each summer as a lifeguard at Camp Ernst, the same camp she attended as a camper every summer since age 8.</p>
-                </div>
-            </div>
+            <div class="space-y-4" id="activities"></div>
         </section>
 
     </main>
@@ -185,5 +148,48 @@
     </footer>
 
     <script src="js/main.js?v=1"></script>
+    <script>
+        // GPA, coursework and activities all come from data/academics-page.json
+        // so they can be edited in Pages CMS without touching markup.
+        fetch('data/academics-page.json?_=' + Date.now())
+            .then(r => r.json())
+            .then(renderAcademics)
+            .catch(error => console.error('Error loading academics:', error));
+
+        function renderAcademics(data) {
+            const esc = s => { const d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; };
+
+            const gpa = data.gpa || {};
+            if (gpa.unweighted) document.getElementById('gpaUnweighted').textContent = gpa.unweighted;
+            if (gpa.weighted)   document.getElementById('gpaWeighted').textContent   = gpa.weighted;
+            if (gpa.note) document.querySelectorAll('.gpa-note').forEach(el => el.textContent = gpa.note);
+
+            const courseList = (courses, status) => {
+                const rows = courses.filter(c => (c.status || 'completed') === status);
+                if (!rows.length) return '';
+                const items = rows.map(c => c.badge
+                    ? `<li class="flex items-center justify-between"><span>• ${esc(c.name)}</span><span class="text-xs font-bold uppercase tracking-widest text-green-700 bg-green-100 px-2 py-0.5 ml-4">${esc(c.badge)}</span></li>`
+                    : `<li>• ${esc(c.name)}</li>`
+                ).join('');
+                const label = status === 'completed' ? 'Completed' : 'Upcoming';
+                const spacing = status === 'completed' ? ' mb-6' : '';
+                return `<p class="font-label-sm text-on-surface-variant uppercase tracking-widest mb-2">${label}</p>
+                        <ul class="space-y-2 font-body-md text-on-surface-variant${spacing}">${items}</ul>`;
+            };
+            const renderCourses = (id, courses) => {
+                const el = document.getElementById(id);
+                el.innerHTML = courseList(courses || [], 'completed') + courseList(courses || [], 'upcoming');
+            };
+            renderCourses('apClasses', data.apClasses);
+            renderCourses('honorsClasses', data.honorsClasses);
+
+            document.getElementById('activities').innerHTML = (data.activities || []).map(a => `
+                <div class="card">
+                    <h3 class="font-headline-md text-headline-md mb-2">${esc(a.title)}</h3>
+                    <p class="font-body-md text-on-surface-variant">${esc(a.description || '')}</p>
+                </div>
+            `).join('');
+        }
+    </script>
 </body>
 </html>

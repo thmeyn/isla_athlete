@@ -151,6 +151,30 @@
             ).join('');
         });
 
+        // Academics paragraph mirrors the Academics page (data/academics-page.json)
+        fetch('data/academics-page.json?_=' + Date.now()).then(r => r.json()).then(data => {
+            const esc = s => { const d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; };
+            const WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+            const gpa = data.gpa || {};
+            const ap = data.apClasses || [];
+            const done = ap.filter(c => c.status === 'completed');
+            const passed = done.filter(c => c.badge);
+            const exams = (passed.length ? passed : done).map(c => c.name.replace(/^AP\s+/, ''));
+            const upcoming = ap.filter(c => c.status === 'upcoming').map(c => c.name);
+
+            const lines = [];
+            if (gpa.weighted && gpa.unweighted) {
+                const note = gpa.note ? ` (${esc(gpa.note.toLowerCase())})` : '';
+                lines.push(`<strong>${esc(gpa.weighted)} weighted GPA</strong> / ${esc(gpa.unweighted)} unweighted${note}.`);
+            }
+            if (exams.length) {
+                const n = WORDS[exams.length] || exams.length;
+                lines.push(`Passing scores on ${n} AP exam${exams.length === 1 ? '' : 's'}: ${exams.map(esc).join(', ')}.`);
+            }
+            if (upcoming.length) lines.push(`Upcoming: ${upcoming.map(esc).join(', ')}.`);
+            if (lines.length) document.getElementById('academics').innerHTML = lines.join('<br/>');
+        });
+
         fetch('data/endorsements.json?_=' + Date.now()).then(r => r.json()).then(es => {
             const div = document.createElement('div');
             document.getElementById('quoteGrid').innerHTML = es.slice(0, 2).map(e => {
