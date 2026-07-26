@@ -1,26 +1,72 @@
 {
   "gpa": {
     "weighted": "4.509",
-    "unweighted": "3.966",
+    "unweighted": "4.043",
     "note": "Cumulative"
   },
   "apClasses": [
-    { "name": "AP Human Geography", "status": "completed", "badge": "Exam Passed" },
-    { "name": "AP Biology", "status": "completed", "badge": "Exam Passed" },
-    { "name": "AP World History", "status": "completed", "badge": "Exam Passed" },
-    { "name": "AP Seminar", "status": "completed", "badge": "Exam Passed" },
-    { "name": "AP Research", "status": "upcoming" },
-    { "name": "AP European History", "status": "upcoming" },
-    { "name": "AP Language & Composition", "status": "upcoming" },
-    { "name": "AP Pre-Calculus", "status": "upcoming" },
-    { "name": "AP US History", "status": "upcoming" }
+    {
+      "name": "AP Human Geography",
+      "status": "completed",
+      "badge": "Exam Passed"
+    },
+    {
+      "name": "AP Biology",
+      "status": "completed",
+      "badge": "Exam Passed"
+    },
+    {
+      "name": "AP World History",
+      "status": "completed",
+      "badge": "Exam Passed"
+    },
+    {
+      "name": "AP Seminar",
+      "status": "completed",
+      "badge": "Exam Passed"
+    },
+    {
+      "name": "AP Research",
+      "status": "upcoming"
+    },
+    {
+      "name": "AP European History",
+      "status": "upcoming"
+    },
+    {
+      "name": "AP Language & Composition",
+      "status": "upcoming"
+    },
+    {
+      "name": "AP Pre-Calculus",
+      "status": "upcoming"
+    },
+    {
+      "name": "AP US History",
+      "status": "upcoming"
+    }
   ],
   "honorsClasses": [
-    { "name": "Advanced Geometry", "status": "completed" },
-    { "name": "Advanced Algebra II", "status": "completed" },
-    { "name": "Advanced English", "status": "completed" },
-    { "name": "Advanced Chemistry", "status": "upcoming" },
-    { "name": "Advanced Spanish 3", "status": "upcoming" }
+    {
+      "name": "Advanced Geometry",
+      "status": "completed"
+    },
+    {
+      "name": "Advanced Algebra II",
+      "status": "completed"
+    },
+    {
+      "name": "Advanced English",
+      "status": "completed"
+    },
+    {
+      "name": "Advanced Chemistry",
+      "status": "upcoming"
+    },
+    {
+      "name": "Advanced Spanish 3",
+      "status": "upcoming"
+    }
   ],
   "activities": [
     {
