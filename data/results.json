@@ -551,5 +551,20 @@
         "place": "6th"
       }
     ]
+  },
+  {
+    "season": "2026-2027",
+    "sport": "Cross Country",
+    "meetName": "Saturday Night Lights",
+    "date": "2026-08-29",
+    "location": "Centerville, OH",
+    "link": "https://oh.milesplit.com/meets/710276-saturday-night-lights-hs-presented-by-nike-and-runners-plus-2026/results",
+    "events": [
+      {
+        "eventName": "3200",
+        "timeScore": "20:15:01",
+        "place": "7th"
+      }
+    ]
   }
 ]
