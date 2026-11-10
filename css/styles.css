@@ -406,3 +406,19 @@ input:focus, textarea:focus, select:focus {
     letter-spacing: 0.04em;
     color: var(--on-surface-variant);
 }
+
+/* Heading styles. These class names are used throughout the HTML but were
+   never defined, so every heading rendered as 16px body text. */
+.text-headline-lg {
+    font-size: 26px;
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+@media (min-width: 768px) { .text-headline-lg { font-size: 32px; } }
+.text-headline-md {
+    font-size: 18px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+@media (min-width: 768px) { .text-headline-md { font-size: 20px; } }
