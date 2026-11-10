@@ -103,6 +103,19 @@
                 <div class="card" data-date="2026">
                     <div class="flex justify-between items-start">
                         <div class="flex-1">
+                            <h3 class="font-headline-md text-headline-md mb-2">MileSplit Kentucky Junior Girls Rankings</h3>
+                            <p class="font-body-md text-on-surface-variant mb-2">For the 2026 cross country season, ranked 11th among all Kentucky junior girls (5K, 19:43.50) and 14th among junior girls at the KHSAA State Championships (19:30.30), across all classifications.</p>
+                            <div class="flex flex-wrap gap-x-6 gap-y-1">
+                                <a href="https://ky.milesplit.com/articles/729536" target="_blank" rel="noopener noreferrer" class="font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm">Season Rankings →</a>
+                                <a href="https://ky.milesplit.com/articles/732840" target="_blank" rel="noopener noreferrer" class="font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm">State Meet Rankings →</a>
+                            </div>
+                        </div>
+                        <span class="font-label-bold text-secondary whitespace-nowrap ml-4">2026</span>
+                    </div>
+                </div>
+                <div class="card" data-date="2026">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
                             <h3 class="font-headline-md text-headline-md mb-2">Top Kentucky Class of 2028 Girls Distance Recruits</h3>
                             <p class="font-body-md text-on-surface-variant mb-2">Ranked 9th in the 1600 Meter Run among Kentucky's Class of 2028 girls distance recruits by MileSplit.</p>
                             <a href="https://ky.milesplit.com/articles/700608" target="_blank" rel="noopener noreferrer" class="font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm">View the Rankings →</a>
@@ -142,7 +155,7 @@
             <div class="max-w-2xl">
                 <h2 class="font-headline-lg text-headline-lg text-on-primary mb-4">Interested in Recruiting Isla?</h2>
                 <p class="font-body-lg text-on-primary mb-6">
-                    Coaches and recruiters are welcome to reach out with questions, requests for transcripts, or references. Registered with the NCAA Eligibility Center — NCAA ID 2607988649.
+                    Coaches and recruiters are welcome to reach out with questions, requests for transcripts, or references. Registered with the NCAA Eligibility Center, NCAA ID 2607988649.
                 </p>
                 <div class="flex flex-wrap gap-4">
                     <a href="mailto:isla.meyn@gmail.com" class="nav-cta inline-block bg-secondary text-white px-8 py-3 font-label-bold uppercase tracking-widest hover:opacity-90 transition-opacity">
@@ -200,7 +213,9 @@
             .catch(error => console.error('Error loading recognition:', error));
 
         function renderRecognition(items) {
-            const sorted = [...items].sort((a, b) => b.date.localeCompare(a.date));
+            // Newest year first; within a year, later entries (CMS appends) first
+            const sorted = items.map((item, i) => ({ ...item, _i: i }))
+                .sort((a, b) => b.date.localeCompare(a.date) || b._i - a._i);
 
             // Plain honors go in the at-a-glance strip; anything with a
             // verification link reads as coverage and joins that section.

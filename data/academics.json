@@ -31,13 +31,6 @@
     "category": "athletic"
   },
   {
-    "awardName": "Kentucky All-State Track & Field, Second Team",
-    "description": "Selected to the 2026 Kentucky All-State second team in the 1600 Meter Run",
-    "date": "2026",
-    "category": "athletic",
-    "link": "https://ky.milesplit.com/articles/709486/2026-kentucky-all-state-tandf-selections-girls-second-team"
-  },
-  {
     "awardName": "Kentucky All-State Track & Field, All-Sophomore Team",
     "description": "Selected to the 2026 Kentucky All-State sophomore team in the 1600 Meter Run",
     "date": "2026",
@@ -45,9 +38,23 @@
     "link": "https://ky.milesplit.com/articles/709478/2026-kentucky-all-state-tandf-selections-all-sophomore-girls-team"
   },
   {
+    "awardName": "Kentucky All-State Track & Field, Second Team",
+    "description": "Selected to the 2026 Kentucky All-State second team in the 1600 Meter Run",
+    "date": "2026",
+    "category": "athletic",
+    "link": "https://ky.milesplit.com/articles/709486/2026-kentucky-all-state-tandf-selections-girls-second-team"
+  },
+  {
     "awardName": "Team MVP",
     "description": "Named Team MVP for the sophomore year Outdoor Track season, her second consecutive MVP honor",
     "date": "2026",
     "category": "athletic"
+  },
+  {
+    "awardName": "KTCCCA Cross Country All-State, Class 2A",
+    "description": "Named to the 2026 Kentucky Track and Cross Country Coaches Association (KTCCCA) All-State cross country team in Class 2A",
+    "date": "2026",
+    "category": "athletic",
+    "link": "https://ky.milesplit.com/articles/732647/2026-ktccca-cross-country-all-state-award-winners"
   }
 ]
