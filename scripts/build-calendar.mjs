@@ -49,7 +49,7 @@ for (const event of events) {
     const end = `${endDate.getFullYear()}${pad(endDate.getMonth() + 1)}${pad(endDate.getDate())}`;
 
     const place = event.venue || event.location || '';
-    const details = `${event.sport} meet — Isla Meyn, Highlands High School, Class of 2028.` +
+    const details = `${event.sport} meet: Isla Meyn, Highlands High School, Class of 2028.` +
         (event.link ? `\nMeet info: ${event.link}` : '') +
         `\n\nContact: isla.meyn@gmail.com` +
         `\nNCAA ID: 2607988649` +

@@ -137,11 +137,15 @@
             // Featured rule (mirrors profile.html): road races always; track events need 3+ races or one within 12 months
             const yearAgo = new Date(Date.now() - 365 * 24 * 3600 * 1000).toISOString().slice(0, 10);
             const current = n => prs[n] && (n.startsWith('Road') || prs[n].count >= 3 || prs[n].latest >= yearAgo);
+            // Compact meet names so they fit the narrow PR cards without being cut off
+            const shortMeet = m => m
+                .replace(/Cross Country/g, 'XC').replace(/Track & Field/g, 'T&F')
+                .replace(/Championships?/g, 'Champs').replace(/Invitational/g, 'Invite');
             const names = [...PR_ORDER.filter(current), ...Object.keys(prs).filter(n => !PR_ORDER.includes(n) && current(n)).sort()];
             document.getElementById('prGrid').innerHTML = names.map(n => {
                 const p = prs[n];
                 const d = new Date(p.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-                return `<div class="stat"><div class="v">${p.t}</div><div class="l">${PR_LABELS[n] || n}</div><div class="m">${p.meet.length > 26 ? p.meet.slice(0, 24) + '…' : p.meet} · ${d}</div></div>`;
+                return `<div class="stat"><div class="v">${p.t}</div><div class="l">${PR_LABELS[n] || n}</div><div class="m">${shortMeet(p.meet)} · ${d}</div></div>`;
             }).join('');
         });
 
@@ -160,6 +164,7 @@
             const done = ap.filter(c => c.status === 'completed');
             const passed = done.filter(c => c.badge);
             const exams = (passed.length ? passed : done).map(c => c.name.replace(/^AP\s+/, ''));
+            const current = ap.filter(c => c.status === 'current').map(c => c.name);
             const upcoming = ap.filter(c => c.status === 'upcoming').map(c => c.name);
 
             const lines = [];
@@ -171,6 +176,7 @@
                 const n = WORDS[exams.length] || exams.length;
                 lines.push(`Passing scores on ${n} AP exam${exams.length === 1 ? '' : 's'}: ${exams.map(esc).join(', ')}.`);
             }
+            if (current.length) lines.push(`Currently taking: ${current.map(esc).join(', ')}.`);
             if (upcoming.length) lines.push(`Upcoming: ${upcoming.map(esc).join(', ')}.`);
             if (lines.length) document.getElementById('academics').innerHTML = lines.join('<br/>');
         });

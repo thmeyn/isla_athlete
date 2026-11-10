@@ -183,9 +183,9 @@ content:
             label: Status
             type: select
             required: true
-            description: "Completed courses list first, upcoming ones below"
+            description: "Lists in order: completed, current (this school year), upcoming"
             options:
-              values: [completed, upcoming]
+              values: [completed, current, upcoming]
           - name: badge
             label: Badge
             type: string
@@ -205,7 +205,7 @@ content:
             type: select
             required: true
             options:
-              values: [completed, upcoming]
+              values: [completed, current, upcoming]
           - name: badge
             label: Badge
             type: string

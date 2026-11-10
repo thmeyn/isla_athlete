@@ -12,7 +12,7 @@
   {
     "season": "2026-2027",
     "sport": "Cross Country",
-    "eventName": "Trinity Valkyrie Invitational",
+    "eventName": "Trinity / Valkyrie Invitational",
     "location": "Louisville, KY",
     "date": "2026-09-19",
     "status": "completed",
@@ -22,27 +22,31 @@
   {
     "season": "2026-2027",
     "sport": "Cross Country",
-    "eventName": "Conference Championship (NKAC / St. Henry Invite)",
+    "eventName": "NKAC Championships",
     "location": "Burlington, KY",
     "date": "2026-10-10",
     "status": "completed",
-    "link": "https://ky.milesplit.com/meets/714527-nkacst-henry-invite-2026",
+    "link": "https://ky.milesplit.com/meets/773114-2026-nkac-championships-2026",
     "venue": "Idlewild Park, 5550 Idlewild, Burlington, KY 41005"
   },
   {
     "season": "2026-2027",
     "sport": "Cross Country",
-    "eventName": "Regional Championship",
-    "location": "TBA",
+    "eventName": "KHSAA Region 4 Class 2A",
+    "location": "Burlington, KY",
     "date": "2026-10-24",
-    "status": "completed"
+    "status": "completed",
+    "link": "https://ky.milesplit.com/meets/774042-khsaa-region-4-class-2a-2026",
+    "venue": "Idlewild Park, 5550 Idlewild, Burlington, KY 41005"
   },
   {
     "season": "2026-2027",
     "sport": "Cross Country",
-    "eventName": "State Championship",
+    "eventName": "KHSAA State Cross Country Championships",
     "location": "Lexington, KY",
     "date": "2026-10-31",
-    "status": "completed"
+    "status": "completed",
+    "link": "https://ky.milesplit.com/meets/774035-2026-khsaa-state-cross-country-championships-2026",
+    "venue": "Kentucky Horse Park, Lexington, KY"
   }
 ]

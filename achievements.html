@@ -171,14 +171,14 @@
                     ? `<li class="flex items-center justify-between"><span>• ${esc(c.name)}</span><span class="text-xs font-bold uppercase tracking-widest text-green-700 bg-green-100 px-2 py-0.5 ml-4">${esc(c.badge)}</span></li>`
                     : `<li>• ${esc(c.name)}</li>`
                 ).join('');
-                const label = status === 'completed' ? 'Completed' : 'Upcoming';
-                const spacing = status === 'completed' ? ' mb-6' : '';
+                const label = { completed: 'Completed', current: 'Current', upcoming: 'Upcoming' }[status] || status;
+                const spacing = status === 'upcoming' ? '' : ' mb-6';
                 return `<p class="font-label-sm text-on-surface-variant uppercase tracking-widest mb-2">${label}</p>
                         <ul class="space-y-2 font-body-md text-on-surface-variant${spacing}">${items}</ul>`;
             };
             const renderCourses = (id, courses) => {
                 const el = document.getElementById(id);
-                el.innerHTML = courseList(courses || [], 'completed') + courseList(courses || [], 'upcoming');
+                el.innerHTML = ['completed', 'current', 'upcoming'].map(st => courseList(courses || [], st)).join('');
             };
             renderCourses('apClasses', data.apClasses);
             renderCourses('honorsClasses', data.honorsClasses);

@@ -67,7 +67,7 @@
             <div class="max-w-3xl">
                 <h1 class="font-display-xl-mobile md:font-display-xl text-4xl md:text-6xl uppercase mb-6">Competition Schedule</h1>
                 <p class="font-body-lg text-on-surface-variant max-w-2xl">
-                    Mark your calendars for upcoming meets and competitions. Follow Isla's journey throughout the season.
+                    Isla's upcoming meets and competitions. Subscribe once and new meets land in your calendar automatically.
                 </p>
             </div>
         </section>
@@ -76,7 +76,7 @@
         <section class="mb-16">
             <div class="card">
                 <h2 class="font-label-bold text-label-bold uppercase tracking-widest text-secondary mb-2">Subscribe to All Meets</h2>
-                <p class="font-body-md text-on-surface-variant mb-4">Add Isla's full schedule to your calendar once — new meets and venue updates appear automatically.</p>
+                <p class="font-body-md text-on-surface-variant mb-4">Add Isla's full schedule to your calendar once, and new meets and venue updates appear automatically.</p>
                 <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
                     <a href="webcal://islameyn.com/calendar.ics" class="font-label-bold text-label-bold text-secondary hover:underline uppercase tracking-widest">Apple Calendar</a>
                     <a href="https://calendar.google.com/calendar/r?cid=webcal%3A%2F%2Fislameyn.com%2Fcalendar.ics" target="_blank" rel="noopener noreferrer" class="font-label-bold text-label-bold text-secondary hover:underline uppercase tracking-widest">Google Calendar</a>
@@ -217,7 +217,7 @@
             const end = fmt(endDate);
 
             const title = `${event.eventName} – Isla Meyn`;
-            const details = `${event.sport} meet — Isla Meyn, Highlands High School, Class of 2028.` +
+            const details = `${event.sport} meet: Isla Meyn, Highlands High School, Class of 2028.` +
                 (event.link ? `\nMeet info: ${event.link}` : '') +
                 `\n\nContact: isla.meyn@gmail.com` +
                 `\nNCAA ID: 2607988649` +
@@ -308,10 +308,20 @@
                 </div>`;
         }
 
+        // Shown between seasons, when nothing on the schedule is still ahead
+        const SEASON_COMPLETE = `
+            <div class="card mb-12">
+                <h2 class="font-label-bold text-label-bold uppercase tracking-widest text-secondary mb-2">Season Complete</h2>
+                <p class="font-body-md text-on-surface-variant mb-3">Isla's 2026 cross country season wrapped up at the KHSAA State Championships on October 31. Her 2027 track &amp; field meets will be posted here as soon as they're announced, and calendar subscribers get them automatically.</p>
+                <a href="profile.html" class="font-label-bold text-label-bold text-secondary hover:underline uppercase tracking-widest">See Her Results →</a>
+            </div>`;
+
         function renderScheduleEvents(events) {
             const container = document.getElementById('eventsContainer');
+            const today = new Date(); today.setHours(0, 0, 0, 0);
+            const anyAhead = events.some(e => new Date(e.date + 'T12:00:00') >= today);
             if (events.length === 0) {
-                container.innerHTML = '<div class="card"><p class="text-center text-on-surface-variant">No events scheduled.</p></div>';
+                container.innerHTML = SEASON_COMPLETE;
                 return;
             }
 
@@ -329,7 +339,7 @@
 
             const sortedSeasons = Object.keys(grouped).sort().reverse();
 
-            container.innerHTML = sortedSeasons.map(season => {
+            container.innerHTML = (anyAhead ? '' : SEASON_COMPLETE) + sortedSeasons.map(season => {
                 const sportsHtml = Object.keys(grouped[season]).map(sport => {
                     const cardsHtml = grouped[season][sport].map(event => {
                         const eventDate = new Date(event.date + 'T12:00:00');

@@ -27,23 +27,23 @@
     },
     {
       "name": "AP Research",
-      "status": "upcoming"
+      "status": "current"
     },
     {
       "name": "AP European History",
-      "status": "upcoming"
+      "status": "current"
     },
     {
       "name": "AP Language & Composition",
-      "status": "upcoming"
+      "status": "current"
     },
     {
       "name": "AP Pre-Calculus",
-      "status": "upcoming"
+      "status": "current"
     },
     {
       "name": "AP US History",
-      "status": "upcoming"
+      "status": "current"
     }
   ],
   "honorsClasses": [
@@ -61,11 +61,11 @@
     },
     {
       "name": "Advanced Chemistry",
-      "status": "upcoming"
+      "status": "current"
     },
     {
       "name": "Advanced Spanish 3",
-      "status": "upcoming"
+      "status": "current"
     }
   ],
   "activities": [
