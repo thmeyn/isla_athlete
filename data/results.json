@@ -610,7 +610,10 @@
       {
         "eventName": "5000m Run",
         "timeScore": "20:04.98",
-        "place": "8th"
+        "place": "8th",
+        "notable": [
+          "sq"
+        ]
       }
     ]
   },
