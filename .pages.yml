@@ -102,9 +102,9 @@ content:
         label: Status
         type: select
         required: true
-        description: "Renders as the badge on the schedule card"
+        description: "Renders as the badge on the schedule card. Past meets always show as completed"
         options:
-          values: [upcoming, tentative]
+          values: [upcoming, tentative, completed]
       - name: link
         label: Meet Info Link
         type: string

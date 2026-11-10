@@ -2,11 +2,67 @@
   {
     "season": "2026-2027",
     "sport": "Cross Country",
+    "eventName": "Saturday Night Lights",
+    "location": "Centerville, OH",
+    "date": "2026-08-29",
+    "status": "completed",
+    "link": "https://oh.milesplit.com/meets/710276-saturday-night-lights-hs-2026",
+    "venue": "Centerville HS Night Race Course, 500 East Franklin Street, Centerville, OH 45459"
+  },
+  {
+    "season": "2026-2027",
+    "sport": "Cross Country",
     "eventName": "Central Kentucky Run for the Gold",
     "location": "Hardin County, KY",
     "date": "2026-09-05",
     "status": "upcoming",
     "link": "https://ky.milesplit.com/meets/733745-central-kentucky-run-for-the-gold-2026/info",
     "venue": "384 W. A. Jenkins Road Elizabethtown, KY 42701"
+  },
+  {
+    "season": "2026-2027",
+    "sport": "Cross Country",
+    "eventName": "Trinity Valkyrie Invitational",
+    "location": "Louisville, KY",
+    "date": "2026-09-19",
+    "status": "completed",
+    "link": "https://ky.milesplit.com/meets/755977-trinity-valkyrie-invitational-2026",
+    "venue": "Tom Sawyer State Park, 3000 Freys Hill Rd, Louisville, KY 40241"
+  },
+  {
+    "season": "2026-2027",
+    "sport": "Cross Country",
+    "eventName": "Bluegrass Invitational",
+    "location": "Lexington, KY",
+    "date": "2026-09-26",
+    "status": "completed",
+    "link": "https://ky.milesplit.com/meets/740163-bluegrass-invitational-2026",
+    "venue": "Masterson Station Park, 3051 Leestown Rd, Lexington, KY 40511"
+  },
+  {
+    "season": "2026-2027",
+    "sport": "Cross Country",
+    "eventName": "Conference Championship (NKAC / St. Henry Invite)",
+    "location": "Burlington, KY",
+    "date": "2026-10-10",
+    "status": "completed",
+    "link": "https://ky.milesplit.com/meets/714527-nkacst-henry-invite-2026",
+    "venue": "Idlewild Park, 5550 Idlewild, Burlington, KY 41005"
+  },
+  {
+    "season": "2026-2027",
+    "sport": "Cross Country",
+    "eventName": "Regional Championship",
+    "location": "TBA",
+    "date": "2026-10-24",
+    "status": "completed"
+  },
+  {
+    "season": "2026-2027",
+    "sport": "Cross Country",
+    "eventName": "State Championship",
+    "location": "Lexington, KY",
+    "date": "2026-10-31",
+    "status": "completed"
   }
 ]
