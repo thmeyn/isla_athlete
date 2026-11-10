@@ -76,7 +76,6 @@
         "timeScore": "5:21.66",
         "place": "1st",
         "notable": [
-          "pr",
           "All-State 2nd Team"
         ]
       }
@@ -319,10 +318,7 @@
       {
         "eventName": "1600m Run",
         "timeScore": "5:45.32",
-        "place": "5th",
-        "notable": [
-          "pr"
-        ]
+        "place": "5th"
       }
     ]
   },
@@ -387,10 +383,7 @@
       {
         "eventName": "800m Run",
         "timeScore": "2:49.52",
-        "place": "18th",
-        "notable": [
-          "pr"
-        ]
+        "place": "18th"
       }
     ]
   },
@@ -420,10 +413,7 @@
       {
         "eventName": "3200m Run",
         "timeScore": "15:03.50",
-        "place": "4th",
-        "notable": [
-          "pr"
-        ]
+        "place": "4th"
       }
     ]
   },
@@ -578,10 +568,7 @@
       {
         "eventName": "5000m Run",
         "timeScore": "19:43.50",
-        "place": "50th",
-        "notable": [
-          "pr"
-        ]
+        "place": "50th"
       }
     ]
   },
@@ -641,10 +628,7 @@
       {
         "eventName": "5000m Run",
         "timeScore": "19:30.30",
-        "place": "18th",
-        "notable": [
-          "pr"
-        ]
+        "place": "18th"
       }
     ]
   }

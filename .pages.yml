@@ -66,7 +66,7 @@ content:
             label: Badges
             type: string
             list: true
-            description: "sq renders a State Qualifier badge, pr renders Personal Record, any other text renders as-is in a purple badge"
+            description: "sq renders a State Qualifier badge; any other text renders as-is in a purple badge. Personal Record badges are added automatically, no need to enter pr"
 
   - name: schedule
     label: Schedule

@@ -157,6 +157,13 @@ nav a.active {
     border-bottom: 2px solid var(--secondary);
 }
 
+/* Contact call-to-action: white on red, never recolored by the link rules above */
+nav a.nav-cta,
+nav a.nav-cta:hover {
+    color: #fff;
+    border-bottom: none;
+}
+
 /* Buttons */
 button, .button {
     font-family: var(--font-family);

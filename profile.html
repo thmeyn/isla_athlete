@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <meta name="description" content="Verified race results and personal bests for Isla Meyn: 1600m 5:21.66, 5K 19:46, every result linked to its source."/>
+    <meta name="description" content="Verified race results and personal bests for Isla Meyn: 1600m 5:21.66, 5K 19:30.30, every result linked to its source."/>
     <meta property="og:title" content="Isla Meyn | Performance Records"/>
-    <meta property="og:description" content="Verified race results and personal bests: 1600m 5:21.66, 5K 19:46, every result linked to its source."/>
+    <meta property="og:description" content="Verified race results and personal bests: 1600m 5:21.66, 5K 19:30.30, every result linked to its source."/>
     <meta property="og:image" content="https://islameyn.com/images/og-image.jpg"/>
     <meta property="og:url" content="https://islameyn.com/profile.html"/>
     <meta property="og:type" content="website"/>
@@ -13,7 +13,7 @@
     <meta name="twitter:card" content="summary_large_image"/>
     <link rel="icon" type="image/png" href="images/images.png"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="css/styles.css?v=1"/>
+    <link rel="stylesheet" href="css/styles.css?v=2"/>
     <link rel="stylesheet" href="css/tailwind.css?v=3"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Google tag (gtag.js) -->
@@ -44,7 +44,7 @@
                 <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="endorsements.html">References</a>
             </div>
             <div class="flex items-center gap-3">
-                <button class="hidden md:block bg-secondary text-white px-6 py-3 font-label-bold uppercase tracking-widest active:scale-95 transition-transform">Contact</button>
+                <a href="mailto:isla.meyn@gmail.com" class="nav-cta hidden md:block bg-secondary text-white px-6 py-3 font-label-bold text-label-bold uppercase tracking-widest active:scale-95 transition-transform">Contact</a>
                 <button id="mobileMenuBtn" class="md:hidden p-2 text-on-surface" aria-label="Toggle menu">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
@@ -58,7 +58,7 @@
             <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant" href="schedule.html">Schedule</a>
             <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant" href="achievements.html">Academics</a>
             <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant" href="endorsements.html">References</a>
-            <a href="mailto:isla.meyn@gmail.com" class="inline-block bg-secondary text-white px-6 py-3 font-label-bold text-label-bold uppercase tracking-widest">Contact</a>
+            <a href="mailto:isla.meyn@gmail.com" class="nav-cta inline-block bg-secondary text-white px-6 py-3 font-label-bold text-label-bold uppercase tracking-widest">Contact</a>
         </div>
     </nav>
 
@@ -204,6 +204,7 @@
             .then(response => response.json())
             .then(data => {
                 allMeets = data;
+                prKeys = computePRKeys(data);
                 buildFilters(data);
                 buildMetricFilters(data);
                 renderResults(data);
@@ -293,6 +294,29 @@
             renderResults(filtered);
         }
 
+        // "Personal Record" badges are derived, not hand-entered: a race earns one
+        // when it beat every earlier time in the same event. First-ever races and
+        // relays (team times) are skipped. Computed over all meets so filtering
+        // the view never changes which races are badged.
+        let prKeys = new Set();
+        const prKey = (meet, e) => `${meet.date}|${meet.meetName}|${e.eventName.trim()}`;
+
+        function computePRKeys(meets) {
+            const keys = new Set();
+            const best = {};
+            [...meets].sort((a, b) => (a.date || '').localeCompare(b.date || '')).forEach(meet => {
+                (meet.events || []).forEach(e => {
+                    const name = e.eventName.trim();
+                    if (/relay/i.test(name)) return;
+                    const secs = parseTime(e.timeScore);
+                    if (isNaN(secs)) return;
+                    if (name in best && secs < best[name]) keys.add(prKey(meet, e));
+                    if (!(name in best) || secs < best[name]) best[name] = secs;
+                });
+            });
+            return keys;
+        }
+
         function medalFor(place) {
             return {'1st': '🥇 ', '2nd': '🥈 ', '3rd': '🥉 '}[place.trim()] || '';
         }
@@ -352,7 +376,7 @@
                                                 <td style="padding:12px 0;font-size:16px;line-height:24px;">${e.eventName}</td>
                                                 <td style="padding:12px 0 12px 16px;text-align:right;white-space:nowrap;font-size:16px;font-weight:700;color:var(--secondary);">${e.timeScore}</td>
                                                 <td style="padding:12px 0 12px 16px;text-align:right;white-space:nowrap;font-size:16px;"><span style="display:inline-block;margin-right:5px;">${medalFor(e.place)}</span>${e.place}</td>
-                                                <td style="padding:12px 0 12px 16px;"><div style="display:flex;flex-direction:column;gap:4px;align-items:flex-start;">${(Array.isArray(e.notable) ? e.notable : (e.notable ? [e.notable] : [])).map(n => n === 'sq' ? '<span style="font-family:inherit;font-size:10px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#15803d;background-color:#dcfce7;padding:2px 8px;border-radius:3px;">State Qualifier</span>' : n === 'pr' ? '<span style="font-family:inherit;font-size:10px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#1d4ed8;background-color:#dbeafe;padding:2px 8px;border-radius:3px;">Personal Record</span>' : n ? `<span style="font-family:inherit;font-size:10px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#6d28d9;background-color:#ede9fe;padding:2px 8px;border-radius:3px;">${n}</span>` : '').join('')}</div></td>
+                                                <td style="padding:12px 0 12px 16px;"><div style="display:flex;flex-direction:column;gap:4px;align-items:flex-start;">${[...(prKeys.has(prKey(meet, e)) ? ['pr'] : []), ...(Array.isArray(e.notable) ? e.notable : (e.notable ? [e.notable] : [])).filter(n => n !== 'pr')].map(n => n === 'sq' ? '<span style="font-family:inherit;font-size:10px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#15803d;background-color:#dcfce7;padding:2px 8px;border-radius:3px;">State Qualifier</span>' : n === 'pr' ? '<span style="font-family:inherit;font-size:10px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#1d4ed8;background-color:#dbeafe;padding:2px 8px;border-radius:3px;">Personal Record</span>' : n ? `<span style="font-family:inherit;font-size:10px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#6d28d9;background-color:#ede9fe;padding:2px 8px;border-radius:3px;">${n}</span>` : '').join('')}</div></td>
                                             </tr>
                                         `).join('')}
                                     </tbody>

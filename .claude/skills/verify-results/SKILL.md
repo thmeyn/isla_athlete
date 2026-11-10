@@ -43,7 +43,7 @@ Quirks learned the hard way:
 
 - **PR panel parity**: site-computed PRs (min time per event) must equal MileSplit's PR panel: as of 2026-11-10: 800m 2:49.52, 1600m 5:21.66, 3200m 15:03.50, 5K 19:30.30 (plus Road 5k 19:46 and 4x800 9:43.89 which MileSplit's panel doesn't show).
 - **New event names** appear in the Results page PR strip automatically, but add them to `PR_ORDER`/`PR_LABELS` in `profile.html` for proper ordering/labels.
-- **Badges** (`notable`): `sq` = state qualifier (that performance qualified, including at-large), `pr` = personal record at the time it was run, any other string renders as a purple badge. Don't fabricate; a badge is a claim.
+- **Badges** (`notable`): `sq` = state qualifier (that performance qualified, including at-large), any other string renders as a purple badge. Don't fabricate; a badge is a claim. Personal Record badges are computed by `profile.html` (beat every earlier time in that event; first races and relays excluded), so never add `pr` by hand.
 - **Sport groups**: Track & Field, Cross Country, Indoor Track, Road Racing. Fall track events (e.g. the October Freshman Regionals 3200m) go under Track & Field.
 - Rendering sorts by date, so entry order in the file doesn't matter.
 
