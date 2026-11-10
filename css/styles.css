@@ -330,3 +330,14 @@ input:focus, textarea:focus, select:focus {
 .max-w-container-max {
     max-width: var(--container-max);
 }
+
+/* Results page: dropdown rows stack on phones so long options never push the page sideways */
+.filter-row { display: flex; gap: 1rem; }
+.filter-row select { flex: 1 1 0; min-width: 0; }
+@media (max-width: 639px) { .filter-row { flex-direction: column; gap: 0.75rem; } }
+
+/* Progression chart: fixed-height plot so it stays readable on phones */
+.card.chart-card { padding: 12px 8px 8px; }
+@media (min-width: 768px) { .card.chart-card { padding: 24px; } }
+.chart-box { position: relative; height: 300px; }
+@media (min-width: 768px) { .chart-box { height: 400px; } }

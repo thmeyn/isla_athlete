@@ -13,7 +13,7 @@
     <meta name="twitter:card" content="summary_large_image"/>
     <link rel="icon" type="image/png" href="images/images.png"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="css/styles.css?v=2"/>
+    <link rel="stylesheet" href="css/styles.css?v=3"/>
     <link rel="stylesheet" href="css/tailwind.css?v=3"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <!-- Google tag (gtag.js) -->
@@ -89,7 +89,7 @@
         <!-- Meet Results Tab -->
         <div id="panelMeetResults" class="hidden">
             <!-- Filters -->
-            <div class="mb-8 flex gap-4" id="filtersArea">
+            <div class="mb-8 filter-row" id="filtersArea">
                 <select id="seasonFilter" onchange="applyFilters()" class="flex-1 px-4 py-2 border border-outline-variant bg-surface text-on-surface font-label-bold text-label-bold uppercase tracking-widest focus:outline-none focus:border-secondary">
                     <option value="">All Seasons</option>
                 </select>
@@ -104,7 +104,7 @@
 
         <!-- Metrics Tab -->
         <div id="panelMetrics">
-            <div class="flex gap-4 mb-8">
+            <div class="filter-row mb-8">
                 <select id="metricEventFilter" onchange="renderMetrics()" class="flex-1 px-4 py-2 border border-outline-variant bg-surface text-on-surface font-label-bold text-label-bold uppercase tracking-widest focus:outline-none focus:border-secondary">
                     <option value="">Select an event…</option>
                 </select>
@@ -112,8 +112,8 @@
                     <option value="">All Seasons</option>
                 </select>
             </div>
-            <div class="card">
-                <canvas id="metricsChart" class="hidden"></canvas>
+            <div class="card chart-card">
+                <div id="metricsBox" class="chart-box hidden"><canvas id="metricsChart"></canvas></div>
                 <p id="metricsEmpty" class="text-center text-on-surface-variant font-body-md py-8">Select an event to view its progression.</p>
             </div>
             <div id="metricsStats" class="hidden grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-6">
@@ -447,10 +447,11 @@
             const eventName = document.getElementById('metricEventFilter').value;
             const season    = document.getElementById('metricSeasonFilter').value;
             const canvas    = document.getElementById('metricsChart');
+            const box       = document.getElementById('metricsBox');
             const empty     = document.getElementById('metricsEmpty');
 
             if (!eventName) {
-                canvas.classList.add('hidden');
+                box.classList.add('hidden');
                 empty.classList.remove('hidden');
                 return;
             }
@@ -471,13 +472,13 @@
 
             const statsBox = document.getElementById('metricsStats');
             if (points.length === 0) {
-                canvas.classList.add('hidden');
+                box.classList.add('hidden');
                 empty.classList.remove('hidden');
                 statsBox.classList.add('hidden');
                 return;
             }
 
-            canvas.classList.remove('hidden');
+            box.classList.remove('hidden');
             empty.classList.add('hidden');
 
             // Stat strip: best, average, first-race-to-best improvement, count
@@ -516,8 +517,6 @@
                     backgroundColor: color + '22',
                     pointBackgroundColor: pts.map(p => isBest(p) ? GOLD : color),
                     pointBorderColor: pts.map(p => isBest(p) ? GOLD : color),
-                    pointRadius: pts.map(p => isBest(p) ? 8 : 5),
-                    pointHoverRadius: pts.map(p => isBest(p) ? 10 : 7),
                     // Straight segments; dashed across off-season gaps (no races for 60+ days)
                     tension: 0,
                     segment: { borderDash: ctx => (ctx.p1.parsed.x - ctx.p0.parsed.x > 60 * DAY ? [6, 4] : undefined) },
@@ -525,19 +524,65 @@
                 };
             });
 
-            const monthYear = ms => new Date(ms).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+            // Phone-friendly sizing: fewer, rounder ticks and smaller points
+            const narrow = box.clientWidth < 500;
             const first = points[0].date.getTime(), last = points[points.length - 1].date.getTime();
-            const pad = Math.max(7 * DAY, (last - first) * 0.03);
+            const pad = Math.max(10 * DAY, (last - first) * 0.04);
+
+            // Y axis: whole-second steps (0:05 to 2:00) so labels read 5:20, 5:40, 6:00
+            const ys = points.map(p => p.raw);
+            const yRange = Math.max(...ys) - Math.min(...ys) || 10;
+            const yStep = [5, 10, 15, 20, 30, 60, 120].find(st => yRange / st <= (narrow ? 4 : 6)) || 120;
+            const yMin = Math.floor(Math.min(...ys) / yStep) * yStep;
+            const yMax = Math.ceil(Math.max(...ys) / yStep) * yStep;
+            const mmss = v => `${Math.floor(v / 60)}:${String(Math.round(v % 60)).padStart(2, '0')}`;
+
+            // X axis: ticks on month starts, spaced so labels never collide
+            const spanMonths = (last - first + 2 * pad) / (30.4 * DAY);
+            const every = [1, 2, 3, 4, 6, 12].find(m => spanMonths / m <= (narrow ? 5 : 8)) || 12;
+            const xTicks = [];
+            const t = new Date(first - pad); t.setDate(1); t.setHours(0, 0, 0, 0);
+            t.setMonth(t.getMonth() + 1);
+            while (t.getMonth() % every) t.setMonth(t.getMonth() + 1);
+            for (; t.getTime() <= last + pad; t.setMonth(t.getMonth() + every)) xTicks.push(t.getTime());
+            const monthLabel = ms => {
+                const d = new Date(ms);
+                return narrow
+                    ? d.toLocaleDateString('en-US', { month: 'short' }) + " '" + String(d.getFullYear()).slice(2)
+                    : d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+            };
+
+            datasets.forEach(ds => {
+                const r = narrow ? 3.5 : 5;
+                ds.pointRadius = ds.data.map(d => d.p === best ? r + 3 : r);
+                ds.pointHoverRadius = ds.data.map(d => d.p === best ? r + 5 : r + 2);
+                ds.borderWidth = narrow ? 2 : 3;
+                ds.clip = false; // races sitting on the top/bottom gridline stay fully visible
+            });
+
+            const tickFont = { size: narrow ? 11 : 12 };
 
             metricsChartInstance = new Chart(canvas, {
                 type: 'line',
                 data: { datasets },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     parsing: false,
+                    // Easier tapping on phones: the nearest race wins, no need to hit the dot
+                    interaction: { mode: 'nearest', intersect: false },
+                    layout: { padding: { top: 4, right: narrow ? 4 : 8 } },
+                    onResize: (chart, size) => {
+                        if ((size.width < 500) !== narrow) setTimeout(renderMetrics, 0);
+                    },
                     plugins: {
-                        legend: { display: sports.length > 1, labels: { usePointStyle: true, boxWidth: 8 } },
+                        legend: {
+                            display: sports.length > 1,
+                            align: 'end',
+                            labels: { usePointStyle: true, boxWidth: 8, boxHeight: 8, padding: 12, font: tickFont }
+                        },
                         tooltip: {
+                            displayColors: false,
                             callbacks: {
                                 title: items => {
                                     const p = items[0].raw.p;
@@ -556,15 +601,18 @@
                     },
                     scales: {
                         y: {
-                            ticks: { callback: val => formatTime(val) },
-                            title: { display: true, text: 'Time' }
+                            min: yMin,
+                            max: yMax,
+                            ticks: { stepSize: yStep, callback: mmss, font: tickFont, padding: 4 },
+                            border: { display: false }
                         },
                         x: {
                             type: 'linear',
                             min: first - pad,
                             max: last + pad,
-                            ticks: { callback: monthYear, maxRotation: 45, autoSkip: true, maxTicksLimit: 8 },
-                            title: { display: true, text: 'Date' }
+                            afterBuildTicks: scale => { scale.ticks = xTicks.map(value => ({ value })); },
+                            ticks: { callback: monthLabel, maxRotation: 0, autoSkip: false, font: tickFont },
+                            grid: { display: false }
                         }
                     }
                 }
