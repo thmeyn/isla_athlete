@@ -13,7 +13,7 @@
     <meta name="twitter:card" content="summary_large_image"/>
     <link rel="icon" type="image/png" href="images/images.png"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="css/styles.css?v=3"/>
+    <link rel="stylesheet" href="css/styles.css?v=5"/>
     <link rel="stylesheet" href="css/tailwind.css?v=3"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <!-- Google tag (gtag.js) -->
@@ -90,10 +90,10 @@
         <div id="panelMeetResults" class="hidden">
             <!-- Filters -->
             <div class="mb-8 filter-row" id="filtersArea">
-                <select id="seasonFilter" onchange="applyFilters()" class="flex-1 px-4 py-2 border border-outline-variant bg-surface text-on-surface font-label-bold text-label-bold uppercase tracking-widest focus:outline-none focus:border-secondary">
+                <select id="seasonFilter" onchange="applyFilters()">
                     <option value="">All Seasons</option>
                 </select>
-                <select id="sportFilter" onchange="applyFilters()" class="flex-1 px-4 py-2 border border-outline-variant bg-surface text-on-surface font-label-bold text-label-bold uppercase tracking-widest focus:outline-none focus:border-secondary">
+                <select id="sportFilter" onchange="applyFilters()">
                     <option value="">All Sports</option>
                 </select>
             </div>
@@ -105,10 +105,10 @@
         <!-- Metrics Tab -->
         <div id="panelMetrics">
             <div class="filter-row mb-8">
-                <select id="metricEventFilter" onchange="renderMetrics()" class="flex-1 px-4 py-2 border border-outline-variant bg-surface text-on-surface font-label-bold text-label-bold uppercase tracking-widest focus:outline-none focus:border-secondary">
+                <select id="metricEventFilter" onchange="renderMetrics()">
                     <option value="">Select an event…</option>
                 </select>
-                <select id="metricSeasonFilter" onchange="renderMetrics()" class="flex-1 px-4 py-2 border border-outline-variant bg-surface text-on-surface font-label-bold text-label-bold uppercase tracking-widest focus:outline-none focus:border-secondary">
+                <select id="metricSeasonFilter" onchange="renderMetrics()">
                     <option value="">All Seasons</option>
                 </select>
             </div>
@@ -442,6 +442,21 @@
         }
 
         let metricsChartInstance = null;
+        const touchUI = window.matchMedia('(hover: none)').matches;
+
+        function hideChartTip() {
+            const ch = metricsChartInstance;
+            if (!ch || !ch.tooltip.getActiveElements().length) return;
+            ch.$lastTap = null;
+            ch.setActiveElements([]);
+            ch.tooltip.setActiveElements([], { x: 0, y: 0 });
+            ch.update('none');
+        }
+        // Tap anywhere off the chart, or scroll, to dismiss the pop-up
+        document.addEventListener('touchstart', e => {
+            if (metricsChartInstance && e.target !== metricsChartInstance.canvas) hideChartTip();
+        }, { passive: true });
+        window.addEventListener('scroll', hideChartTip, { passive: true });
 
         function renderMetrics() {
             const eventName = document.getElementById('metricEventFilter').value;
@@ -558,6 +573,7 @@
                 ds.pointHoverRadius = ds.data.map(d => d.p === best ? r + 5 : r + 2);
                 ds.borderWidth = narrow ? 2 : 3;
                 ds.clip = false; // races sitting on the top/bottom gridline stay fully visible
+                ds.pointHitRadius = narrow ? 14 : 8; // forgiving tap target around each dot
             });
 
             const tickFont = { size: narrow ? 11 : 12 };
@@ -569,8 +585,17 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     parsing: false,
-                    // Easier tapping on phones: the nearest race wins, no need to hit the dot
-                    interaction: { mode: 'nearest', intersect: false },
+                    // Touch screens: the pop-up opens only on a deliberate tap on a dot, never
+                    // while scrolling past. Mouse users keep hover.
+                    events: touchUI ? ['click'] : ['mousemove', 'mouseout', 'click'],
+                    interaction: { mode: 'nearest', intersect: true },
+                    onClick: (evt, elements, chart) => {
+                        if (!touchUI) return;
+                        const tapped = elements.length ? elements[0].datasetIndex + ':' + elements[0].index : null;
+                        // Tapping the same dot again closes it (after Chart.js finishes its own update)
+                        if (tapped && tapped === chart.$lastTap) { chart.$lastTap = null; setTimeout(hideChartTip, 0); }
+                        else chart.$lastTap = tapped;
+                    },
                     layout: { padding: { top: 4, right: narrow ? 4 : 8 } },
                     onResize: (chart, size) => {
                         if ((size.width < 500) !== narrow) setTimeout(renderMetrics, 0);

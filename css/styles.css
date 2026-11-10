@@ -333,8 +333,36 @@ input:focus, textarea:focus, select:focus {
 
 /* Results page: dropdown rows stack on phones so long options never push the page sideways */
 .filter-row { display: flex; gap: 1rem; }
-.filter-row select { flex: 1 1 0; min-width: 0; }
-@media (max-width: 639px) { .filter-row { flex-direction: column; gap: 0.75rem; } }
+.filter-row select {
+    flex: 1 1 0;
+    min-width: 0;
+    /* Drop the native iOS control, which clipped the text; draw our own chevron */
+    -webkit-appearance: none;
+    appearance: none;
+    height: 48px;
+    padding: 0 44px 0 16px;
+    font-size: 16px;          /* 16px also stops iOS zooming in on tap */
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--on-surface);
+    background-color: var(--surface);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 12px 8px;
+    border: 1px solid var(--outline-variant);
+    border-radius: 4px;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+.filter-row select:focus { border-color: var(--secondary); outline: none; }
+@media (max-width: 639px) {
+    .filter-row { flex-direction: column; gap: 0.75rem; }
+    /* In a column, flex-basis 0 would squash each dropdown's height */
+    .filter-row select { flex: none; width: 100%; }
+}
 
 /* Progression chart: fixed-height plot so it stays readable on phones */
 .card.chart-card { padding: 12px 8px 8px; }
