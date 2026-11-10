@@ -537,8 +537,33 @@
             const GOLD = '#d4a017';
             const DAY = 24 * 3600 * 1000;
 
+            // Compressed timeline: gaps of 60+ days between races (off-seasons) are
+            // drawn at a fixed short width with a break marker, so the chart isn't
+            // mostly empty dashed line. In-season spacing stays true to the calendar.
+            const GAP = 60 * DAY, BREAK_W = 30 * DAY;
+            const times = [...new Set(points.map(p => p.date.getTime()))].sort((a, b) => a - b);
+            const knots = [{ r: times[0], v: 0 }];
+            const breaks = [];
+            for (let i = 1; i < times.length; i++) {
+                const g = times[i] - times[i - 1];
+                const v0 = knots[knots.length - 1].v;
+                const v1 = v0 + (g > GAP ? BREAK_W : g);
+                if (g > GAP) breaks.push({ r0: times[i - 1], r1: times[i], v0, v1, months: Math.round(g / (30.44 * DAY)) });
+                knots.push({ r: times[i], v: v1 });
+            }
+            const toVis = t => {
+                if (t <= knots[0].r) return knots[0].v - (knots[0].r - t);
+                const lastK = knots[knots.length - 1];
+                if (t >= lastK.r) return lastK.v + (t - lastK.r);
+                let i = 0;
+                while (knots[i + 1].r < t) i++;
+                const a = knots[i], b = knots[i + 1];
+                return a.v + (t - a.r) / (b.r - a.r) * (b.v - a.v);
+            };
+            const inBreak = t => breaks.some(b => t > b.r0 && t < b.r1);
+
             // One line per sport (e.g. indoor vs outdoor 1600m), plotted on a
-            // real timeline so off-season gaps read as gaps, not as one week.
+            // timeline where off-seasons are compressed into a marked break (below).
             const SPORT_COLORS = { 'Indoor Track': '#64748b' };
             const SPORT_LABELS = { 'Indoor Track': 'Indoor', 'Track & Field': 'Outdoor' };
             const sports = [...new Set(points.map(p => p.sport))];
@@ -548,14 +573,14 @@
                 const isBest = p => p === best;
                 return {
                     label: SPORT_LABELS[sport] || sport,
-                    data: pts.map(p => ({ x: p.date.getTime(), y: p.raw, p })),
+                    data: pts.map(p => ({ x: toVis(p.date.getTime()), y: p.raw, p })),
                     borderColor: color,
                     backgroundColor: color + '22',
                     pointBackgroundColor: pts.map(p => isBest(p) ? GOLD : color),
                     pointBorderColor: pts.map(p => isBest(p) ? GOLD : color),
                     // Straight segments; dashed across off-season gaps (no races for 60+ days)
                     tension: 0,
-                    segment: { borderDash: ctx => (ctx.p1.parsed.x - ctx.p0.parsed.x > 60 * DAY ? [6, 4] : undefined) },
+                    segment: { borderDash: ctx => (ctx.p1.raw.p.date - ctx.p0.raw.p.date > GAP ? [6, 4] : undefined) },
                     fill: sports.length === 1
                 };
             });
@@ -565,7 +590,8 @@
             chartViewW = viewW;
             const narrow = viewW < 500;
             const first = points[0].date.getTime(), last = points[points.length - 1].date.getTime();
-            const pad = Math.max(10 * DAY, (last - first) * 0.04);
+            const visLast = toVis(last);
+            const pad = Math.max(10 * DAY, visLast * 0.04);
 
             // Scroll when races are packed too tightly to tell apart: widen the
             // plot until a typical in-season gap between races is ~28px (phones)
@@ -573,7 +599,7 @@
             const AXIS_W = 40;
             const gaps = points.slice(1).map((p, i) => (p.date - points[i].date) / DAY).filter(g => g > 0 && g <= 60).sort((a, b) => a - b);
             const typicalGap = gaps.length ? gaps[Math.floor(gaps.length / 2)] : 0;
-            const spanDays = (last - first + 2 * pad) / DAY;
+            const spanDays = (visLast + 2 * pad) / DAY;
             const needW = typicalGap ? AXIS_W + spanDays * ((narrow ? 28 : 22) / typicalGap) : 0;
             const plotW = Math.round(Math.min(Math.max(viewW, needW), viewW * 6));
             const scrollable = plotW > viewW + 24;
@@ -590,14 +616,22 @@
             const yMax = Math.ceil(Math.max(...ys) / yStep) * yStep;
             const mmss = v => `${Math.floor(v / 60)}:${String(Math.round(v % 60)).padStart(2, '0')}`;
 
-            // X axis: ticks on month starts, spaced so labels never collide
-            const pxPerMonth = ((scrollable ? plotW : viewW) - AXIS_W) / (spanDays / 30.4);
-            const every = [1, 2, 3, 4, 6, 12].find(m => pxPerMonth * m >= (narrow ? 64 : 84)) || 12;
+            // X axis: month starts (none inside a break), thinned so labels never collide
+            const usableW = (scrollable ? plotW : viewW) - AXIS_W;
+            const pxPerVis = usableW / (visLast + 2 * pad);
+            const minLabelPx = narrow ? 58 : 80;
             const xTicks = [];
             const t = new Date(first - pad); t.setDate(1); t.setHours(0, 0, 0, 0);
             t.setMonth(t.getMonth() + 1);
-            while (t.getMonth() % every) t.setMonth(t.getMonth() + 1);
-            for (; t.getTime() <= last + pad; t.setMonth(t.getMonth() + every)) xTicks.push(t.getTime());
+            for (; t.getTime() <= last + pad; t.setMonth(t.getMonth() + 1)) {
+                const ms = t.getTime();
+                if (inBreak(ms)) continue;
+                const v = toVis(ms);
+                if (v < -pad || v > visLast + pad) continue;
+                const prev = xTicks[xTicks.length - 1];
+                if (prev && (v - prev.v) * pxPerVis < minLabelPx) continue;
+                xTicks.push({ v, ms });
+            }
             const monthLabel = ms => {
                 const d = new Date(ms);
                 return narrow
@@ -616,8 +650,50 @@
 
             const tickFont = { size: narrow ? 11 : 12 };
 
+            const cardBg = style.getPropertyValue('--surface-container').trim() || '#eceef0';
+            const fontFamily = getComputedStyle(document.body).fontFamily;
+            const seasonBreaks = {
+                id: 'seasonBreaks',
+                // Light band behind the lines where time was skipped
+                beforeDatasetsDraw(chart) {
+                    const { ctx, chartArea: a, scales: { x } } = chart;
+                    ctx.save();
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+                    breaks.forEach(b => {
+                        const x0 = x.getPixelForValue(b.v0 + (b.v1 - b.v0) * 0.15);
+                        const x1 = x.getPixelForValue(b.v1 - (b.v1 - b.v0) * 0.15);
+                        ctx.fillRect(x0, a.top, x1 - x0, a.bottom - a.top);
+                    });
+                    ctx.restore();
+                },
+                // Axis break (//) plus the real length of the gap
+                afterDraw(chart) {
+                    const { ctx, chartArea: a, scales: { x } } = chart;
+                    ctx.save();
+                    breaks.forEach(b => {
+                        const xm = x.getPixelForValue((b.v0 + b.v1) / 2);
+                        ctx.fillStyle = cardBg;
+                        ctx.fillRect(xm - 6, a.bottom - 3, 12, 6);
+                        ctx.strokeStyle = '#8a8f94';
+                        ctx.lineWidth = 1.5;
+                        [-3, 3].forEach(dx => {
+                            ctx.beginPath();
+                            ctx.moveTo(xm + dx - 3, a.bottom + 5);
+                            ctx.lineTo(xm + dx + 3, a.bottom - 5);
+                            ctx.stroke();
+                        });
+                        ctx.fillStyle = '#6b7075';
+                        ctx.font = `${narrow ? 10 : 11}px ${fontFamily}`;
+                        ctx.textAlign = 'center';
+                        ctx.fillText(`${b.months} mo`, xm, a.bottom - 10);
+                    });
+                    ctx.restore();
+                }
+            };
+
             metricsChartInstance = new Chart(canvas, {
                 type: 'line',
+                plugins: [seasonBreaks],
                 data: { datasets },
                 options: {
                     responsive: true,
@@ -670,10 +746,10 @@
                         },
                         x: {
                             type: 'linear',
-                            min: first - pad,
-                            max: last + pad,
-                            afterBuildTicks: scale => { scale.ticks = xTicks.map(value => ({ value })); },
-                            ticks: { callback: monthLabel, maxRotation: 0, autoSkip: false, font: tickFont },
+                            min: -pad,
+                            max: visLast + pad,
+                            afterBuildTicks: scale => { scale.ticks = xTicks.map(tk => ({ value: tk.v })); },
+                            ticks: { callback: (val, i) => (xTicks[i] ? monthLabel(xTicks[i].ms) : ''), maxRotation: 0, autoSkip: false, font: tickFont },
                             grid: { display: false }
                         }
                     }
