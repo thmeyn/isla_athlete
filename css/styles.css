@@ -369,3 +369,40 @@ input:focus, textarea:focus, select:focus {
 @media (min-width: 768px) { .card.chart-card { padding: 24px; } }
 .chart-box { position: relative; height: 300px; }
 @media (min-width: 768px) { .chart-box { height: 400px; } }
+
+/* Progression chart scrolling: the plot can be wider than the screen when
+   races are close together; time labels stay pinned on the left */
+.chart-wrap { position: relative; }
+.chart-scroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    padding-bottom: 6px; /* keeps the scrollbar off the month labels */
+}
+.chart-yaxis {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    pointer-events: none;
+    background: linear-gradient(to right, var(--surface-container) 78%, transparent);
+}
+.chart-yaxis.on { display: block; }
+.chart-yaxis span {
+    position: absolute;
+    left: 2px;
+    transform: translateY(-50%);
+    color: #666;
+    line-height: 1;
+}
+.chart-hint {
+    margin-top: 8px;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--on-surface-variant);
+}

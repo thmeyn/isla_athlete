@@ -13,7 +13,7 @@
     <meta name="twitter:card" content="summary_large_image"/>
     <link rel="icon" type="image/png" href="images/images.png"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="css/styles.css?v=5"/>
+    <link rel="stylesheet" href="css/styles.css?v=6"/>
     <link rel="stylesheet" href="css/tailwind.css?v=3"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <!-- Google tag (gtag.js) -->
@@ -113,7 +113,13 @@
                 </select>
             </div>
             <div class="card chart-card">
-                <div id="metricsBox" class="chart-box hidden"><canvas id="metricsChart"></canvas></div>
+                <div id="metricsBox" class="chart-wrap hidden">
+                    <div id="metricsScroll" class="chart-scroll">
+                        <div id="metricsPlot" class="chart-box"><canvas id="metricsChart"></canvas></div>
+                    </div>
+                    <div id="metricsYAxis" class="chart-yaxis" aria-hidden="true"></div>
+                </div>
+                <p id="metricsHint" class="chart-hint hidden"></p>
                 <p id="metricsEmpty" class="text-center text-on-surface-variant font-body-md py-8">Select an event to view its progression.</p>
             </div>
             <div id="metricsStats" class="hidden grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-6">
@@ -457,6 +463,18 @@
             if (metricsChartInstance && e.target !== metricsChartInstance.canvas) hideChartTip();
         }, { passive: true });
         window.addEventListener('scroll', hideChartTip, { passive: true });
+        document.getElementById('metricsScroll').addEventListener('scroll', hideChartTip, { passive: true });
+
+        // Re-layout the chart only when the available width really changes
+        // (rotation, window resize), not on iOS toolbar show/hide
+        let chartViewW = 0;
+        window.addEventListener('resize', () => {
+            clearTimeout(window.$chartResize);
+            window.$chartResize = setTimeout(() => {
+                const w = document.getElementById('metricsBox').clientWidth;
+                if (metricsChartInstance && w && w !== chartViewW) renderMetrics();
+            }, 150);
+        });
 
         function renderMetrics() {
             const eventName = document.getElementById('metricEventFilter').value;
@@ -464,8 +482,10 @@
             const canvas    = document.getElementById('metricsChart');
             const box       = document.getElementById('metricsBox');
             const empty     = document.getElementById('metricsEmpty');
+            const hint      = document.getElementById('metricsHint');
 
             if (!eventName) {
+                hint.classList.add('hidden');
                 box.classList.add('hidden');
                 empty.classList.remove('hidden');
                 return;
@@ -487,6 +507,7 @@
 
             const statsBox = document.getElementById('metricsStats');
             if (points.length === 0) {
+                hint.classList.add('hidden');
                 box.classList.add('hidden');
                 empty.classList.remove('hidden');
                 statsBox.classList.add('hidden');
@@ -540,9 +561,26 @@
             });
 
             // Phone-friendly sizing: fewer, rounder ticks and smaller points
-            const narrow = box.clientWidth < 500;
+            const viewW = box.clientWidth;
+            chartViewW = viewW;
+            const narrow = viewW < 500;
             const first = points[0].date.getTime(), last = points[points.length - 1].date.getTime();
             const pad = Math.max(10 * DAY, (last - first) * 0.04);
+
+            // Scroll when races are packed too tightly to tell apart: widen the
+            // plot until a typical in-season gap between races is ~28px (phones)
+            // or ~22px (desktop), capped at 6 screens. Off-season gaps stay to scale.
+            const AXIS_W = 40;
+            const gaps = points.slice(1).map((p, i) => (p.date - points[i].date) / DAY).filter(g => g > 0 && g <= 60).sort((a, b) => a - b);
+            const typicalGap = gaps.length ? gaps[Math.floor(gaps.length / 2)] : 0;
+            const spanDays = (last - first + 2 * pad) / DAY;
+            const needW = typicalGap ? AXIS_W + spanDays * ((narrow ? 28 : 22) / typicalGap) : 0;
+            const plotW = Math.round(Math.min(Math.max(viewW, needW), viewW * 6));
+            const scrollable = plotW > viewW + 24;
+            const plot = document.getElementById('metricsPlot');
+            plot.style.width = scrollable ? plotW + 'px' : '';
+            hint.textContent = (touchUI ? 'Swipe' : 'Scroll sideways') + ' to see earlier races';
+            hint.classList.toggle('hidden', !scrollable);
 
             // Y axis: whole-second steps (0:05 to 2:00) so labels read 5:20, 5:40, 6:00
             const ys = points.map(p => p.raw);
@@ -553,8 +591,8 @@
             const mmss = v => `${Math.floor(v / 60)}:${String(Math.round(v % 60)).padStart(2, '0')}`;
 
             // X axis: ticks on month starts, spaced so labels never collide
-            const spanMonths = (last - first + 2 * pad) / (30.4 * DAY);
-            const every = [1, 2, 3, 4, 6, 12].find(m => spanMonths / m <= (narrow ? 5 : 8)) || 12;
+            const pxPerMonth = ((scrollable ? plotW : viewW) - AXIS_W) / (spanDays / 30.4);
+            const every = [1, 2, 3, 4, 6, 12].find(m => pxPerMonth * m >= (narrow ? 64 : 84)) || 12;
             const xTicks = [];
             const t = new Date(first - pad); t.setDate(1); t.setHours(0, 0, 0, 0);
             t.setMonth(t.getMonth() + 1);
@@ -596,10 +634,9 @@
                         if (tapped && tapped === chart.$lastTap) { chart.$lastTap = null; setTimeout(hideChartTip, 0); }
                         else chart.$lastTap = tapped;
                     },
-                    layout: { padding: { top: 4, right: narrow ? 4 : 8 } },
-                    onResize: (chart, size) => {
-                        if ((size.width < 500) !== narrow) setTimeout(renderMetrics, 0);
-                    },
+                    // When scrolling, the chart's own time labels are replaced by a pinned
+                    // overlay (below), so leave room for it on the left
+                    layout: { padding: { top: 4, right: narrow ? 4 : 8, left: scrollable ? AXIS_W : 0 } },
                     plugins: {
                         legend: {
                             display: sports.length > 1,
@@ -628,7 +665,7 @@
                         y: {
                             min: yMin,
                             max: yMax,
-                            ticks: { stepSize: yStep, callback: mmss, font: tickFont, padding: 4 },
+                            ticks: { stepSize: yStep, callback: mmss, font: tickFont, padding: 4, display: !scrollable },
                             border: { display: false }
                         },
                         x: {
@@ -642,6 +679,25 @@
                     }
                 }
             });
+
+            // Pinned time labels that stay put while the plot scrolls underneath
+            const yAxis = document.getElementById('metricsYAxis');
+            yAxis.classList.toggle('on', scrollable);
+            if (scrollable) {
+                const yScale = metricsChartInstance.scales.y;
+                const labels = [];
+                for (let v = yMin; v <= yMax + 0.001; v += yStep) {
+                    labels.push(`<span style="top:${yScale.getPixelForValue(v)}px">${mmss(v)}</span>`);
+                }
+                yAxis.innerHTML = labels.join('');
+                yAxis.style.fontSize = tickFont.size + 'px';
+            } else {
+                yAxis.innerHTML = '';
+            }
+
+            // Open on the most recent races
+            const scroller = document.getElementById('metricsScroll');
+            scroller.scrollLeft = scrollable ? scroller.scrollWidth : 0;
         }
     </script>
 </body>
