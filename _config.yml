@@ -1,0 +1,12 @@
+# GitHub Pages (Jekyll) settings for islameyn.com.
+# Keep working files in the repo but off the public website.
+exclude:
+  - IMPROVEMENTS.md
+  - README.md
+  - scripts/
+  - package.json
+  - tailwind.config.js
+  - css/tailwind.input.css
+  - photos-inbox/
+  - videos-inbox/
+  - video-review/
