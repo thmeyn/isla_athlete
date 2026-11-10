@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="css/styles.css?v=2"/>
     <link rel="stylesheet" href="css/tailwind.css?v=3"/>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JEV517DHM7"></script>
     <script>
@@ -345,12 +345,11 @@
 
             container.innerHTML = sortedSeasons.map(season => {
                 const sportsInSeason = Object.keys(grouped[season]);
-                const multipleSport = sportsInSeason.length > 1;
                 const sportsHtml = sportsInSeason.map(sport => {
                     const meetsHtml = grouped[season][sport].map(meet => {
                         const dateStr = new Date(meet.date + 'T12:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
                         const linkHtml = meet.link
-                            ? `<a href="${meet.link}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm">Meet Info →</a>`
+                            ? `<a href="${meet.link}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 font-label-bold text-secondary hover:underline uppercase tracking-widest text-label-sm">Results →</a>`
                             : '';
                         const th = 'font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--on-surface-variant);padding:0 0 8px 0;';
                         const eventsHtml = meet.events && meet.events.length > 0
@@ -396,7 +395,7 @@
                     }).join('');
                     return `
                         <div class="mb-8">
-                            ${multipleSport ? `<h3 class="font-label-bold text-label-bold uppercase tracking-widest text-secondary mb-4 pb-2 border-b border-outline-variant">${sport}</h3>` : ''}
+                            <h3 class="font-label-bold text-label-bold uppercase tracking-widest text-secondary mb-4 pb-2 border-b border-outline-variant">${sport}</h3>
                             <div class="space-y-6">${meetsHtml}</div>
                         </div>`;
                 }).join('');
@@ -462,7 +461,7 @@
                 meet.events.forEach(e => {
                     if (e.eventName.trim() === eventName) {
                         try {
-                            points.push({ date: new Date(meet.date + 'T12:00:00'), raw: parseTime(e.timeScore), label: meet.meetName, place: e.place });
+                            points.push({ date: new Date(meet.date + 'T12:00:00'), raw: parseTime(e.timeScore), label: meet.meetName, place: e.place, sport: meet.sport });
                         } catch(_) {}
                     }
                 });
@@ -498,51 +497,73 @@
 
             const style = getComputedStyle(document.documentElement);
             const colorSecondary = style.getPropertyValue('--secondary').trim() || '#bb0027';
+            const GOLD = '#d4a017';
+            const DAY = 24 * 3600 * 1000;
+
+            // One line per sport (e.g. indoor vs outdoor 1600m), plotted on a
+            // real timeline so off-season gaps read as gaps, not as one week.
+            const SPORT_COLORS = { 'Indoor Track': '#64748b' };
+            const SPORT_LABELS = { 'Indoor Track': 'Indoor', 'Track & Field': 'Outdoor' };
+            const sports = [...new Set(points.map(p => p.sport))];
+            const datasets = sports.map(sport => {
+                const pts = points.filter(p => p.sport === sport);
+                const color = SPORT_COLORS[sport] || colorSecondary;
+                const isBest = p => p === best;
+                return {
+                    label: SPORT_LABELS[sport] || sport,
+                    data: pts.map(p => ({ x: p.date.getTime(), y: p.raw, p })),
+                    borderColor: color,
+                    backgroundColor: color + '22',
+                    pointBackgroundColor: pts.map(p => isBest(p) ? GOLD : color),
+                    pointBorderColor: pts.map(p => isBest(p) ? GOLD : color),
+                    pointRadius: pts.map(p => isBest(p) ? 8 : 5),
+                    pointHoverRadius: pts.map(p => isBest(p) ? 10 : 7),
+                    // Straight segments; dashed across off-season gaps (no races for 60+ days)
+                    tension: 0,
+                    segment: { borderDash: ctx => (ctx.p1.parsed.x - ctx.p0.parsed.x > 60 * DAY ? [6, 4] : undefined) },
+                    fill: sports.length === 1
+                };
+            });
+
+            const monthYear = ms => new Date(ms).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+            const first = points[0].date.getTime(), last = points[points.length - 1].date.getTime();
+            const pad = Math.max(7 * DAY, (last - first) * 0.03);
 
             metricsChartInstance = new Chart(canvas, {
                 type: 'line',
-                data: {
-                    labels: points.map(p => p.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })),
-                    datasets: [{
-                        label: eventName,
-                        data: points.map(p => p.raw),
-                        borderColor: colorSecondary,
-                        backgroundColor: colorSecondary + '22',
-                        pointBackgroundColor: points.map((p, idx) => idx === bestIdx ? '#d4a017' : colorSecondary),
-                        pointBorderColor: points.map((p, idx) => idx === bestIdx ? '#d4a017' : colorSecondary),
-                        pointRadius: points.map((p, idx) => idx === bestIdx ? 8 : 5),
-                        pointHoverRadius: points.map((p, idx) => idx === bestIdx ? 10 : 7),
-                        tension: 0.3,
-                        fill: true
-                    }]
-                },
+                data: { datasets },
                 options: {
                     responsive: true,
+                    parsing: false,
                     plugins: {
-                        legend: { display: false },
+                        legend: { display: sports.length > 1, labels: { usePointStyle: true, boxWidth: 8 } },
                         tooltip: {
                             callbacks: {
-                                label: ctx => {
-                                    const p = points[ctx.dataIndex];
-                                    let s = formatTime(ctx.parsed.y);
-                                    if (p.place) s += ' · ' + p.place;
-                                    if (ctx.dataIndex === bestIdx) s += ' · Best';
-                                    return s;
+                                title: items => {
+                                    const p = items[0].raw.p;
+                                    return [p.label, p.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })];
                                 },
-                                title: (items) => {
-                                    const i = items[0].dataIndex;
-                                    return [points[i].label, items[0].label];
+                                label: ctx => {
+                                    const p = ctx.raw.p;
+                                    let s = formatTime(p.raw);
+                                    if (p.place) s += ' · ' + p.place;
+                                    if (sports.length > 1) s += ' · ' + (SPORT_LABELS[p.sport] || p.sport);
+                                    if (p === best) s += ' · Best';
+                                    return s;
                                 }
                             }
                         }
                     },
                     scales: {
                         y: {
-                            reverse: false,
                             ticks: { callback: val => formatTime(val) },
                             title: { display: true, text: 'Time' }
                         },
                         x: {
+                            type: 'linear',
+                            min: first - pad,
+                            max: last + pad,
+                            ticks: { callback: monthYear, maxRotation: 45, autoSkip: true, maxTicksLimit: 8 },
                             title: { display: true, text: 'Date' }
                         }
                     }

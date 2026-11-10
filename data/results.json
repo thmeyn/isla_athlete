@@ -22,7 +22,7 @@
     "sport": "Track & Field",
     "meetName": "Class 3A KHSAA Track & Field State Championship",
     "date": "2026-05-23",
-    "location": "UK Track & Field Complex • Lexington, KY",
+    "location": "UK Track & Field Complex - Lexington, KY",
     "link": "https://ky.milesplit.com/meets/745058-class-3a-khsaa-track-and-field-state-championship-2026/info",
     "events": [
       {
@@ -42,7 +42,7 @@
     "sport": "Track & Field",
     "meetName": "Class 3A Region 5 Track & Field Championships",
     "date": "2026-05-11",
-    "location": "Scott High School • Taylor Mill, KY",
+    "location": "Scott High School - Taylor Mill, KY",
     "link": "https://khsaa.org/httpdocs/track/2026/outdoor/regionresults/Class%203A%20Region%205%20Results.htm",
     "events": [
       {
@@ -68,16 +68,13 @@
     "sport": "Track & Field",
     "meetName": "Scott Eagle Classic",
     "date": "2026-05-02",
-    "location": "Scott High School • Taylor Mill, KY",
+    "location": "Scott High School - Taylor Mill, KY",
     "link": "https://ky.milesplit.com/meets/725631-scott-eagle-classic-2026/results",
     "events": [
       {
         "eventName": "1600m Run",
         "timeScore": "5:21.66",
-        "place": "1st",
-        "notable": [
-          "All-State 2nd Team"
-        ]
+        "place": "1st"
       }
     ]
   },
@@ -164,7 +161,7 @@
   {
     "season": "2025-2026",
     "sport": "Cross Country",
-    "meetName": "NKAC St Henry Invite",
+    "meetName": "NKAC / St. Henry Invite",
     "date": "2025-10-11",
     "location": "Idlewild Park - Burlington, KY",
     "link": "https://ky.milesplit.com/meets/692216-2025-nkacst-henry-invite-2025/results/1227152/formatted/",
@@ -181,7 +178,7 @@
     "sport": "Cross Country",
     "meetName": "Milford XC Invitational",
     "date": "2025-10-04",
-    "location": "Milford - Milford, OH",
+    "location": "Valley View - Milford, OH",
     "link": "https://oh.milesplit.com/meets/689303-hs-milford-xc-invitational-2025/results/1222282/formatted/",
     "events": [
       {
@@ -196,7 +193,7 @@
     "sport": "Cross Country",
     "meetName": "Trinity / Valkyrie Invitational",
     "date": "2025-09-20",
-    "location": "Trinity - Louisville, KY",
+    "location": "Tom Sawyer State Park - Louisville, KY",
     "link": "https://ky.milesplit.com/meets/660251-trinity-valkyrie-invitational-2025/results/1210821/formatted/",
     "events": [
       {
@@ -209,7 +206,7 @@
   {
     "season": "2025-2026",
     "sport": "Cross Country",
-    "meetName": "Ryle Invite",
+    "meetName": "Ryle Invitational",
     "date": "2025-08-30",
     "location": "Ryle High School - Union, KY",
     "link": "https://ky.milesplit.com/meets/689169-ryle-invite-2025/results",
@@ -249,7 +246,7 @@
         "timeScore": "21:26",
         "place": "1st",
         "notable": [
-          "Female : Age 1-15"
+          "Female 15 & Under"
         ]
       }
     ]
@@ -259,7 +256,7 @@
     "sport": "Track & Field",
     "meetName": "Class 3A KHSAA Track & Field State Championship",
     "date": "2025-05-31",
-    "location": "UK Track & Field Complex • Lexington, KY",
+    "location": "UK Track & Field Complex - Lexington, KY",
     "link": "https://khsaa.org/track/2025/class3adetailed.htm",
     "events": [
       {
@@ -274,7 +271,7 @@
     "sport": "Track & Field",
     "meetName": "Class 3A Region 5 Track & Field Championships",
     "date": "2025-05-21",
-    "location": "Scott High School • Taylor Mill, KY",
+    "location": "Scott High School - Taylor Mill, KY",
     "link": "https://ky.milesplit.com/meets/681774-class-3a-region-5-2025/results/1179021",
     "events": [
       {
@@ -312,7 +309,7 @@
     "sport": "Track & Field",
     "meetName": "16th Annual Villa for Life",
     "date": "2025-05-10",
-    "location": "Scott High School • Taylor Mill, KY",
+    "location": "Scott High School - Taylor Mill, KY",
     "link": "https://ky.milesplit.com/meets/666785-16th-annual-villa-for-life-2025/results/1171534",
     "events": [
       {
@@ -455,7 +452,7 @@
   {
     "season": "2024-2025",
     "sport": "Cross Country",
-    "meetName": "NKAC St. Henry Invite",
+    "meetName": "NKAC / St. Henry Invite",
     "date": "2024-10-12",
     "location": "Idlewild Park - Burlington, KY",
     "link": "https://ky.milesplit.com/meets/627280-2024-nkacst-henry-invite-2024/results/1092821/formatted/",
@@ -487,7 +484,7 @@
     "sport": "Cross Country",
     "meetName": "Trinity / Valkyrie Invitational",
     "date": "2024-09-21",
-    "location": "Trinity - Louisville, KY",
+    "location": "Tom Sawyer State Park - Louisville, KY",
     "link": "https://ky.milesplit.com/meets/598802-trinity-valkyrie-invitational-2024/results/1078996/formatted/",
     "events": [
       {
@@ -532,7 +529,7 @@
     "sport": "Cross Country",
     "meetName": "Panda Classic",
     "date": "2024-08-24",
-    "location": "Williamstown, KY",
+    "location": "Williamstown High School - Williamstown, KY",
     "link": "https://ky.milesplit.com/meets/609747-panda-classic-2024/results/1063415/raw",
     "events": [
       {
@@ -547,7 +544,7 @@
     "sport": "Cross Country",
     "meetName": "Saturday Night Lights",
     "date": "2026-08-29",
-    "location": "Centerville, OH",
+    "location": "Centerville High School - Centerville, OH",
     "link": "https://ky.milesplit.com/meets/710276-saturday-night-lights-hs-presented-by-nike-and-runners-plus-2026/results/1314904",
     "events": [
       {

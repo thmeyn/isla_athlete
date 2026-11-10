@@ -56,7 +56,11 @@ content:
             label: Time
             type: string
             required: true
-            description: "e.g. 5:21.66"
+            description: "M:SS or M:SS.hh with a period before hundredths, e.g. 5:21.66 or 19:46"
+            options:
+              pattern:
+                regex: '^\d{1,2}:\d{2}(\.\d{1,2})?$'
+                message: "Use minutes:seconds with a period before hundredths, e.g. 20:15.10 (not 20:15:10)"
           - name: place
             label: Place
             type: string

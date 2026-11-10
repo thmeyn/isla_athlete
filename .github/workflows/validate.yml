@@ -24,3 +24,8 @@ jobs:
           # Every meet needs season/sport/meetName/date; every event needs eventName/timeScore/place
           jq -e 'all(.[]; has("season") and has("sport") and has("meetName") and has("date") and (.events | all(has("eventName") and has("timeScore") and has("place"))))' data/results.json
           jq -e 'all(.[]; has("season") and has("sport") and has("eventName") and has("date") and has("status"))' data/schedule.json
+      - name: Check time format
+        run: |
+          # Times must be M:SS or M:SS.hh; catches typos like 20:15:01
+          bad=$(jq -r '.[] | .date as $d | .meetName as $m | .events[] | select(.timeScore | test("^[0-9]{1,2}:[0-9]{2}([.][0-9]{1,2})?$") | not) | "\($d) \($m): \(.eventName) \(.timeScore)"' data/results.json)
+          if [ -n "$bad" ]; then echo "Malformed times:"; echo "$bad"; exit 1; fi
