@@ -558,12 +558,93 @@
     "meetName": "Saturday Night Lights",
     "date": "2026-08-29",
     "location": "Centerville, OH",
-    "link": "https://oh.milesplit.com/meets/710276-saturday-night-lights-hs-presented-by-nike-and-runners-plus-2026/results",
+    "link": "https://ky.milesplit.com/meets/710276-saturday-night-lights-hs-presented-by-nike-and-runners-plus-2026/results/1314904",
     "events": [
       {
         "eventName": "5000m Run",
-        "timeScore": "20:15:01",
+        "timeScore": "20:15.10",
         "place": "7th"
+      }
+    ]
+  },
+  {
+    "season": "2026-2027",
+    "sport": "Cross Country",
+    "meetName": "Trinity / Valkyrie Invitational",
+    "date": "2026-09-19",
+    "location": "Tom Sawyer State Park - Louisville, KY",
+    "link": "https://ky.milesplit.com/meets/755977-trinity-valkyrie-invitational-2026/results/1323407",
+    "events": [
+      {
+        "eventName": "5000m Run",
+        "timeScore": "19:43.50",
+        "place": "50th",
+        "notable": [
+          "pr"
+        ]
+      }
+    ]
+  },
+  {
+    "season": "2026-2027",
+    "sport": "Cross Country",
+    "meetName": "Princeton XC Invitational",
+    "date": "2026-09-26",
+    "location": "Princeton HS XC Course - Cincinnati, OH",
+    "link": "https://ky.milesplit.com/meets/715780-princeton-xc-invitational-hs-entry-only-2026/results/1324567",
+    "events": [
+      {
+        "eventName": "5000m Run",
+        "timeScore": "19:59.20",
+        "place": "3rd"
+      }
+    ]
+  },
+  {
+    "season": "2026-2027",
+    "sport": "Cross Country",
+    "meetName": "NKAC Championships",
+    "date": "2026-10-10",
+    "location": "Idlewild Park - Burlington, KY",
+    "link": "https://ky.milesplit.com/meets/773114-2026-nkac-championships-2026/results/1330523",
+    "events": [
+      {
+        "eventName": "5000m Run",
+        "timeScore": "20:08.00",
+        "place": "8th"
+      }
+    ]
+  },
+  {
+    "season": "2026-2027",
+    "sport": "Cross Country",
+    "meetName": "KHSAA Region 4 Class 2A",
+    "date": "2026-10-24",
+    "location": "Idlewild Park - Burlington, KY",
+    "link": "https://ky.milesplit.com/meets/774042-khsaa-region-4-class-2a-2026/results/1336562",
+    "events": [
+      {
+        "eventName": "5000m Run",
+        "timeScore": "20:04.98",
+        "place": "8th"
+      }
+    ]
+  },
+  {
+    "season": "2026-2027",
+    "sport": "Cross Country",
+    "meetName": "KHSAA State Cross Country Championships",
+    "date": "2026-10-31",
+    "location": "Kentucky Horse Park - Lexington, KY",
+    "link": "https://ky.milesplit.com/meets/774035-2026-khsaa-state-cross-country-championships-2026/results/1338378",
+    "events": [
+      {
+        "eventName": "5000m Run",
+        "timeScore": "19:30.30",
+        "place": "18th",
+        "notable": [
+          "pr"
+        ]
       }
     ]
   }
