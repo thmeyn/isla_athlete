@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="Work and community involvement for Isla Meyn: water quality technician at Vernon Swim Club, YMCA lifeguard and swim instructor, and summer camp lifeguard at YMCA Camp Ernst."/>
+    <meta property="og:title" content="Isla Meyn | Work &amp; Community"/>
+    <meta property="og:description" content="Water quality technician, YMCA lifeguard and swim instructor, and summer camp lifeguard."/>
+    <meta property="og:image" content="https://islameyn.com/images/og-image.jpg"/>
+    <meta property="og:url" content="https://islameyn.com/community.html"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="Isla Meyn"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <link rel="icon" type="image/png" href="images/images.png"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/styles.css?v=12"/>
+    <link rel="stylesheet" href="css/tailwind.css?v=3"/>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JEV517DHM7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-JEV517DHM7');
+    </script>
+    <title>Isla Meyn | Work & Community</title>
+</head>
+<body class="bg-background text-on-background">
+    <!-- Navigation -->
+    <nav class="w-full top-0 sticky bg-surface border-b border-outline-variant z-50">
+        <div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            <div class="flex items-center gap-3">
+                <img src="images/images.png" alt="Bluebird logo" class="h-12 w-12"/>
+                <div class="font-headline-md text-headline-md font-black italic tracking-tighter text-primary">
+                    <a href="index.html">ISLA MEYN</a>
+                </div>
+            </div>
+            <div class="nav-links items-center">
+                <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="index.html#bio">Bio</a>
+                <div class="nav-group">
+                    <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="profile.html" aria-haspopup="true">Athletics <span class="nav-caret" aria-hidden="true">&#9662;</span></a>
+                    <div class="nav-dropdown">
+                        <a class="nav-sub" href="profile.html">Results</a>
+                        <a class="nav-sub" href="schedule.html">Schedule</a>
+                    </div>
+                </div>
+                <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="achievements.html">Academics</a>
+                <a class="font-label-bold text-label-bold uppercase tracking-widest text-secondary border-b-2 border-secondary" href="community.html">Community</a>
+                <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors" href="endorsements.html">References</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="mailto:isla.meyn@gmail.com" class="nav-cta nav-cta-desktop bg-secondary text-white px-6 py-3 font-label-bold text-label-bold uppercase tracking-widest active:scale-95 transition-transform">Contact</a>
+                <button id="mobileMenuBtn" class="nav-burger p-2 text-on-surface" aria-label="Toggle menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu" class="hidden nav-mobile border-t border-outline-variant bg-surface px-margin-mobile py-6 flex flex-col gap-4">
+            <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant" href="index.html#bio">Bio</a>
+            <span class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant">Athletics</span>
+            <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant mobile-sub" href="profile.html">Results</a>
+            <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant mobile-sub" href="schedule.html">Schedule</a>
+            <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant" href="achievements.html">Academics</a>
+            <a class="font-label-bold text-label-bold uppercase tracking-widest text-secondary" href="community.html">Community</a>
+            <a class="font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant" href="endorsements.html">References</a>
+            <a href="mailto:isla.meyn@gmail.com" class="nav-cta inline-block bg-secondary text-white px-6 py-3 font-label-bold text-label-bold uppercase tracking-widest">Contact</a>
+        </div>
+    </nav>
+
+    <main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-24">
+        <!-- Hero Section -->
+        <section class="mb-16 md:mb-24">
+            <div class="max-w-3xl">
+                <h1 class="font-display-xl-mobile md:font-display-xl text-4xl md:text-6xl uppercase mb-6">Work &amp; Community</h1>
+                <p class="font-body-lg text-on-surface-variant max-w-2xl">
+                    Alongside school and running, Isla works in and around the water: keeping a swim club's pool safe, guarding and teaching at the YMCA, and returning each summer to the camp she grew up attending.
+                </p>
+            </div>
+        </section>
+
+        <!-- Roles (loaded from data/community.json) -->
+        <section>
+            <div class="space-y-4" id="activities"></div>
+        </section>
+
+    </main>
+
+    <!-- Page Navigation -->
+    <section class="py-16 md:py-20 px-margin-mobile md:px-margin-desktop border-t border-outline-variant">
+        <div class="max-w-container-max mx-auto page-links">
+            <div class="athletics-card flex flex-col gap-2 p-6 bg-surface border border-outline-variant">
+                <span class="font-label-bold text-label-bold text-xs md:text-sm uppercase tracking-wide md:tracking-widest text-primary">Athletics</span>
+                <div class="athletics-subs">
+                    <a href="profile.html" class="athletics-sub">
+                        <span class="font-label-bold text-label-bold text-xs md:text-sm uppercase tracking-wide md:tracking-widest text-secondary">Results →</span>
+                        <span class="font-body-md text-on-surface-variant">Competition results & times</span>
+                    </a>
+                    <a href="schedule.html" class="athletics-sub">
+                        <span class="font-label-bold text-label-bold text-xs md:text-sm uppercase tracking-wide md:tracking-widest text-secondary">Schedule →</span>
+                        <span class="font-body-md text-on-surface-variant">Upcoming meets & events</span>
+                    </a>
+                </div>
+            </div>
+            <a href="achievements.html" class="flex flex-col gap-2 p-6 bg-surface border border-outline-variant hover:border-secondary hover:bg-surface-container-low transition-colors">
+                <span class="font-label-bold text-label-bold text-xs md:text-sm uppercase tracking-wide md:tracking-widest text-secondary">Academics</span>
+                <span class="font-body-md text-on-surface-variant">GPA & coursework</span>
+            </a>
+            <div class="flex flex-col gap-2 p-6 bg-secondary border border-secondary" aria-current="page">
+                <span class="font-label-bold text-label-bold text-xs md:text-sm uppercase tracking-wide md:tracking-widest text-white">Community</span>
+                <span class="font-body-md text-white opacity-80">Work & community involvement</span>
+            </div>
+            <a href="endorsements.html" class="flex flex-col gap-2 p-6 bg-surface border border-outline-variant hover:border-secondary hover:bg-surface-container-low transition-colors">
+                <span class="font-label-bold text-label-bold text-xs md:text-sm uppercase tracking-wide md:tracking-widest text-secondary">References</span>
+                <span class="font-body-md text-on-surface-variant">References & recognition</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-outline-variant py-12 px-margin-mobile md:px-margin-desktop mt-16">
+        <div class="max-w-container-max mx-auto">
+            <div class="text-center text-on-surface-variant font-body-md">
+                <p>&copy; 2026 Isla Meyn. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js?v=1"></script>
+    <script>
+        // Roles come from data/community.json so they can be edited in Pages CMS.
+        fetch('data/community.json?_=' + Date.now())
+            .then(r => r.json())
+            .then(roles => {
+                const esc = s => { const d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; };
+                document.getElementById('activities').innerHTML = roles.map(a => `
+                    <div class="card">
+                        <h2 class="font-headline-md text-headline-md mb-2">${esc(a.title)}</h2>
+                        <p class="font-body-md text-on-surface-variant">${esc(a.description || '')}</p>
+                    </div>
+                `).join('');
+            })
+            .catch(error => console.error('Error loading community roles:', error));
+    </script>
+</body>
+</html>

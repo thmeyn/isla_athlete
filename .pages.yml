@@ -151,7 +151,7 @@ content:
     type: file
     path: data/academics-page.json
     format: json
-    description: "GPA, coursework and activities on the Academics page. The GPA also feeds the home page stat tile and the printable one-pager."
+    description: "GPA and coursework on the Academics page. The GPA also feeds the home page stat tile and the printable one-pager."
     fields:
       - name: gpa
         label: GPA
@@ -210,18 +210,23 @@ content:
             label: Badge
             type: string
             description: "Optional green badge. Leave blank for none."
-      - name: activities
-        label: Work & Community Involvement
-        type: object
-        list: true
-        fields:
-          - name: title
-            label: Role
-            type: string
-            required: true
-          - name: description
-            label: Description
-            type: text
+
+  - name: community
+    label: Work & Community
+    type: file
+    path: data/community.json
+    format: json
+    list: true
+    description: "Jobs and community roles on the Work & Community page, listed in this order."
+    fields:
+      - name: title
+        label: Role
+        type: string
+        required: true
+        description: "e.g. YMCA Lifeguard & Swim Instructor"
+      - name: description
+        label: Description
+        type: text
 
   - name: endorsements
     label: Endorsements

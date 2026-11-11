@@ -11,11 +11,12 @@ Recruiting profile site for Isla Meyn, Class of 2028 distance runner at Highland
 | Bio | Homepage: bio, key stats, page links | `index.html` |
 | Athletics → Results | Personal bests, progression chart, every meet | `profile.html` |
 | Athletics → Schedule | Upcoming and completed meets, calendar subscribe | `schedule.html` |
-| Academics | GPA, coursework, activities | `achievements.html` |
+| Academics | GPA and coursework | `achievements.html` |
+| Community | Work & Community: jobs and community roles | `community.html` |
 | References | Coach and teacher references, honors | `endorsements.html` |
 | (Printable Profile button) | One-page printable summary | `one-pager.html` |
 
-`404.html` is the not-found page. Navigation, the Athletics sub-tabs, and the bottom page-link row are written out by hand in each page, so a nav change means editing all five main pages.
+`404.html` is the not-found page. Navigation, the Athletics sub-tabs, and the bottom page-link row are written out by hand in each page, so a nav change means editing all six main pages. The full menu shows from 1024px wide; narrower screens get the menu button.
 
 ## Content
 
@@ -27,6 +28,7 @@ All content lives in `data/` and is rendered in the browser by an inline `<scrip
 | `data/schedule.json` | Schedule | Schedule page, `calendar.ics` |
 | `data/academics.json` | Athletic Achievements | Honors on References page and one-pager (the filename is historical; these are athletic honors) |
 | `data/academics-page.json` | Academics Page | Academics page, homepage GPA stat, one-pager academics |
+| `data/community.json` | Work & Community | Community page |
 | `data/endorsements.json` | Endorsements | References page, one-pager quotes |
 
 Rules of the road:

@@ -496,3 +496,25 @@ nav a.mobile-sub { padding-left: 16px; border-bottom: none; }
 a.athletics-sub { transition: background-color 0.2s ease; }
 a.athletics-sub:hover { background: var(--surface-container-low); }
 a.athletics-sub:hover span:first-child { text-decoration: underline; }
+
+/* Bottom page-links row: Athletics (2 wide), Academics, Community, References */
+.page-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.page-links > .athletics-card { grid-column: span 2; }
+.page-links > :last-child { grid-column: span 2; }
+@media (min-width: 768px) {
+    .page-links { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .page-links > :last-child { grid-column: auto; }
+}
+
+/* Nav breakpoint: five links + logo + Contact need ~1000px, so the
+   full menu shows from 1024px; below that the menu button is used. */
+.nav-links, .nav-cta-desktop { display: none; }
+.nav-links { gap: 24px; }
+@media (min-width: 1024px) {
+    .nav-links { display: flex; }
+    .nav-cta-desktop { display: block; }
+    .nav-burger { display: none; }
+    .nav-mobile { display: none !important; }
+}
+@media (min-width: 1200px) { .nav-links { gap: 32px; } }
+#mobileMenu a.active:not(.nav-cta) { border-bottom: none; }
