@@ -46,6 +46,23 @@ URL:https://ky.milesplit.com/meets/755977-trinity-valkyrie-i
  nvitational-2026
 END:VEVENT
 BEGIN:VEVENT
+UID:2026-09-26-Princeton20XC20Invitational@islameyn.com
+DTSTAMP:20260926T000000Z
+DTSTART;VALUE=DATE:20260926
+DTEND;VALUE=DATE:20260927
+SUMMARY:Princeton XC Invitational – Isla Meyn
+LOCATION:Princeton HS XC Course\, Cincinnati\, OH
+DESCRIPTION:Cross Country meet: Isla Meyn\, Highlands High S
+ chool\, Class of 2028.\nMeet info: https://ky.milesplit.com
+ /meets/715780-princeton-xc-invitational-hs-entry-only-2026\
+ n\nContact: isla.meyn@gmail.com\nNCAA ID: 2607988649\nAthle
+ te profile: https://islameyn.com\nMileSplit: https://ky.mil
+ esplit.com/athletes/15029501-isla-meyn\nSchedule: https://i
+ slameyn.com/schedule.html
+URL:https://ky.milesplit.com/meets/715780-princeton-xc-invit
+ ational-hs-entry-only-2026
+END:VEVENT
+BEGIN:VEVENT
 UID:2026-10-10-NKAC20Championships@islameyn.com
 DTSTAMP:20261010T000000Z
 DTSTART;VALUE=DATE:20261010

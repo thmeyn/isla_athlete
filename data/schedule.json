@@ -22,6 +22,16 @@
   {
     "season": "2026-2027",
     "sport": "Cross Country",
+    "eventName": "Princeton XC Invitational",
+    "location": "Cincinnati, OH",
+    "date": "2026-09-26",
+    "status": "completed",
+    "link": "https://ky.milesplit.com/meets/715780-princeton-xc-invitational-hs-entry-only-2026",
+    "venue": "Princeton HS XC Course, Cincinnati, OH"
+  },
+  {
+    "season": "2026-2027",
+    "sport": "Cross Country",
     "eventName": "NKAC Championships",
     "location": "Burlington, KY",
     "date": "2026-10-10",
