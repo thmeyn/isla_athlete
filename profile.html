@@ -13,7 +13,7 @@
     <meta name="twitter:card" content="summary_large_image"/>
     <link rel="icon" type="image/png" href="images/images.png"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="css/styles.css?v=10"/>
+    <link rel="stylesheet" href="css/styles.css?v=11"/>
     <link rel="stylesheet" href="css/tailwind.css?v=3"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <!-- Google tag (gtag.js) -->
@@ -180,14 +180,19 @@
     <!-- Page Navigation -->
     <section class="py-16 md:py-20 px-margin-mobile md:px-margin-desktop border-t border-outline-variant">
         <div class="max-w-container-max mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="flex flex-col gap-2 p-6 bg-secondary border border-secondary">
-                <span class="font-label-bold text-label-bold text-xs md:text-sm uppercase tracking-wide md:tracking-widest text-white">Results</span>
-                <span class="font-body-md text-white opacity-80">Competition results & times</span>
+            <div class="athletics-card col-span-2 flex flex-col gap-2 p-6 bg-surface border border-secondary">
+                <span class="font-label-bold text-label-bold text-xs md:text-sm uppercase tracking-wide md:tracking-widest text-primary">Athletics</span>
+                <div class="athletics-subs">
+                    <div class="athletics-sub current" aria-current="page">
+                        <span class="font-label-bold text-label-bold text-xs md:text-sm uppercase tracking-wide md:tracking-widest text-white">Results</span>
+                        <span class="font-body-md text-white opacity-80">Competition results & times</span>
+                    </div>
+                    <a href="schedule.html" class="athletics-sub">
+                        <span class="font-label-bold text-label-bold text-xs md:text-sm uppercase tracking-wide md:tracking-widest text-secondary">Schedule →</span>
+                        <span class="font-body-md text-on-surface-variant">Upcoming meets & events</span>
+                    </a>
+                </div>
             </div>
-            <a href="schedule.html" class="flex flex-col gap-2 p-6 bg-surface border border-outline-variant hover:border-secondary hover:bg-surface-container-low transition-colors">
-                <span class="font-label-bold text-label-bold text-xs md:text-sm uppercase tracking-wide md:tracking-widest text-secondary">Schedule</span>
-                <span class="font-body-md text-on-surface-variant">Upcoming meets & events</span>
-            </a>
             <a href="achievements.html" class="flex flex-col gap-2 p-6 bg-surface border border-outline-variant hover:border-secondary hover:bg-surface-container-low transition-colors">
                 <span class="font-label-bold text-label-bold text-xs md:text-sm uppercase tracking-wide md:tracking-widest text-secondary">Academics</span>
                 <span class="font-body-md text-on-surface-variant">Coursework, awards & activities</span>

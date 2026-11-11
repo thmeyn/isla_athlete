@@ -488,3 +488,11 @@ nav a.mobile-sub { padding-left: 16px; border-bottom: none; }
 .view-option.active { background: var(--secondary); border-color: var(--secondary); color: #fff; }
 .view-option.active .view-option-icon { color: #fff; }
 .view-option.active .view-option-desc { color: rgba(255,255,255,0.88); }
+
+/* Bottom page-links row: Athletics card holds Results and Schedule; current page fills red */
+.athletics-subs { display: grid; grid-template-columns: 1fr 1fr; margin: 0 -12px -12px; }
+.athletics-sub { display: flex; flex-direction: column; gap: 8px; padding: 12px; text-decoration: none; }
+.athletics-sub.current { background: var(--secondary); }
+a.athletics-sub { transition: background-color 0.2s ease; }
+a.athletics-sub:hover { background: var(--surface-container-low); }
+a.athletics-sub:hover span:first-child { text-decoration: underline; }
