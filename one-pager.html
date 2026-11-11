@@ -32,13 +32,14 @@
         h1 { font-size: 27px; font-weight: 900; letter-spacing: -0.03em; text-transform: uppercase; }
         @media (min-width: 700px) { h1 { font-size: 34px; } }
         .subhead { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--red); margin-top: 2px; }
-        .contact { font-size: 11px; color: var(--gray); margin-top: 6px; }
+        .contact { font-size: 11.5px; color: var(--gray); margin-top: 6px; }
         .contact a { color: var(--gray); }
         h3 {
             font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
             color: var(--gray); margin: 8px 0 6px;
         }
         h2 + h3 { margin-top: 0; }
+        .stat-grid + h3 { margin-top: 16px; }
         .two-col h3:first-child { margin-top: 14px; padding-bottom: 5px; }
         h2 {
             font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
@@ -49,20 +50,27 @@
         @media (min-width: 700px) { .stat-grid { grid-template-columns: repeat(6, 1fr); gap: 8px; } }
         .stat { text-align: left; }
         .stat .v { font-size: 20px; font-weight: 900; letter-spacing: -0.02em; color: var(--red); white-space: nowrap; }
-        .stat .l { font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gray); margin-top: 1px; }
-        .stat .m { font-size: 8px; color: var(--gray); }
+        .stat .l { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gray); margin-top: 1px; }
+        .stat .m { font-size: 9px; color: var(--gray); }
         .two-col { display: grid; grid-template-columns: 1fr; gap: 0 24px; }
         @media (min-width: 700px) { .two-col { grid-template-columns: 1.2fr 1fr; } }
         ul { list-style: none; }
-        li.honor { font-size: 11px; padding: 3px 0; border-bottom: 1px dotted var(--line); }
+        li.honor { font-size: 12px; padding: 3px 0; border-bottom: 1px dotted var(--line); }
         li.honor .yr { color: var(--red); font-weight: 700; margin-right: 6px; }
-        .bio, .quote { font-size: 11px; line-height: 1.5; color: var(--ink); }
+        .bio, .quote { font-size: 12px; line-height: 1.5; color: var(--ink); }
         .quote { font-style: italic; color: var(--gray); }
-        .quote-attrib { font-size: 10px; font-weight: 700; margin-top: 4px; color: var(--ink); font-style: normal; }
+        .quote-attrib { font-size: 11px; font-weight: 700; margin-top: 4px; color: var(--ink); font-style: normal; }
         .quote-grid { display: grid; grid-template-columns: 1fr; gap: 12px 24px; }
         @media (min-width: 700px) { .quote-grid { grid-template-columns: 1fr 1fr; } }
-        .acad { font-size: 11px; line-height: 1.55; }
-        footer { margin-top: 14px; padding-top: 8px; border-top: 1px solid var(--line); font-size: 9px; color: var(--gray); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px; }
+        .acad { font-size: 12px; line-height: 1.55; }
+        table.recent { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+        table.recent th { text-align: left; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gray); padding: 0 8px 4px 0; border-bottom: 1px solid var(--line); }
+        table.recent td { padding: 4px 8px 4px 0; border-bottom: 1px dotted var(--line); vertical-align: top; }
+        table.recent td.t { font-weight: 700; white-space: nowrap; }
+        table.recent td.d, table.recent td.p { white-space: nowrap; color: var(--gray); }
+        table.recent .pr { display: inline-block; margin-left: 6px; font-size: 8.5px; font-weight: 700; letter-spacing: 0.06em; color: #fff; background: var(--red); padding: 1px 4px; vertical-align: 1px; }
+        @media (max-width: 479px) { table.recent th.ev, table.recent td.ev { display: none; } }
+        footer { margin-top: 14px; padding-top: 8px; border-top: 1px solid var(--line); font-size: 10px; color: var(--gray); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px; }
         .printbar { max-width: 8.5in; margin: 16px auto 0; text-align: right; }
         .printbar button {
             font-family: inherit; background: var(--red); color: #fff; border: none; cursor: pointer;
@@ -70,14 +78,15 @@
         }
         @media print {
             body { background: #fff; }
-            .sheet { margin: 0; box-shadow: none; padding: 0; max-width: none; }
+            .sheet { margin: 0; box-shadow: none; padding: 0.5in 0.55in; max-width: none; }
             .printbar { display: none; }
             .stat-grid { grid-template-columns: repeat(6, 1fr); gap: 8px; }
             .two-col { grid-template-columns: 1.2fr 1fr; }
             .quote-grid { grid-template-columns: 1fr 1fr; }
             h1 { font-size: 34px; }
         }
-        @page { size: letter; margin: 0.5in; }
+        /* Zero page margin stops Chrome printing its date/URL header and footer; .sheet padding is the margin */
+        @page { size: letter; margin: 0; }
     </style>
 </head>
 <body>
@@ -97,6 +106,12 @@
         <h2>Athletics</h2>
         <h3>Personal Bests</h3>
         <div class="stat-grid" id="prGrid"></div>
+
+        <h3>Recent Results</h3>
+        <table class="recent">
+            <thead><tr><th>Date</th><th>Meet</th><th class="ev">Event</th><th>Time</th><th>Place</th></tr></thead>
+            <tbody id="recentRows"></tbody>
+        </table>
 
         <div class="two-col">
             <div>
@@ -153,6 +168,22 @@
                 const p = prs[n];
                 const d = new Date(p.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
                 return `<div class="stat"><div class="v">${p.t}</div><div class="l">${PR_LABELS[n] || n}</div><div class="m">${shortMeet(p.meet)} · ${d}</div></div>`;
+            }).join('');
+
+            // Recent Results: her latest six individual races (relays excluded), newest first
+            const esc = s => { const d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; };
+            const races = [];
+            meets.forEach(m => (m.events || []).forEach(e => {
+                if (/relay/i.test(e.eventName)) return;
+                races.push({ m, e });
+            }));
+            races.sort((a, b) => b.m.date.localeCompare(a.m.date));
+            document.getElementById('recentRows').innerHTML = races.slice(0, 6).map(({ m, e }) => {
+                const n = e.eventName.trim(), p = prs[n];
+                const isPR = p && p.t === e.timeScore.trim() && p.date === m.date;
+                const d = new Date(m.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                return `<tr><td class="d">${d}</td><td>${esc(shortMeet(m.meetName))}</td><td class="ev">${esc(PR_LABELS[n] || n)}</td>` +
+                       `<td class="t">${esc(e.timeScore)}${isPR ? '<span class="pr">PR</span>' : ''}</td><td class="p">${esc(e.place || '')}</td></tr>`;
             }).join('');
         });
 
