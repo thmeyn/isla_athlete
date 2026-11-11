@@ -13,7 +13,7 @@
     <meta name="twitter:card" content="summary_large_image"/>
     <link rel="icon" type="image/png" href="images/images.png"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="css/styles.css?v=9"/>
+    <link rel="stylesheet" href="css/styles.css?v=10"/>
     <link rel="stylesheet" href="css/tailwind.css?v=3"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <!-- Google tag (gtag.js) -->
@@ -92,10 +92,27 @@
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6" id="prStrip"></div>
         </section>
 
-        <!-- Tabs -->
-        <div class="border-b border-outline-variant mb-12 flex gap-8">
-            <button id="tabMetrics" onclick="switchTab('metrics')" class="font-label-bold text-label-bold uppercase tracking-widest pb-3 border-b-2 border-secondary text-secondary transition-colors">Progression</button>
-            <button id="tabMeetResults" onclick="switchTab('meetResults')" class="font-label-bold text-label-bold uppercase tracking-widest pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-secondary transition-colors">Meet Results</button>
+        <!-- View picker: Progression chart or every meet -->
+        <p class="view-picker-label" id="viewPickerLabel">Choose a view</p>
+        <div class="view-picker" role="tablist" aria-labelledby="viewPickerLabel">
+            <button id="tabMetrics" role="tab" aria-selected="true" aria-controls="panelMetrics" onclick="switchTab('metrics')" class="view-option active">
+                <span class="view-option-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-7"/></svg>
+                </span>
+                <span class="view-option-text">
+                    <span class="view-option-title">Progression</span>
+                    <span class="view-option-desc">Chart of her times, event by event</span>
+                </span>
+            </button>
+            <button id="tabMeetResults" role="tab" aria-selected="false" aria-controls="panelMeetResults" onclick="switchTab('meetResults')" class="view-option">
+                <span class="view-option-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg>
+                </span>
+                <span class="view-option-text">
+                    <span class="view-option-title">Meet Results</span>
+                    <span class="view-option-desc" id="meetResultsDesc">Every race, meet by meet</span>
+                </span>
+            </button>
         </div>
 
         <!-- Meet Results Tab -->
@@ -199,10 +216,8 @@
             Object.keys(tabs).forEach(key => {
                 document.getElementById(tabs[key]).classList.toggle('hidden', key !== tab);
                 const btn = document.getElementById(buttons[key]);
-                btn.classList.toggle('border-secondary', key === tab);
-                btn.classList.toggle('text-secondary', key === tab);
-                btn.classList.toggle('border-transparent', key !== tab);
-                btn.classList.toggle('text-on-surface-variant', key !== tab);
+                btn.classList.toggle('active', key === tab);
+                btn.setAttribute('aria-selected', key === tab ? 'true' : 'false');
             });
             // Default the progression chart to her signature event
             if (tab === 'metrics') {
@@ -222,6 +237,9 @@
             .then(response => response.json())
             .then(data => {
                 allMeets = data;
+                const raceCount = data.reduce((n, m) => n + (m.events || []).length, 0);
+                document.getElementById('meetResultsDesc').textContent =
+                    `Every race, meet by meet: ${data.length} meets, ${raceCount} races`;
                 prKeys = computePRKeys(data);
                 buildFilters(data);
                 buildMetricFilters(data);

@@ -456,3 +456,35 @@ nav a.mobile-sub { padding-left: 16px; border-bottom: none; }
 .athletics-tabs a + a { border-left: 1px solid var(--outline-variant); }
 .athletics-tabs a:hover { color: var(--secondary); }
 .athletics-tabs a.active { background: var(--secondary); color: #fff; }
+
+/* Results page view picker: two large selectable cards (Progression / Meet Results) */
+.view-picker-label {
+    font-weight: 700; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--on-surface-variant); margin-bottom: 12px;
+}
+.view-picker {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 40px;
+}
+@media (max-width: 520px) { .view-picker { grid-template-columns: 1fr; } }
+.view-option {
+    display: flex; align-items: center; gap: 16px; text-align: left; width: 100%;
+    padding: 18px 20px; min-height: 76px; cursor: pointer;
+    background: var(--surface); color: var(--on-surface);
+    border: 2px solid var(--outline-variant); border-radius: 0;
+    transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+.view-option:hover { border-color: var(--secondary); }
+.view-option:focus-visible { outline: 3px solid var(--secondary); outline-offset: 2px; }
+.view-option-icon {
+    flex: none; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+    border: 2px solid currentColor; color: var(--secondary);
+}
+.view-option-icon svg { width: 22px; height: 22px; }
+.view-option-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.view-option-title {
+    font-weight: 800; font-size: 16px; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.view-option-desc { font-size: 14px; line-height: 1.35; color: var(--on-surface-variant); }
+.view-option.active { background: var(--secondary); border-color: var(--secondary); color: #fff; }
+.view-option.active .view-option-icon { color: #fff; }
+.view-option.active .view-option-desc { color: rgba(255,255,255,0.88); }
