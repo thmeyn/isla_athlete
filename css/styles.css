@@ -506,15 +506,27 @@ a.athletics-sub:hover span:first-child { text-decoration: underline; }
     .page-links > :last-child { grid-column: auto; }
 }
 
-/* Nav breakpoint: five links + logo + Contact need ~1000px, so the
-   full menu shows from 1024px; below that the menu button is used. */
+/* Nav breakpoint: logo + five links + One-Pager + Contact need ~1100px,
+   so the full menu shows from 1100px; below that the menu button is used. */
 .nav-links, .nav-cta-desktop { display: none; }
 .nav-links { gap: 24px; }
-@media (min-width: 1024px) {
+@media (min-width: 1100px) {
     .nav-links { display: flex; }
     .nav-cta-desktop { display: block; }
     .nav-burger { display: none; }
     .nav-mobile { display: none !important; }
 }
-@media (min-width: 1200px) { .nav-links { gap: 32px; } }
 #mobileMenu a.active:not(.nav-cta) { border-bottom: none; }
+
+/* One-Pager button beside Contact (outlined so Contact stays primary).
+   Printer icon only from 1100 to 1199px; the label needs the extra room. */
+nav a.nav-print {
+    display: none; align-items: center; gap: 8px; height: 48px; padding: 0 14px;
+    border: 2px solid var(--secondary); color: var(--secondary);
+}
+nav a.nav-print:hover { background: var(--secondary); color: #fff; }
+nav a.nav-print.active { border-bottom: 2px solid var(--secondary); }
+.nav-print-icon { width: 18px; height: 18px; flex: none; }
+.nav-print-label { display: none; }
+@media (min-width: 1100px) { nav a.nav-print { display: inline-flex; } }
+@media (min-width: 1200px) { .nav-print-label { display: inline; } }

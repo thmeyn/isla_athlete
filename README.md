@@ -16,7 +16,7 @@ Recruiting profile site for Isla Meyn, Class of 2028 distance runner at Highland
 | References | Coach and teacher references, honors | `endorsements.html` |
 | (Printable Profile button) | One-page printable summary | `one-pager.html` |
 
-`404.html` is the not-found page. Navigation, the Athletics sub-tabs, and the bottom page-link row are written out by hand in each page, so a nav change means editing all six main pages. The full menu shows from 1024px wide; narrower screens get the menu button.
+`404.html` is the not-found page. Navigation, the Athletics sub-tabs, and the bottom page-link row are written out by hand in each page, so a nav change means editing all six main pages. The full menu (with the One-Pager and Contact buttons) shows from 1100px wide; narrower screens get the menu button.
 
 ## Content
 
